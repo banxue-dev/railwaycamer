@@ -8,7 +8,7 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://120.77.148.235:3306/banxue-dev?useUnicode=true&characterEncoding=utf8
+    url: jdbc:mysql://120.77.148.235:3306/railwaycamera?useUnicode=true&characterEncoding=utf8
     username: feng
     password: feng.123456
     initialSize: 1
