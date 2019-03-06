@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/css/layui.css">
+</head>
+<body>
+<form class="layui-form" action="" id="tableQueryForm" style="padding-top: 20px">
+    <div class="layui-form-pane">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <input type="text" id="tree" lay-filter="tree" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" id="beginTime" placeholder="请选择开始时间">
+                </div>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" id="endTime" placeholder="请选择结束时间">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" id="wagonBox" placeholder="车(箱)号">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <button class="layui-btn layui-btn-normal"> 查 询 </button>
+                    <button class="layui-btn layui-btn-normal"> 重 置 </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<table class="layui-table" id="list"></table>
+<script type="text/html" id="toolbar">
+    <a class="layui-btn layui-btn-primary layui-btn-xs"  href="viewPhoto.html" target="iframeCamera" >查看图片</a>
+</script>
+
+<script src="/js/layui.js"></script>
+<script>
+var utils = {
+	    doneTime: function (date) {
+	        return {
+	            year: date.year,
+	            month: date.month - 1,
+	            date: date.date
+	        }
+	    }
+	}
+    layui.config({
+        base: '../../../plugins/'
+    }).extend({
+        treeSelect: 'treeSelect/treeSelect'
+    });
+    layui.use(['table', 'treeSelect', 'laydate'], function () {
+        var table = layui.table,
+            $ = layui.jquery,
+            treeSelect = layui.treeSelect,
+            laydate = layui.laydate;
+
+        var beginTime = laydate.render({
+            elem: '#beginTime',
+            format: 'yyyy年MM月dd',
+            done: function (value, date) {
+                endTime.config.min = utils.doneTime(date);
+            }
+        });
+        var endTime = laydate.render({
+            elem: '#endTime',
+            format: 'yyyy年MM月dd',
+            done: function (value, date) {
+                beginTime.config.max = utils.doneTime(date);
+            }
+        })
+
+        treeSelect.render({
+            elem: '#tree',// 选择器
+            data: '../../../testData/treeSelect.json',// 数据
+            type: 'get',// 异步加载方式：get/post，默认get
+            placeholder: '请选择货运站',
+            search: true, // 是否开启搜索功能：true/false，默认false
+            // 点击回调
+            click: function (d) {
+                // console.log(d);
+            },
+            // 加载完成后的回调函数
+            success: function (d) {
+                // console.log(d);
+//                选中节点，根据id筛选
+//                treeSelect.checkNode('tree', 3);
+//                获取zTree对象，可以调用zTree方法
+//                var treeObj = treeSelect.zTree('tree');
+//                刷新树结构
+//                treeSelect.refresh();
+            }
+        });
+
+        var data = [
+            {"a": "1", "b": "001", "c": "09-23", "d": "重庆", "e": "成都"},
+            {"a": "2", "b": "001", "c": "09-23", "d": "重庆", "e": "成都"},
+            {"a": "3", "b": "001", "c": "09-23", "d": "重庆", "e": "成都"},
+            {"a": "4", "b": "001", "c": "09-23", "d": "重庆", "e": "成都"}
+        ]
+        //方法级渲染
+        table.render({
+            elem: '#list',
+            // , url: '/demo/table/user/'
+            data: data
+            , cols: [[
+                {field: 'a', title: '序号', align: 'center'},
+                {field: 'b', title: '车(箱)号', align: 'center'},
+                {field: 'c', title: '拍摄时间', align: 'center'},
+                {field: 'd', title: '发站', align: 'center'},
+                {field: 'e', title: '到站', align: 'center'},
+                {field: '', title: '操作', align: 'center', toolbar: '#toolbar'}
+            ]]
+            , id: 'testReload'
+            , page: true
+        });
+
+        var $ = layui.$, active = {
+            reload: function () {
+                var demoReload = $('#demoReload');
+                //执行重载
+                table.reload('testReload', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    , where: {
+                        key: {
+                            id: demoReload.val()
+                        }
+                    }
+                });
+            }
+        };
+
+        $('.demoTable .layui-btn').on('click', function () {
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    });
+</script>
+
+</body>
+</html>

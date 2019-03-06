@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>铁路货运照片拍摄管理系统</title>
+  <link rel="stylesheet" href="/css/layui.css">
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+  <div class="layui-header">
+    <ul class="layui-nav">
+      <li class="layui-nav-item"><a href="">照片查询(管理员版)</a></li>
+      <li class="layui-nav-item"><a href="">照片查询(领导版)</a></li>
+      <li class="layui-nav-item"><a href="">任务调度</a></li>
+      <li class="layui-nav-item"><a href="">拍照人员</a></li>
+      <li class="layui-nav-item">
+        <a href="javascript:;">系统管理</a>
+        <dl class="layui-nav-child">
+          <dd><a href="">站点管理</a></dd>
+          <dd><a href="">系统用户</a></dd>
+          <dd><a href="">权限管理</a></dd>
+        </dl>
+      </li>
+    </ul>
+    <ul class="layui-nav layui-layout-right">
+      <li class="layui-nav-item">
+        <a href="javascript:;">
+          <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+          L
+        </a>
+        <dl class="layui-nav-child">
+          <dd><a href="">基本资料</a></dd>
+          <dd><a href="">安全设置</a></dd>
+					<dd><a href="">退出登录</a></dd>
+        </dl>
+      </li>
+    </ul>
+  </div>
+  
+  <div class="layui-body">
+   <iframe name="iframeCamera" src="/railway/photolist" frameborder="0" class="layai-iframe"></iframe>
+  </div>
+  
+  <div class="layui-footer">
+    © L
+  </div>
+</div>
+<script src="/js/layui.js"></script>
+<script>
+//JavaScript代码区域
+layui.use('element', function(){
+  var element = layui.element;
+  
+});
+</script>
+</body>
+</html>
