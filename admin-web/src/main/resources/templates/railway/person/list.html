@@ -105,7 +105,8 @@
 	</div>
 <table class="layui-table" id="list"></table>
 <script type="text/html" id="toolbar">
-    <a class="layui-btn layui-btn-primary layui-btn-xs"  href="viewPhoto.html" target="iframeCamera" >查看图片</a>
+    <a class="layui-btn layui-btn-primary layui-btn-xs"  href="viewPhoto.html" target="iframeCamera" >修改</a>
+    <a class="layui-btn layui-btn-primary layui-btn-xs"  href="viewPhoto.html" target="iframeCamera" >删除</a>
 </script>
 
 <script src="/js/layui.js"></script>
@@ -143,25 +144,24 @@
             }
         })
 
-        
-
         var data = [
             {"a": "1", "b": "001", "c": "09-23", "d": "重庆", "e": "成都"},
             {"a": "2", "b": "001", "c": "09-23", "d": "重庆", "e": "成都"},
             {"a": "3", "b": "001", "c": "09-23", "d": "重庆", "e": "成都"},
             {"a": "4", "b": "001", "c": "09-23", "d": "重庆", "e": "成都"}
         ]
+        
         //方法级渲染
         table.render({
-            elem: '#list',
-            // , url: '/demo/table/user/'
-            data: data
+            elem: '#list'
+            , url: '/railway/person/list'
+            , method: 'POST'
+            , data: data
             , cols: [[
-                {field: 'a', title: '序号',  align: 'center'},
-                {field: 'b', title: '车(箱)号', align: 'center'},
-                {field: 'c', title: '拍摄时间', align: 'center'},
-                {field: 'd', title: '发站', align: 'center'},
-                {field: 'e', title: '到站', align: 'center'},
+                {field: '', title: '序号', align: 'center', type: 'numbers'},
+                {field: 'name', title: '姓名', align: 'center'},
+                {field: 'stationName', title: '站点', align: 'center'},
+                {field: 'account', title: '照片上报账号', align: 'center'},
                 {field: '', title: '操作', align: 'center', toolbar: '#toolbar'}
             ]]
             , id: 'testReload'

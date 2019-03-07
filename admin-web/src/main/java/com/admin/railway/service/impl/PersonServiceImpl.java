@@ -47,4 +47,9 @@ public class PersonServiceImpl implements PersonService {
 		return this.personMapper.list(map);
 	}
 
+	@Override
+	public int count(Map<String, Object> map) {
+		return this.personMapper.count(map);
+	}
+
 }

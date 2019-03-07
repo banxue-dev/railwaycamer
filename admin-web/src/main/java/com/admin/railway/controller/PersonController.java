@@ -1,5 +1,6 @@
 package com.admin.railway.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,11 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.admin.common.controller.BaseController;
+import com.admin.common.utils.R;
 import com.admin.railway.domain.PersonDO;
 import com.admin.railway.service.PersonService;
 
 @Controller
-@RequestMapping("/person")
+@RequestMapping("/railway/person")
 public class PersonController extends BaseController {
 
 	@Autowired
@@ -37,14 +39,24 @@ public class PersonController extends BaseController {
 	 */
 	@PostMapping("/list")
 	@ResponseBody
-	List<PersonDO> list(@RequestParam(name="stationId", required=false) Long stationId) {
+	R list(@RequestParam(name="stationId", required=false) Long stationId) {
 		Map<String, Object> map = new HashMap<>();
 		if (stationId != null) {
 			map.put("id", stationId);
 		}
-		List<PersonDO> list = personService.list(map);
+		List<PersonDO> list = new ArrayList<>();
+		
+		int count = personService.count(map);
+		if (count > 0) {
+			list = personService.list(map);
+		}
+		
 		System.err.println(list.size());
-		return list;
+		
+		Map<String, Object> result = new HashMap<>();
+		result.put("data", list);
+		result.put("count", count);
+		return R.ok(result);
 	}
 
 	/**

@@ -19,4 +19,6 @@ public interface PersonService {
 
 	List<PersonDO> list(Map<String, Object> map);
 
+	int count(Map<String, Object> map);
+
 }
