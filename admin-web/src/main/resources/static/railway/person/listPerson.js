@@ -71,9 +71,7 @@ function load() {
                         curr: 1 //重新从第 1 页开始
                     }
                     , where: {
-                        key: {
-                            id: demoReload.val()
-                        }
+                        id: 1   // 添加查询条件
                     }
                 });
             }
