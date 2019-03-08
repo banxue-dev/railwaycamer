@@ -16,10 +16,13 @@ public class QueryParam extends LinkedHashMap<String, Object> {
 	public QueryParam(Map<String, Object> params) {
 		this.putAll(params);
 		// 分页参数
-		this.page = Integer.parseInt(params.get("page").toString());
-		this.limit = Integer.parseInt(params.get("limit").toString());
-		this.put("offset", (page -1) * limit);
-		this.put("limit", limit);
+		if (params.get("page") != null && params.get("limit") != null) {
+			this.page = Integer.parseInt(params.get("page").toString());
+			this.limit = Integer.parseInt(params.get("limit").toString());
+			this.put("limit", limit);
+			this.put("offset", (page -1) * limit);
+		}
+		
 	}
 
 	public int getPage() {
