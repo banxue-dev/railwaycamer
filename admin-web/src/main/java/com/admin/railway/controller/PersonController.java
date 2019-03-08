@@ -69,5 +69,27 @@ public class PersonController extends BaseController {
 	public String listUI() {
 		return "railway/person/list";
 	}
+	
+	/**
+	 * 返回拍照人员-添加页面
+	 * @return
+	 */
+	@GetMapping("/add")
+	public String addUI() {
+		return "railway/person/add";
+	}
+	
+	/**
+	 * 返回拍照人员-添加
+	 * @return
+	 */
+	@PostMapping("/add")
+	@ResponseBody
+	public R add(PersonDO person) {
+		
+		System.err.println("OK");
+		
+		return R.ok();
+	}
 
 }
