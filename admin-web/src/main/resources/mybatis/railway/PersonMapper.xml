@@ -1,22 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.admin.railway.dao.PersonDao">
+<mapper namespace="com.admin.system.dao.PersonDao">
 
-	<select id="get" resultType="com.admin.railway.domain.PersonDO">
-		SELECT `name`, phone, station_id, station_name, account, del_state, create_time, create_user, modify_time, modify_user FROM tbl_person WHERE id = #{value}
+	<select id="get" resultType="com.admin.system.domain.PersonDO">
+		select `id`,`login_name`,`password`,`name`,`phone`,`station_id`,`station_name`,`account`,`del_state`,`create_time`,`create_user`,`modify_time`,`modify_user` from tbl_person where id = #{value}
 	</select>
 
-	<select id="list" resultType="com.admin.railway.domain.PersonDO">
-		SELECT `id`, `name`, phone, station_id, station_name, account, del_state, create_time, create_user, modify_time, modify_user FROM tbl_person
+	<select id="list" resultType="com.admin.system.domain.PersonDO">
+		select `id`,`login_name`,`password`,`name`,`phone`,`station_id`,`station_name`,`account`,`del_state`,`create_time`,`create_user`,`modify_time`,`modify_user` from tbl_person
         <where>  
-		  		  <if test="id != null"> and id = #{id} </if>
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="loginName != null and loginName != ''"> and login_name = #{loginName} </if>
+		  		  <if test="password != null and password != ''"> and password = #{password} </if>
 		  		  <if test="name != null and name != ''"> and name = #{name} </if>
 		  		  <if test="phone != null and phone != ''"> and phone = #{phone} </if>
 		  		  <if test="stationId != null and stationId != ''"> and station_id = #{stationId} </if>
 		  		  <if test="stationName != null and stationName != ''"> and station_name = #{stationName} </if>
 		  		  <if test="account != null and account != ''"> and account = #{account} </if>
-		  		  <if test="delState != null"> and del_state = #{delState} </if>
+		  		  <if test="delState != null and delState != ''"> and del_state = #{delState} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="createUser != null and createUser != ''"> and create_user = #{createUser} </if>
+		  		  <if test="modifyTime != null and modifyTime != ''"> and modify_time = #{modifyTime} </if>
+		  		  <if test="modifyUser != null and modifyUser != ''"> and modify_user = #{modifyUser} </if>
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">
@@ -34,32 +40,44 @@
  	<select id="count" resultType="int">
 		select count(*) from tbl_person
 		 <where>  
-		  		  <if test="id != null"> and id = #{id} </if>
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="loginName != null and loginName != ''"> and login_name = #{loginName} </if>
+		  		  <if test="password != null and password != ''"> and password = #{password} </if>
 		  		  <if test="name != null and name != ''"> and name = #{name} </if>
 		  		  <if test="phone != null and phone != ''"> and phone = #{phone} </if>
 		  		  <if test="stationId != null and stationId != ''"> and station_id = #{stationId} </if>
 		  		  <if test="stationName != null and stationName != ''"> and station_name = #{stationName} </if>
 		  		  <if test="account != null and account != ''"> and account = #{account} </if>
-		  		  <if test="delState != null"> and del_state = #{delState} </if>
+		  		  <if test="delState != null and delState != ''"> and del_state = #{delState} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="createUser != null and createUser != ''"> and create_user = #{createUser} </if>
+		  		  <if test="modifyTime != null and modifyTime != ''"> and modify_time = #{modifyTime} </if>
+		  		  <if test="modifyUser != null and modifyUser != ''"> and modify_user = #{modifyUser} </if>
 		  		</where>
 	</select>
 	 
-	<insert id="save" parameterType="com.admin.railway.domain.PersonDO" useGeneratedKeys="true" keyProperty="id">
+	<insert id="save" parameterType="com.admin.system.domain.PersonDO">
 		insert into tbl_person
 		(
-			`name`,
-			phone,
-			station_id,
-			station_name,
-			account,
-			del_state,
-			create_time,
-			create_user,
-			modify_time,
-			modify_user
+			`id`, 
+			`login_name`, 
+			`password`, 
+			`name`, 
+			`phone`, 
+			`station_id`, 
+			`station_name`, 
+			`account`, 
+			`del_state`, 
+			`create_time`, 
+			`create_user`, 
+			`modify_time`, 
+			`modify_user`
 		)
 		values
 		(
+			#{id}, 
+			#{loginName}, 
+			#{password}, 
 			#{name}, 
 			#{phone}, 
 			#{stationId}, 
@@ -73,14 +91,21 @@
 		)
 	</insert>
 	 
-	<update id="update" parameterType="com.admin.railway.domain.PersonDO">
+	<update id="update" parameterType="com.admin.system.domain.PersonDO">
 		update tbl_person 
 		<set>
+			<if test="loginName != null">`login_name` = #{loginName}, </if>
+			<if test="password != null">`password` = #{password}, </if>
 			<if test="name != null">`name` = #{name}, </if>
 			<if test="phone != null">`phone` = #{phone}, </if>
 			<if test="stationId != null">`station_id` = #{stationId}, </if>
 			<if test="stationName != null">`station_name` = #{stationName}, </if>
-			<if test="account != null">`account` = #{account} </if>
+			<if test="account != null">`account` = #{account}, </if>
+			<if test="delState != null">`del_state` = #{delState}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="createUser != null">`create_user` = #{createUser}, </if>
+			<if test="modifyTime != null">`modify_time` = #{modifyTime}, </if>
+			<if test="modifyUser != null">`modify_user` = #{modifyUser}</if>
 		</set>
 		where id = #{id}
 	</update>
@@ -91,8 +116,8 @@
 	
 	<delete id="batchRemove">
 		delete from tbl_person where id in 
-		<foreach item="userId" collection="array" open="(" separator="," close=")">
-			#{userId}
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
 		</foreach>
 	</delete>
 
