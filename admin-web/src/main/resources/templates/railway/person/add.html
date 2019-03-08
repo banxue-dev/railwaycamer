@@ -48,7 +48,7 @@
 							</div>
 							<div class="form-group">
 								<div class="col-sm-8 col-sm-offset-3">
-									<button type="button" class="btn btn-primary" onclick="save()">提交</button>
+									<button type="submit" class="btn btn-primary">提交</button>
 								</div>
 							</div>
 						</form>
@@ -58,33 +58,7 @@
 		</div>
 	</div>
 	<div th:include="include::footer"></div>
-	<script type="text/javascript">
-	function save() {
-		var data = $('#signupForm').serialize();
-		$.ajax({
-			cache : true,
-			type : "POST",
-			url : "/railway/person/add",
-			data : data, // 你的formid
-
-			async : false,
-			error : function(request) {
-				alert("Connection error");
-			},
-			success : function(data) {
-				if (data.code == 0) {
-					window.parent.layer.msg("操作成功");
-					window.parent.reLoad();
-					
-					var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-					parent.layer.close(index); //再执行关闭  
-
-				} else {
-					parent.layer.msg(data.msg);
-				}
-			}
-		});
-	}
+	<script type="text/javascript" src="/railway/person/addPerson.js">
 	
 	</script>
 </body>
