@@ -86,13 +86,13 @@
 	</update>
 	
 	<delete id="remove">
-		delete from tbl_person where id = #{value}
+		UPDATE tbl_person SET del_state = 1 WHERE id = #{value}
 	</delete>
 	
 	<delete id="batchRemove">
-		delete from tbl_person where id in 
-		<foreach item="userId" collection="array" open="(" separator="," close=")">
-			#{userId}
+		UPDATE tbl_person SET del_state = 1 WHERE id IN  
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
 		</foreach>
 	</delete>
 

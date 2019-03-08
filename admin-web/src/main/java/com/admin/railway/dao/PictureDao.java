@@ -12,15 +12,15 @@ import com.admin.railway.domain.StationDO;
 @Mapper
 public interface PictureDao {
 
-	PictureDO get(Long personId);
+	PictureDO get(Long pictureId);
 	
 	List<PictureDO> list(Map<String,Object> map);
 	
 	int count(Map<String,Object> map);
 
-	int save(PictureDO person);
+	int save(PictureDO picture);
 
-	int update(PictureDO person);
+	int update(PictureDO picture);
 	
 	int remove(Long pictureId);
 	

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.admin.railway.dao.StationDao">
+
+	<select id="get" resultType="com.admin.railway.domain.StationDO">
+		SELECT * FROM `tbl_station` WHERE id = #{value}
+	</select>
+
+	<select id="list" resultType="com.admin.railway.domain.StationDO">
+		SELECT * FROM `tbl_station`
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="name != null and name != ''"> and name = #{name} </if>
+		  		  <if test="parentId != null and parentId != ''"> and parent_id = #{parentId} </if>
+		  		  <if test="delState != null"> and del_state = #{delState} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from `tbl_station`
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="name != null and name != ''"> and name = #{name} </if>
+		  		  <if test="parentId != null and parentId != ''"> and parent_id = #{parentId} </if>
+		  		  <if test="delState != null"> and del_state = #{delState} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.admin.railway.domain.StationDO" useGeneratedKeys="true" keyProperty="id">
+		insert into tbl_station
+		(
+			`name`,
+			parent_id,
+			del_state,
+			create_time,
+			create_user,
+			modify_time,
+			modify_user
+		)
+		values
+		(
+			#{name}, 
+			#{parentId}, 
+			#{delState}, 
+			#{createTime}, 
+			#{createUser}, 
+			#{modifyTime}, 
+			#{modifyUser}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.admin.railway.domain.StationDO">
+		update tbl_station 
+		<set>
+			<if test="name != null and name != ''">name = #{name}, </if>
+		  	<if test="parentId != null and parentId != ''">parent_id = #{parentId}, </if>
+		  	<if test="delState != null">del_state = #{delState} </if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		UPDATE `tbl_station` SET del_state = 1 WHERE id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		UPDATE `tbl_station` SET del_state = 1 WHERE id IN 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

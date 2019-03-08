@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.admin.railway.dao.PictureDao">
+
+	<select id="get" resultType="com.admin.railway.domain.PictureDO">
+		SELECT * FROM `tbl_picture` WHERE id = #{value}
+	</select>
+
+	<select id="list" resultType="com.admin.railway.domain.PictureDO">
+		SELECT * FROM `tbl_picture`
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="orderId != null and orderId != ''"> and order_id = #{orderId} </if>
+		  		  <if test="url != null and url != ''"> and url = #{url} </if>
+		  		  <if test="delState != null"> and del_state = #{delState} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from `tbl_picture`
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="orderId != null and orderId != ''"> and order_id = #{orderId} </if>
+		  		  <if test="url != null and url != ''"> and url = #{url} </if>
+		  		  <if test="delState != null"> and del_state = #{delState} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.admin.railway.domain.PictureDO" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO `tbl_picture` (
+			`order_id`,
+			`url`,
+			`del_state`,
+			`create_time`,
+			`create_user`,
+			`modify_time`,
+			`modify_user`
+		)
+		VALUES
+			(
+				#{orderId},
+				#{url},
+				#{delState},
+				#{createTime},
+				#{createUser},
+				#{modifyTime},
+				#{modifyUser}
+			)
+				
+	</insert>
+	 
+	<update id="update" parameterType="com.admin.railway.domain.PictureDO">
+		update `tbl_picture` 
+		<set>
+		  <if test="id != null and id != ''">id = #{id}, </if>
+  		  <if test="orderId != null and orderId != ''">order_id = #{orderId}, </if>
+  		  <if test="url != null and url != ''">url = #{url}, </if>
+  		  <if test="delState != null">del_state = #{delState} </if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		UPDATE `tbl_picture` SET del_state = 1 WHERE id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		UPDATE `tbl_picture` SET del_state = 1 WHERE id IN
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>
