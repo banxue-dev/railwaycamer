@@ -105,6 +105,7 @@
 <script>
 
 	var prefix = '/railway/person'; // 路径前缀
+	var active;
 
     layui.use(['table', 'laydate'], function () {
     	var utils = {
@@ -116,7 +117,7 @@
     		        }
     		    }
     		}
-        var table = layui.table,
+        	table = layui.table,
             $ = layui.jquery,
             laydate = layui.laydate;
 
@@ -159,7 +160,9 @@
             , page: true
         });
 
-        var $ = layui.$, active = {
+        var $ = layui.$
+        
+        active = {
             reload: function () {
                 var demoReload = $('#demoReload');
                 //执行重载
@@ -194,6 +197,10 @@
     		content : prefix + '/add' // iframe的url
     	});
     	return false;
+    }
+    
+    function reLoad() {
+    	active.reload();
     }
 </script>
 

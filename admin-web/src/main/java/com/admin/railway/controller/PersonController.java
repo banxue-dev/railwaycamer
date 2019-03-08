@@ -1,6 +1,7 @@
 package com.admin.railway.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -87,6 +88,11 @@ public class PersonController extends BaseController {
 	@ResponseBody
 	public R add(PersonDO person) {
 		
+		person.setDelState(Constants.NO);
+		person.setCreateTime(new Date());
+		person.setCreateUser("系统");
+		
+		personService.save(person);
 		System.err.println("OK");
 		
 		return R.ok();
