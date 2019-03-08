@@ -105,7 +105,8 @@
 	</div>
 <table class="layui-table" id="list"></table>
 <script type="text/html" id="toolbar">
-    <a class="layui-btn layui-btn-primary layui-btn-xs"  href="viewPhoto.html" target="iframeCamera" >查看图片</a>
+    <a class="layui-btn layui-btn-primary layui-btn-xs"  href="viewPhoto.html" target="iframeCamera" >查询</a>
+    <a class="layui-btn layui-btn-primary layui-btn-xs"  href="viewPhoto.html" target="iframeCamera" >添加</a>
 </script>
 
 <script src="/js/layui.js"></script>
@@ -160,7 +161,13 @@
             , cols: [[
             	{field: '', title: '序号', align: 'center', type: 'numbers'},
                 {field: 'trainNo', title: '车号', align: 'center'},
-                {field: 'startTime', title: '日期', align: 'center'},
+                {field: 'startTime', title: '日期', align: 'center', templet: function(order){
+                	if (order.startTime != null) {
+                        var date = new Date(order.startTime);
+                        return date.getFullYear() + '年' + (date.getMonth() + 1) + '月' + date.getDate() + '日';
+                    }
+                	return '';
+                }},
                 {field: 'endStationName', title: '到站', align: 'center'},
                 {field: 'consignor', title: '托货人', align: 'center'},
                 {field: 'consignee', title: '收货人', align: 'center'},
@@ -169,7 +176,12 @@
                 {field: 'projectNo', title: '方案编号', align: 'center'},
                 {field: 'loadingLine', title: '装车线路', align: 'center'},
                 {field: 'personNames', title: '拍照人员', align: 'center'},
-                {field: '', title: '续拍', align: 'center'},
+                {field: 'continueShot', title: '续拍', align: 'center', templet: function(order){
+                	if (order.continueShot != null) {
+                        return order.continueShot == 1 ? '是' : '否';
+                    }
+                	return '';
+                }},
                 {field: '', title: '操作', align: 'center', toolbar: '#toolbar'}
             ]]
             , id: 'testReload'
