@@ -94,7 +94,7 @@
 	</div>
 <table class="layui-table" id="list"></table>
 <script type="text/html" id="toolbar">
-    <a class="layui-btn layui-btn-primary layui-btn-xs"  href="viewPhoto.html" target="iframeCamera" >修改</a>
+    <a class="layui-btn layui-btn-primary layui-btn-xs" onclick="edit({{d.id}})" >修改</a>
     <a class="layui-btn layui-btn-primary layui-btn-xs" onclick="remove({{d.id}})" >删除</a>
 </script>
 
@@ -224,6 +224,17 @@
     		});
     	})
 
+    }
+    // 打开编辑面
+    function edit(id) {
+    	layer.open({
+    		type : 2,
+    		title : '角色修改',
+    		maxmin : true,
+    		shadeClose : true, // 点击遮罩关闭层
+    		area : [ '800px', '520px' ],
+    		content : prefix + '/edit/' + id // iframe的url
+    	});
     }
 </script>
 

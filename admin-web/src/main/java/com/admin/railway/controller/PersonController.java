@@ -9,6 +9,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -68,7 +69,7 @@ public class PersonController extends BaseController {
 	 */
 	@GetMapping("/list")
 	public String listUI() {
-		return "railway/person/list";
+		return "/railway/person/list";
 	}
 	
 	/**
@@ -77,7 +78,7 @@ public class PersonController extends BaseController {
 	 */
 	@GetMapping("/add")
 	public String addUI() {
-		return "railway/person/add";
+		return "/railway/person/add";
 	}
 	
 	/**
@@ -104,6 +105,32 @@ public class PersonController extends BaseController {
 	@ResponseBody
 	public R remove(Long id) {
 		personService.remove(id);
+		return R.ok();
+	}
+	
+	/**
+	 * 返回拍照人员-添加页面
+	 * @return
+	 */
+	@GetMapping("/edit/{id}")
+	public String editUI(@PathVariable("id") Long pesonId, Map<String, Object> map) {
+		PersonDO person = personService.get(pesonId);
+		map.put("person", person);
+		return "railway/person/edit";
+	}
+	
+	/**
+	 * 返回拍照人员-添加
+	 * @return
+	 */
+	@PostMapping("/update")
+	@ResponseBody
+	public R update(PersonDO person) {
+		
+		person.setModifyTime(new Date());
+		person.setModifyUser("系统");
+		
+		personService.update(person);
 		return R.ok();
 	}
 
