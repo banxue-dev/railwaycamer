@@ -93,8 +93,17 @@ public class PersonController extends BaseController {
 		person.setCreateUser("系统");
 		
 		personService.save(person);
-		System.err.println("OK");
-		
+		return R.ok();
+	}
+	/**
+	 * 删除
+	 * @param id
+	 * @return
+	 */
+	@PostMapping("/remove")
+	@ResponseBody
+	public R remove(Long id) {
+		personService.remove(id);
 		return R.ok();
 	}
 

@@ -95,7 +95,7 @@
 <table class="layui-table" id="list"></table>
 <script type="text/html" id="toolbar">
     <a class="layui-btn layui-btn-primary layui-btn-xs"  href="viewPhoto.html" target="iframeCamera" >修改</a>
-    <a class="layui-btn layui-btn-primary layui-btn-xs"  href="viewPhoto.html" target="iframeCamera" >删除</a>
+    <a class="layui-btn layui-btn-primary layui-btn-xs" onclick="remove({{d.id}})" >删除</a>
 </script>
 
 <script src="/js/layui.js"></script>
@@ -198,9 +198,32 @@
     	});
     	return false;
     }
-    
+    // 重新加载
     function reLoad() {
     	active.reload();
+    }
+    // 删除数据
+    function remove(id) {
+    	layer.confirm('确定要删除选中的记录？', {
+    		btn : [ '确定', '取消' ]
+    	}, function() {
+    		$.ajax({
+    			url : prefix + "/remove",
+    			type : "post",
+    			data : {
+    				'id' : id
+    			},
+    			success : function(r) {
+    				if (r.code === 0) {
+    					layer.msg("删除成功");
+    					reLoad();
+    				} else {
+    					layer.msg(r.msg);
+    				}
+    			}
+    		});
+    	})
+
     }
 </script>
 
