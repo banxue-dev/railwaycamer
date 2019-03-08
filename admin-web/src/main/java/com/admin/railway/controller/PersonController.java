@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.admin.common.controller.BaseController;
+import com.admin.common.utils.Query;
+import com.admin.common.utils.QueryParam;
 import com.admin.common.utils.R;
 import com.admin.railway.domain.PersonDO;
 import com.admin.railway.service.PersonService;
@@ -39,16 +41,13 @@ public class PersonController extends BaseController {
 	 */
 	@PostMapping("/list")
 	@ResponseBody
-	R list(@RequestParam(name="stationId", required=false) Long stationId) {
-		Map<String, Object> map = new HashMap<>();
-		if (stationId != null) {
-			map.put("id", stationId);
-		}
+	R list(@RequestParam Map<String, Object> params) {
+		QueryParam query = new QueryParam(params);
 		List<PersonDO> list = new ArrayList<>();
 		
-		int count = personService.count(map);
+		int count = personService.count(query);
 		if (count > 0) {
-			list = personService.list(map);
+			list = personService.list(query);
 		}
 		
 		System.err.println(list.size());
