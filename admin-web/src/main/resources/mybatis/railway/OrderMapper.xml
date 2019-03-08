@@ -25,6 +25,7 @@
 		  		  <if test="description != null and description != ''"> and description = #{description} </if>
 		  		  <if test="personIds != null and personIds != ''"> and person_ids = #{personIds} </if>
 		  		  <if test="personNames != null and personNames != ''"> and person_names = #{personNames} </if>
+		  		  <if test="continueShot != null and continueShot != ''"> and continue_shot = #{continueShot} </if>
 		  		  <if test="startTime != null and startTime != ''"> and start_time = #{startTime} </if>
 		  		  <if test="endTime != null and endTime != ''"> and end_time = #{endTime} </if>
 		  		  <if test="orderState != null and orderState != ''"> and order_state = #{orderState} </if>
@@ -61,6 +62,7 @@
 		  		  <if test="description != null and description != ''"> and description = #{description} </if>
 		  		  <if test="personIds != null and personIds != ''"> and person_ids = #{personIds} </if>
 		  		  <if test="personNames != null and personNames != ''"> and person_names = #{personNames} </if>
+		  		  <if test="continueShot != null and continueShot != ''"> and continue_shot = #{continueShot} </if>
 		  		  <if test="startTime != null and startTime != ''"> and start_time = #{startTime} </if>
 		  		  <if test="endTime != null and endTime != ''"> and end_time = #{endTime} </if>
 		  		  <if test="orderState != null and orderState != ''"> and order_state = #{orderState} </if>
@@ -84,6 +86,7 @@
 			`description`,
 			`person_ids`,
 			`person_names`,
+			`continue_shot`,
 			`start_time`,
 			`end_time`,
 			`order_state`,
@@ -109,6 +112,7 @@
 				#{description},
 				#{personIds},
 				#{personNames},
+				#{continueShot},
 				#{startTime},
 				#{endTime},
 				#{orderState},
@@ -138,6 +142,7 @@
   		  <if test="description != null and description != ''">description = #{description}, </if>
   		  <if test="personIds != null and personIds != ''">person_ids = #{personIds}, </if>
   		  <if test="personNames != null and personNames != ''">person_names = #{personNames}, </if>
+  		  <if test="continueShot != null and continueShot != ''">continue_shot = #{continueShot}, </if>
   		  <if test="startTime != null and startTime != ''">start_time = #{startTime}, </if>
   		  <if test="endTime != null and endTime != ''">end_time = #{endTime}, </if>
   		  <if test="orderState != null and orderState != ''">order_state = #{orderState}, </if>

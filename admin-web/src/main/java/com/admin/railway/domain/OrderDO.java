@@ -29,6 +29,7 @@ public class OrderDO implements Serializable {
 	
 	private String personIds; // 拍摄人员id集合,逗号分隔
 	private String personNames; // 拍摄人员name集合,逗号分隔
+	private Integer continueShot; // 续拍
 	
 	private String startTime; // 开始时间
 	private String endTime; // 结束时间
@@ -178,6 +179,12 @@ public class OrderDO implements Serializable {
 	}
 	public void setModifyUser(String modifyUser) {
 		this.modifyUser = modifyUser;
+	}
+	public Integer getContinueShot() {
+		return continueShot;
+	}
+	public void setContinueShot(Integer continueShot) {
+		this.continueShot = continueShot;
 	}
 	
 }
