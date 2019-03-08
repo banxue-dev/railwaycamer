@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.admin.common.controller.BaseController;
+import com.admin.common.utils.Constants;
 import com.admin.common.utils.Query;
 import com.admin.common.utils.QueryParam;
 import com.admin.common.utils.R;
 import com.admin.railway.domain.PersonDO;
 import com.admin.railway.service.PersonService;
+import com.sun.tools.javac.resources.compiler;
 
 @Controller
 @RequestMapping("/railway/person")
@@ -29,22 +31,23 @@ public class PersonController extends BaseController {
 	
 	@GetMapping("/get")
 	@ResponseBody
-	PersonDO get(@RequestParam(name="id") String personId) {
+	public PersonDO get(@RequestParam(name="id") String personId) {
 		PersonDO personDO = personService.get(Long.parseLong(personId));
 		return personDO;
 	}
 	
 	/**
-	 * 返回拍照人员-人员管理界面 list数据
+	 * 返回拍照人员-人员管理界面列表数据
 	 * @param stationId
 	 * @return
 	 */
 	@PostMapping("/list")
 	@ResponseBody
-	R list(@RequestParam Map<String, Object> params) {
+	public R list(@RequestParam Map<String, Object> params) {
 		QueryParam query = new QueryParam(params);
-		List<PersonDO> list = new ArrayList<>();
+		query.put("delState", Constants.NO); // 查询未删除
 		
+		List<PersonDO> list = new ArrayList<>();
 		int count = personService.count(query);
 		if (count > 0) {
 			list = personService.list(query);
@@ -63,7 +66,7 @@ public class PersonController extends BaseController {
 	 * @return
 	 */
 	@GetMapping("/list")
-	String listUI() {
+	public String listUI() {
 		return "railway/person/list";
 	}
 

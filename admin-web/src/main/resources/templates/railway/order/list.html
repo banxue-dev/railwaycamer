@@ -20,6 +20,19 @@
             </div>
             <div class="layui-inline">
                 <div class="layui-input-inline">
+                    <input type="text" class="layui-input" id="beginTime" placeholder="请选择开始时间">
+                </div>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" id="endTime" placeholder="请选择结束时间">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" id="wagonBox" placeholder="车(箱)号">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-input-inline">
                     <button class="layui-btn layui-btn-normal"> 查 询 </button>
                     <button class="layui-btn layui-btn-normal"> 添 加 </button>
                 </div>
@@ -92,8 +105,8 @@
 	</div>
 <table class="layui-table" id="list"></table>
 <script type="text/html" id="toolbar">
-    <a class="layui-btn layui-btn-primary layui-btn-xs"  href="viewPhoto.html" target="iframeCamera" >修改</a>
-    <a class="layui-btn layui-btn-primary layui-btn-xs"  href="viewPhoto.html" target="iframeCamera" >删除</a>
+    <a class="layui-btn layui-btn-primary layui-btn-xs"  href="viewPhoto.html" target="iframeCamera" >编辑</a>
+    <a class="layui-btn layui-btn-primary layui-btn-xs"  href="viewPhoto.html" target="iframeCamera" >复制</a>
 </script>
 
 <script src="/js/layui.js"></script>
@@ -131,24 +144,44 @@
             }
         })
 
+        
+
         var data = [
             {"a": "1", "b": "001", "c": "09-23", "d": "重庆", "e": "成都"},
             {"a": "2", "b": "001", "c": "09-23", "d": "重庆", "e": "成都"},
             {"a": "3", "b": "001", "c": "09-23", "d": "重庆", "e": "成都"},
             {"a": "4", "b": "001", "c": "09-23", "d": "重庆", "e": "成都"}
         ]
-        
         //方法级渲染
         table.render({
             elem: '#list'
-            , url: '/railway/person/list'
-            , method: 'POST'
+            , url: '/railway/order/list'
             , data: data
+            , method: 'POST'
             , cols: [[
-                {field: '', title: '序号', align: 'center', type: 'numbers'},
-                {field: 'name', title: '姓名', align: 'center'},
-                {field: 'stationName', title: '站点', align: 'center'},
-                {field: 'account', title: '照片上报账号', align: 'center'},
+            	{field: '', title: '序号', align: 'center', type: 'numbers'},
+                {field: 'trainNo', title: '车号', align: 'center'},
+                {field: 'startTime', title: '日期', align: 'center', templet: function(order){
+                	if (order.startTime != null) {
+                        var date = new Date(order.startTime);
+                        return date.getFullYear() + '年' + (date.getMonth() + 1) + '月' + date.getDate() + '日';
+                    }
+                	return '';
+                }},
+                {field: 'endStationName', title: '到站', align: 'center'},
+                {field: 'consignor', title: '托货人', align: 'center'},
+                {field: 'consignee', title: '收货人', align: 'center'},
+                {field: 'productName', title: '品名', align: 'center'},
+                {field: 'trainType', title: '车型', align: 'center'},
+                {field: 'projectNo', title: '方案编号', align: 'center'},
+                {field: 'loadingLine', title: '装车线路', align: 'center'},
+                {field: 'personNames', title: '拍照人员', align: 'center'},
+                {field: 'continueShot', title: '续拍', align: 'center', templet: function(order){
+                	if (order.continueShot != null) {
+                        return order.continueShot == 1 ? '是' : '否';
+                    }
+                	return '';
+                }},
                 {field: '', title: '操作', align: 'center', toolbar: '#toolbar'}
             ]]
             , id: 'testReload'
