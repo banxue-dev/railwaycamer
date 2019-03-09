@@ -4,11 +4,11 @@
 <mapper namespace="com.admin.railway.dao.OrderDao">
 
 	<select id="get" resultType="com.admin.railway.domain.OrderDO">
-		SELECT * FROM `tbl_order` WHERE id = #{value}
+		select `id`,`train_no`,`start_station_id`,`start_station_name`,`end_station_id`,`end_station_name`,`consignor`,`consignee`,`product_name`,`train_type`,`project_no`,`loading_line`,`description`,`person_ids`,`person_names`,`continue_shot`,`start_time`,`end_time`,`order_state`,`del_state`,`create_time`,`create_user`,`modify_time`,`modify_user` from tbl_order where id = #{value}
 	</select>
 
 	<select id="list" resultType="com.admin.railway.domain.OrderDO">
-		SELECT * FROM `tbl_order`
+		select `id`,`train_no`,`start_station_id`,`start_station_name`,`end_station_id`,`end_station_name`,`consignor`,`consignee`,`product_name`,`train_type`,`project_no`,`loading_line`,`description`,`person_ids`,`person_names`,`continue_shot`,`start_time`,`end_time`,`order_state`,`del_state`,`create_time`,`create_user`,`modify_time`,`modify_user` from tbl_order
         <where>  
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
 		  		  <if test="trainNo != null and trainNo != ''"> and train_no = #{trainNo} </if>
@@ -29,7 +29,11 @@
 		  		  <if test="startTime != null and startTime != ''"> and start_time = #{startTime} </if>
 		  		  <if test="endTime != null and endTime != ''"> and end_time = #{endTime} </if>
 		  		  <if test="orderState != null and orderState != ''"> and order_state = #{orderState} </if>
-		  		  <if test="delState != null"> and del_state = #{delState} </if>
+		  		  <if test="delState != null and delState != ''"> and del_state = #{delState} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="createUser != null and createUser != ''"> and create_user = #{createUser} </if>
+		  		  <if test="modifyTime != null and modifyTime != ''"> and modify_time = #{modifyTime} </if>
+		  		  <if test="modifyUser != null and modifyUser != ''"> and modify_user = #{modifyUser} </if>
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">
@@ -45,7 +49,7 @@
 	</select>
 	
  	<select id="count" resultType="int">
-		select count(*) from `tbl_order`
+		select count(*) from tbl_order
 		 <where>  
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
 		  		  <if test="trainNo != null and trainNo != ''"> and train_no = #{trainNo} </if>
@@ -66,97 +70,107 @@
 		  		  <if test="startTime != null and startTime != ''"> and start_time = #{startTime} </if>
 		  		  <if test="endTime != null and endTime != ''"> and end_time = #{endTime} </if>
 		  		  <if test="orderState != null and orderState != ''"> and order_state = #{orderState} </if>
-		  		  <if test="delState != null"> and del_state = #{delState} </if>
+		  		  <if test="delState != null and delState != ''"> and del_state = #{delState} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="createUser != null and createUser != ''"> and create_user = #{createUser} </if>
+		  		  <if test="modifyTime != null and modifyTime != ''"> and modify_time = #{modifyTime} </if>
+		  		  <if test="modifyUser != null and modifyUser != ''"> and modify_user = #{modifyUser} </if>
 		  		</where>
 	</select>
 	 
-	<insert id="save" parameterType="com.admin.railway.domain.OrderDO" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO `tbl_order` (
-			`train_no`,
-			`start_station_id`,
-			`start_station_name`,
-			`end_station_id`,
-			`end_station_name`,
-			`consignor`,
-			`consignee`,
-			`product_name`,
-			`train_type`,
-			`project_no`,
-			`loading_line`,
-			`description`,
-			`person_ids`,
-			`person_names`,
-			`continue_shot`,
-			`start_time`,
-			`end_time`,
-			`order_state`,
-			`del_state`,
-			`create_time`,
-			`create_user`,
-			`modify_time`,
+	<insert id="save" parameterType="com.admin.railway.domain.OrderDO">
+		insert into tbl_order
+		(
+			`id`, 
+			`train_no`, 
+			`start_station_id`, 
+			`start_station_name`, 
+			`end_station_id`, 
+			`end_station_name`, 
+			`consignor`, 
+			`consignee`, 
+			`product_name`, 
+			`train_type`, 
+			`project_no`, 
+			`loading_line`, 
+			`description`, 
+			`person_ids`, 
+			`person_names`, 
+			`continue_shot`, 
+			`start_time`, 
+			`end_time`, 
+			`order_state`, 
+			`del_state`, 
+			`create_time`, 
+			`create_user`, 
+			`modify_time`, 
 			`modify_user`
 		)
-		VALUES
-			(
-				#{trainNo},
-				#{startStationId},
-				#{startStationName},
-				#{endStationId},
-				#{endStationName},
-				#{consignor},
-				#{consignee},
-				#{productName},
-				#{trainType},
-				#{projectNo},
-				#{loadingLine},
-				#{description},
-				#{personIds},
-				#{personNames},
-				#{continueShot},
-				#{startTime},
-				#{endTime},
-				#{orderState},
-				#{delState},
-				#{createTime},
-				#{createUser},
-				#{modifyTime},
-				#{modifyUser}
-			)
-
+		values
+		(
+			#{id}, 
+			#{trainNo}, 
+			#{startStationId}, 
+			#{startStationName}, 
+			#{endStationId}, 
+			#{endStationName}, 
+			#{consignor}, 
+			#{consignee}, 
+			#{productName}, 
+			#{trainType}, 
+			#{projectNo}, 
+			#{loadingLine}, 
+			#{description}, 
+			#{personIds}, 
+			#{personNames}, 
+			#{continueShot}, 
+			#{startTime}, 
+			#{endTime}, 
+			#{orderState}, 
+			#{delState}, 
+			#{createTime}, 
+			#{createUser}, 
+			#{modifyTime}, 
+			#{modifyUser}
+		)
 	</insert>
 	 
 	<update id="update" parameterType="com.admin.railway.domain.OrderDO">
 		update tbl_order 
 		<set>
-		  <if test="trainNo != null and trainNo != ''">train_no = #{trainNo}, </if>
-  		  <if test="startStationId != null and startStationId != ''">start_station_id = #{startStationId}, </if>
-  		  <if test="startStationName != null and startStationName != ''">start_station_name = #{startStationName}, </if>
-  		  <if test="endStationId != null and endStationId != ''">end_station_id = #{endStationId}, </if>
-  		  <if test="endStationName != null and endStationName != ''">end_station_name = #{endStationName}, </if>
-  		  <if test="consignor != null and consignor != ''">consignor = #{consignor}, </if>
-  		  <if test="consignee != null and consignee != ''">consignee = #{consignee}, </if>
-  		  <if test="productName != null and productName != ''">product_name = #{productName}, </if>
-  		  <if test="trainType != null and trainType != ''">train_type = #{trainType}, </if>
-  		  <if test="projectNo != null and projectNo != ''">project_no = #{projectNo}, </if>
-  		  <if test="loadingLine != null and loadingLine != ''">loading_line = #{loadingLine}, </if>
-  		  <if test="description != null and description != ''">description = #{description}, </if>
-  		  <if test="personIds != null and personIds != ''">person_ids = #{personIds}, </if>
-  		  <if test="personNames != null and personNames != ''">person_names = #{personNames}, </if>
-  		  <if test="continueShot != null and continueShot != ''">continue_shot = #{continueShot}, </if>
-  		  <if test="startTime != null and startTime != ''">start_time = #{startTime}, </if>
-  		  <if test="endTime != null and endTime != ''">end_time = #{endTime}, </if>
-  		  <if test="orderState != null and orderState != ''">order_state = #{orderState}, </if>
-  		  <if test="delState != null">del_state = #{delState} </if>
+			<if test="trainNo != null">`train_no` = #{trainNo}, </if>
+			<if test="startStationId != null">`start_station_id` = #{startStationId}, </if>
+			<if test="startStationName != null">`start_station_name` = #{startStationName}, </if>
+			<if test="endStationId != null">`end_station_id` = #{endStationId}, </if>
+			<if test="endStationName != null">`end_station_name` = #{endStationName}, </if>
+			<if test="consignor != null">`consignor` = #{consignor}, </if>
+			<if test="consignee != null">`consignee` = #{consignee}, </if>
+			<if test="productName != null">`product_name` = #{productName}, </if>
+			<if test="trainType != null">`train_type` = #{trainType}, </if>
+			<if test="projectNo != null">`project_no` = #{projectNo}, </if>
+			<if test="loadingLine != null">`loading_line` = #{loadingLine}, </if>
+			<if test="description != null">`description` = #{description}, </if>
+			<if test="personIds != null">`person_ids` = #{personIds}, </if>
+			<if test="personNames != null">`person_names` = #{personNames}, </if>
+			<if test="continueShot != null">`continue_shot` = #{continueShot}, </if>
+			<if test="startTime != null">`start_time` = #{startTime}, </if>
+			<if test="endTime != null">`end_time` = #{endTime}, </if>
+			<if test="orderState != null">`order_state` = #{orderState}, </if>
+			<if test="delState != null">`del_state` = #{delState}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="createUser != null">`create_user` = #{createUser}, </if>
+			<if test="modifyTime != null">`modify_time` = #{modifyTime}, </if>
+			<if test="modifyUser != null">`modify_user` = #{modifyUser}</if>
 		</set>
 		where id = #{id}
 	</update>
 	
 	<delete id="remove">
-		UPDATE tbl_order SET del_state = 1 WHERE id = #{value}
+		delete from tbl_order where id = #{value}
 	</delete>
 	
 	<delete id="batchRemove">
-		UPDATE tbl_order SET del_state = 1 WHERE id IN
+		delete from tbl_order where id in 
 		<foreach item="id" collection="array" open="(" separator="," close=")">
 			#{id}
 		</foreach>

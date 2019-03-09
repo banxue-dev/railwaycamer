@@ -27,9 +27,6 @@ import com.admin.railway.service.PersonService;
 public class OrderController extends BaseController {
 
 	@Autowired
-	private PersonService personService;
-	
-	@Autowired
 	private OrderService orderService;
 	
 	/**

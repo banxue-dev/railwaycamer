@@ -1,72 +1,38 @@
 package com.admin.railway.domain;
 
+import lombok.Data;
+
 import java.io.Serializable;
+import java.util.Date;
+
+
+
 /**
- * 站点
- * @author Administrator
- *
+ * 站点表
+ * 
+ * @author luojing
+ * @email lg932740579@163.com
+ * @date 2019-03-09 10:40:01
  */
+@Data
 public class StationDO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private Long id; //id 
-	private String name; //站点名称
-	private Long parentId; // 父级id, 顶级parent_id:0
-	
-	private Integer delState = 0; // 是否删除 0:不删除 1:删除
-	private String createTime; // 创建时间
-	private String createUser; // 创建用户
-	private String modifyTime; // 修改时间
-	private String modifyUser; // 修改用户
-	
-	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public Long getParentId() {
-		return parentId;
-	}
-	public void setParentId(Long parentId) {
-		this.parentId = parentId;
-	}
-	public Integer getDelState() {
-		return delState;
-	}
-	public void setDelState(Integer delState) {
-		this.delState = delState;
-	}
-	public String getCreateTime() {
-		return createTime;
-	}
-	public void setCreateTime(String createTime) {
-		this.createTime = createTime;
-	}
-	public String getCreateUser() {
-		return createUser;
-	}
-	public void setCreateUser(String createUser) {
-		this.createUser = createUser;
-	}
-	public String getModifyTime() {
-		return modifyTime;
-	}
-	public void setModifyTime(String modifyTime) {
-		this.modifyTime = modifyTime;
-	}
-	public String getModifyUser() {
-		return modifyUser;
-	}
-	public void setModifyUser(String modifyUser) {
-		this.modifyUser = modifyUser;
-	}
-	
+	//自增长id
+	private String id;
+	//站点名称
+	private String name;
+	//父级id, 顶级parent_id:0
+	private String parentId;
+	//是否删除
+	private Integer delState;
+	//创建时间
+	private Date createTime;
+	//创建用户
+	private String createUser;
+	//修改时间
+	private Date modifyTime;
+	//修改用户
+	private String modifyUser;
+
 }

@@ -59,26 +59,26 @@
 	<insert id="save" parameterType="com.admin.railway.domain.PersonDO">
 		insert into tbl_person
 		(
-			`id`,
-			`login_name`,
-			`password`,
-			`name`,
-			`phone`,
-			`station_id`,
-			`station_name`,
-			`account`,
-			`del_state`,
-			`create_time`,
-			`create_user`,
-			`modify_time`,
+			`id`, 
+			`login_name`, 
+			`password`, 
+			`name`, 
+			`phone`, 
+			`station_id`, 
+			`station_name`, 
+			`account`, 
+			`del_state`, 
+			`create_time`, 
+			`create_user`, 
+			`modify_time`, 
 			`modify_user`
 		)
 		values
 		(
-			#{id},
-			#{loginName},
-			#{password},
-			#{name},
+			#{id}, 
+			#{loginName}, 
+			#{password}, 
+			#{name}, 
 			#{phone}, 
 			#{stationId}, 
 			#{stationName}, 

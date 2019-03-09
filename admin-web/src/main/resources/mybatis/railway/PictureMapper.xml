@@ -4,16 +4,23 @@
 <mapper namespace="com.admin.railway.dao.PictureDao">
 
 	<select id="get" resultType="com.admin.railway.domain.PictureDO">
-		SELECT * FROM `tbl_picture` WHERE id = #{value}
+		select `id`,`order_id`,`train_no`,`person_id`,`thum_url`,`url`,`del_state`,`create_time`,`create_user`,`modify_time`,`modify_user` from tbl_picture where id = #{value}
 	</select>
 
 	<select id="list" resultType="com.admin.railway.domain.PictureDO">
-		SELECT * FROM `tbl_picture`
+		select `id`,`order_id`,`train_no`,`person_id`,`thum_url`,`url`,`del_state`,`create_time`,`create_user`,`modify_time`,`modify_user` from tbl_picture
         <where>  
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
 		  		  <if test="orderId != null and orderId != ''"> and order_id = #{orderId} </if>
+		  		  <if test="trainNo != null and trainNo != ''"> and train_no = #{trainNo} </if>
+		  		  <if test="personId != null and personId != ''"> and person_id = #{personId} </if>
+		  		  <if test="thumUrl != null and thumUrl != ''"> and thum_url = #{thumUrl} </if>
 		  		  <if test="url != null and url != ''"> and url = #{url} </if>
-		  		  <if test="delState != null"> and del_state = #{delState} </if>
+		  		  <if test="delState != null and delState != ''"> and del_state = #{delState} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="createUser != null and createUser != ''"> and create_user = #{createUser} </if>
+		  		  <if test="modifyTime != null and modifyTime != ''"> and modify_time = #{modifyTime} </if>
+		  		  <if test="modifyUser != null and modifyUser != ''"> and modify_user = #{modifyUser} </if>
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">
@@ -29,55 +36,76 @@
 	</select>
 	
  	<select id="count" resultType="int">
-		select count(*) from `tbl_picture`
+		select count(*) from tbl_picture
 		 <where>  
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
 		  		  <if test="orderId != null and orderId != ''"> and order_id = #{orderId} </if>
+		  		  <if test="trainNo != null and trainNo != ''"> and train_no = #{trainNo} </if>
+		  		  <if test="personId != null and personId != ''"> and person_id = #{personId} </if>
+		  		  <if test="thumUrl != null and thumUrl != ''"> and thum_url = #{thumUrl} </if>
 		  		  <if test="url != null and url != ''"> and url = #{url} </if>
-		  		  <if test="delState != null"> and del_state = #{delState} </if>
+		  		  <if test="delState != null and delState != ''"> and del_state = #{delState} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="createUser != null and createUser != ''"> and create_user = #{createUser} </if>
+		  		  <if test="modifyTime != null and modifyTime != ''"> and modify_time = #{modifyTime} </if>
+		  		  <if test="modifyUser != null and modifyUser != ''"> and modify_user = #{modifyUser} </if>
 		  		</where>
 	</select>
 	 
-	<insert id="save" parameterType="com.admin.railway.domain.PictureDO" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO `tbl_picture` (
-			`order_id`,
-			`url`,
-			`del_state`,
-			`create_time`,
-			`create_user`,
-			`modify_time`,
+	<insert id="save" parameterType="com.admin.railway.domain.PictureDO">
+		insert into tbl_picture
+		(
+			`id`, 
+			`order_id`, 
+			`train_no`, 
+			`person_id`, 
+			`thum_url`, 
+			`url`, 
+			`del_state`, 
+			`create_time`, 
+			`create_user`, 
+			`modify_time`, 
 			`modify_user`
 		)
-		VALUES
-			(
-				#{orderId},
-				#{url},
-				#{delState},
-				#{createTime},
-				#{createUser},
-				#{modifyTime},
-				#{modifyUser}
-			)
-				
+		values
+		(
+			#{id}, 
+			#{orderId}, 
+			#{trainNo}, 
+			#{personId}, 
+			#{thumUrl}, 
+			#{url}, 
+			#{delState}, 
+			#{createTime}, 
+			#{createUser}, 
+			#{modifyTime}, 
+			#{modifyUser}
+		)
 	</insert>
 	 
 	<update id="update" parameterType="com.admin.railway.domain.PictureDO">
-		update `tbl_picture` 
+		update tbl_picture 
 		<set>
-		  <if test="id != null and id != ''">id = #{id}, </if>
-  		  <if test="orderId != null and orderId != ''">order_id = #{orderId}, </if>
-  		  <if test="url != null and url != ''">url = #{url}, </if>
-  		  <if test="delState != null">del_state = #{delState} </if>
+			<if test="orderId != null">`order_id` = #{orderId}, </if>
+			<if test="trainNo != null">`train_no` = #{trainNo}, </if>
+			<if test="personId != null">`person_id` = #{personId}, </if>
+			<if test="thumUrl != null">`thum_url` = #{thumUrl}, </if>
+			<if test="url != null">`url` = #{url}, </if>
+			<if test="delState != null">`del_state` = #{delState}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="createUser != null">`create_user` = #{createUser}, </if>
+			<if test="modifyTime != null">`modify_time` = #{modifyTime}, </if>
+			<if test="modifyUser != null">`modify_user` = #{modifyUser}</if>
 		</set>
 		where id = #{id}
 	</update>
 	
 	<delete id="remove">
-		UPDATE `tbl_picture` SET del_state = 1 WHERE id = #{value}
+		delete from tbl_picture where id = #{value}
 	</delete>
 	
 	<delete id="batchRemove">
-		UPDATE `tbl_picture` SET del_state = 1 WHERE id IN
+		delete from tbl_picture where id in 
 		<foreach item="id" collection="array" open="(" separator="," close=")">
 			#{id}
 		</foreach>

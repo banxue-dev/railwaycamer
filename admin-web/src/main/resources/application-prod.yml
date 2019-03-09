@@ -1,5 +1,5 @@
 admin: 
-  uploadPath: /var/uploaded_files/
+  uploadPath: /railwaycamera/
 logging: 
   level: 
     root: info

@@ -4,16 +4,20 @@
 <mapper namespace="com.admin.railway.dao.StationDao">
 
 	<select id="get" resultType="com.admin.railway.domain.StationDO">
-		SELECT * FROM `tbl_station` WHERE id = #{value}
+		select `id`,`name`,`parent_id`,`del_state`,`create_time`,`create_user`,`modify_time`,`modify_user` from tbl_station where id = #{value}
 	</select>
 
 	<select id="list" resultType="com.admin.railway.domain.StationDO">
-		SELECT * FROM `tbl_station`
+		select `id`,`name`,`parent_id`,`del_state`,`create_time`,`create_user`,`modify_time`,`modify_user` from tbl_station
         <where>  
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
 		  		  <if test="name != null and name != ''"> and name = #{name} </if>
 		  		  <if test="parentId != null and parentId != ''"> and parent_id = #{parentId} </if>
-		  		  <if test="delState != null"> and del_state = #{delState} </if>
+		  		  <if test="delState != null and delState != ''"> and del_state = #{delState} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="createUser != null and createUser != ''"> and create_user = #{createUser} </if>
+		  		  <if test="modifyTime != null and modifyTime != ''"> and modify_time = #{modifyTime} </if>
+		  		  <if test="modifyUser != null and modifyUser != ''"> and modify_user = #{modifyUser} </if>
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">
@@ -29,28 +33,34 @@
 	</select>
 	
  	<select id="count" resultType="int">
-		select count(*) from `tbl_station`
+		select count(*) from tbl_station
 		 <where>  
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
 		  		  <if test="name != null and name != ''"> and name = #{name} </if>
 		  		  <if test="parentId != null and parentId != ''"> and parent_id = #{parentId} </if>
-		  		  <if test="delState != null"> and del_state = #{delState} </if>
+		  		  <if test="delState != null and delState != ''"> and del_state = #{delState} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="createUser != null and createUser != ''"> and create_user = #{createUser} </if>
+		  		  <if test="modifyTime != null and modifyTime != ''"> and modify_time = #{modifyTime} </if>
+		  		  <if test="modifyUser != null and modifyUser != ''"> and modify_user = #{modifyUser} </if>
 		  		</where>
 	</select>
 	 
-	<insert id="save" parameterType="com.admin.railway.domain.StationDO" useGeneratedKeys="true" keyProperty="id">
+	<insert id="save" parameterType="com.admin.railway.domain.StationDO">
 		insert into tbl_station
 		(
-			`name`,
-			parent_id,
-			del_state,
-			create_time,
-			create_user,
-			modify_time,
-			modify_user
+			`id`, 
+			`name`, 
+			`parent_id`, 
+			`del_state`, 
+			`create_time`, 
+			`create_user`, 
+			`modify_time`, 
+			`modify_user`
 		)
 		values
 		(
+			#{id}, 
 			#{name}, 
 			#{parentId}, 
 			#{delState}, 
@@ -64,19 +74,23 @@
 	<update id="update" parameterType="com.admin.railway.domain.StationDO">
 		update tbl_station 
 		<set>
-			<if test="name != null and name != ''">name = #{name}, </if>
-		  	<if test="parentId != null and parentId != ''">parent_id = #{parentId}, </if>
-		  	<if test="delState != null">del_state = #{delState} </if>
+			<if test="name != null">`name` = #{name}, </if>
+			<if test="parentId != null">`parent_id` = #{parentId}, </if>
+			<if test="delState != null">`del_state` = #{delState}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="createUser != null">`create_user` = #{createUser}, </if>
+			<if test="modifyTime != null">`modify_time` = #{modifyTime}, </if>
+			<if test="modifyUser != null">`modify_user` = #{modifyUser}</if>
 		</set>
 		where id = #{id}
 	</update>
 	
 	<delete id="remove">
-		UPDATE `tbl_station` SET del_state = 1 WHERE id = #{value}
+		delete from tbl_station where id = #{value}
 	</delete>
 	
 	<delete id="batchRemove">
-		UPDATE `tbl_station` SET del_state = 1 WHERE id IN 
+		delete from tbl_station where id in 
 		<foreach item="id" collection="array" open="(" separator="," close=")">
 			#{id}
 		</foreach>
