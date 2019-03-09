@@ -3,6 +3,7 @@ package com.admin.railway.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import com.admin.common.utils.UuidUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +23,7 @@ public class PictureServiceImpl implements PictureService {
 
 	@Override
 	public void save(PictureDO picture) {
+		picture.setId(UuidUtil.get16UUID());
 		pictureMapper.save(picture);
 	}
 
