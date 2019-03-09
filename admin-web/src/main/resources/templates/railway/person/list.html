@@ -8,8 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="/css/layui.css">
     <link rel="stylesheet" href="/railway/css/tree.css">
-    <script src="/js/jquery.min.js?v=2.1.4"></script>
-    <script src="/js/plugins/layer/layer.js"></script>
 </head>
 <body>
 <form class="layui-form" action="" id="tableQueryForm" style="padding-top: 20px">
@@ -93,13 +91,15 @@
 		</ul>
 	</div>
 <table class="layui-table" id="list"></table>
+
 <script type="text/html" id="toolbar">
     <a class="layui-btn layui-btn-primary layui-btn-xs" onclick="edit({{d.id}})" >修改</a>
     <a class="layui-btn layui-btn-primary layui-btn-xs" onclick="remove({{d.id}})" >删除</a>
 </script>
 
+<script src="/railway/js/jquery1.8.3.min.js"></script>
+<script src="/js/plugins/layer/layer.js"></script>
 <script src="/js/layui.js"></script>
-<script src="/js/jquery.min.js"></script>
 <script src="/railway/js/diytree.js"></script>
 <script src="/railway/js/easing.js"></script>
 <script src="/railway/person/listPerson.js"></script>
