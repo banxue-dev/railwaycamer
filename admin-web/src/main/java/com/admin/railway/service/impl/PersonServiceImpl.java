@@ -21,7 +21,6 @@ public class PersonServiceImpl implements PersonService {
 
 	@Override
 	public void save(PersonDO person) {
-		person.setId(UuidUtil.get16UUID());
 		this.personMapper.save(person);
 	}
 

@@ -12,22 +12,22 @@ import java.util.Date;
  * 
  * @author luojing
  * @email lg932740579@163.com
- * @date 2019-03-09 10:40:01
+ * @date 2019-03-10 09:22:12
  */
 @Data
 public class OrderDO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	//自增长id
-	private String id;
+	private Long id;
 	//车厢号
 	private String trainNo;
 	//发站id
-	private String startStationId;
+	private Long startStationId;
 	//发站名称
 	private String startStationName;
 	//到站id
-	private String endStationId;
+	private Long endStationId;
 	//到站名称
 	private String endStationName;
 	//托货人

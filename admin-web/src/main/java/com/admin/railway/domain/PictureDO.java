@@ -12,20 +12,20 @@ import java.util.Date;
  * 
  * @author luojing
  * @email lg932740579@163.com
- * @date 2019-03-09 10:40:01
+ * @date 2019-03-10 09:22:12
  */
 @Data
 public class PictureDO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	//自增长id
-	private String id;
+	private Long id;
 	//任务id
-	private String orderId;
+	private Long orderId;
 	//车厢号
 	private String trainNo;
 	//拍照人Id
-	private String personId;
+	private Long personId;
 	//略缩图路径地址
 	private String thumUrl;
 	//原图地址
@@ -40,5 +40,4 @@ public class PictureDO implements Serializable {
 	private Date modifyTime;
 	//修改用户
 	private String modifyUser;
-
 }

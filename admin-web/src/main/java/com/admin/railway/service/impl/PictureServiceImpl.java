@@ -23,7 +23,6 @@ public class PictureServiceImpl implements PictureService {
 
 	@Override
 	public void save(PictureDO picture) {
-		picture.setId(UuidUtil.get16UUID());
 		pictureMapper.save(picture);
 	}
 

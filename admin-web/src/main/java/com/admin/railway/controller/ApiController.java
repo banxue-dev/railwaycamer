@@ -1,18 +1,13 @@
 package com.admin.railway.controller;
 
-import com.admin.common.config.AdminConfig;
-import com.admin.common.domain.FileDO;
-import com.admin.common.utils.FileType;
-import com.admin.common.utils.FileUtil;
 import com.admin.common.utils.R;
+import com.admin.railway.domain.vo.UploadImgVo;
 import com.admin.railway.service.ApiService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,12 +17,10 @@ import java.util.Map;
  * @Date: 2019/3/9 9:31
  */
 @Api(tags = "App接口")
-@RestController
+@Controller
 @RequestMapping("/api/")
 public class ApiController {
 
-    @Autowired
-    private AdminConfig adminConfig;
     @Autowired
     private ApiService apiService;
 
@@ -37,9 +30,11 @@ public class ApiController {
         return null;
     }
 
+    @ApiOperation(value="拍照上传接口", notes="")
     @ResponseBody
-    @PostMapping("/upload")
-    public R upload(@RequestParam("files") List<MultipartFile> files) {
+    @PostMapping("upload")
+    public R upload(UploadImgVo vo) {
+        apiService.uploadImg(vo);
         return R.error();
     }
 

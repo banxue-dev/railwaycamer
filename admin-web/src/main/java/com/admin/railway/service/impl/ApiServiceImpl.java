@@ -1,6 +1,7 @@
 package com.admin.railway.service.impl;
 
 import com.admin.railway.domain.PersonDO;
+import com.admin.railway.domain.vo.UploadImgVo;
 import com.admin.railway.service.ApiService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class ApiServiceImpl implements ApiService {
 
     @Override
-    public boolean uploadImg() {
+    public boolean uploadImg(UploadImgVo vo) {
         return false;
     }
 }
