@@ -52,5 +52,10 @@ public class OrderServiceImpl implements OrderService {
 	public int count(Map<String, Object> map) {
 		return orderMapper.count(map);
 	}
-	
+
+	@Override
+	public List<OrderDO> listTask(String personId) {
+		return orderMapper.listTask(personId);
+	}
+
 }

@@ -54,7 +54,7 @@ public class OrderDO implements Serializable {
 	private Date startTime;
 	//结束时间
 	private Date endTime;
-	//任务状态-已接收:0 已开始:1 待验收:2 已结束:3 超时:4 终止:5
+	//任务状态:0已拍照，1未拍照，
 	private Integer orderState;
 	//是否删除
 	private Integer delState;

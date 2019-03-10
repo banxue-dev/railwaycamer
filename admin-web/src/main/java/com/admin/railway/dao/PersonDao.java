@@ -23,5 +23,7 @@ public interface PersonDao {
 	int remove(Long personId);
 	
 	int batchRemove(Long[] personIds);
+
+	PersonDO getPerson(Map<String, Object> map);
 	
 }

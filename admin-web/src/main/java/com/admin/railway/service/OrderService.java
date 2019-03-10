@@ -21,4 +21,13 @@ public interface OrderService {
 
 	int count(Map<String, Object> map);
 
+	/**
+	 * @Author: luojing
+	 * @Description: 根据拍照人员查询拍照任务
+	 * @Param: [personId]
+	 * @Return: list
+	 * @Date: 2019/3/10 14:51
+	 **/
+	List<OrderDO> listTask(String personId);
+
 }

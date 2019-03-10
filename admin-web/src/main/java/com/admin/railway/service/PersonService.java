@@ -17,6 +17,8 @@ public interface PersonService {
 	
 	PersonDO get(Long personId);
 
+	PersonDO getPerson(Map<String, Object> map);
+
 	List<PersonDO> list(Map<String, Object> map);
 
 	int count(Map<String, Object> map);

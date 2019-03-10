@@ -22,7 +22,7 @@ public class UploadImgVo {
     @ApiModelProperty(value = "车厢号", dataType = "string", required = true)
     private String trainNo;
 
-    @ApiModelProperty(value = "照片集合", dataType = "string", required = true)
-    private List<MultipartFile> files;
+    @ApiModelProperty(value = "调度任务ID,为空时代表拍照人员主动上传照片", dataType = "string", required = false)
+    private String taskId;
 
 }

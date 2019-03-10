@@ -1,14 +1,16 @@
 package com.admin.railway.controller;
 
+import com.admin.common.config.Constant;
 import com.admin.common.utils.R;
+import com.admin.common.utils.StringUtils;
+import com.admin.railway.domain.vo.LoginVo;
 import com.admin.railway.domain.vo.UploadImgVo;
 import com.admin.railway.service.ApiService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import java.util.Map;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @ClassName: ApiController
@@ -16,8 +18,8 @@ import java.util.Map;
  * @Author: luojing
  * @Date: 2019/3/9 9:31
  */
-@Api(tags = "App接口")
-@Controller
+@Api(tags = "App Interface")
+@RestController
 @RequestMapping("/api/")
 public class ApiController {
 
@@ -26,16 +28,35 @@ public class ApiController {
 
     @ApiOperation(value="App登录接口", notes="")
     @PostMapping("login")
-    public Map<String,Object> login(){
-        return null;
+    public R login(LoginVo vo){
+        if(StringUtils.isEmpty(vo.getLoginName())){
+            return R.error(Constant.ErrorInfo.LOGIN_NAME_NULL.getCode(),Constant.ErrorInfo.LOGIN_NAME_NULL.getMsg());
+        }
+        if(StringUtils.isEmpty(vo.getPassword())){
+            return R.error(Constant.ErrorInfo.PASSWORD_NULL.getCode(),Constant.ErrorInfo.PASSWORD_NULL.getMsg());
+        }
+        return apiService.login(vo);
     }
 
     @ApiOperation(value="拍照上传接口", notes="")
-    @ResponseBody
-    @PostMapping("upload")
-    public R upload(UploadImgVo vo) {
-        apiService.uploadImg(vo);
-        return R.error();
+    @PostMapping("uploadImg")
+    public R uploadImg(UploadImgVo vo,@RequestParam("file") MultipartFile file) {
+        if(StringUtils.isEmpty(vo.getPersonId())){
+            return R.error(Constant.ErrorInfo.PERSION_ID_NULL.getCode(),Constant.ErrorInfo.PERSION_ID_NULL.getMsg());
+        }
+        if(StringUtils.isEmpty(vo.getTrainNo())){
+            return R.error(Constant.ErrorInfo.TRANIN_NO_NULL.getCode(),Constant.ErrorInfo.TRANIN_NO_NULL.getMsg());
+        }
+        if(file.getSize() == 0){
+            return R.error(Constant.ErrorInfo.IMAGE_NULL.getCode(),Constant.ErrorInfo.IMAGE_NULL.getMsg());
+        }
+        return apiService.uploadImg(vo,file);
+    }
+
+    @ApiOperation(value="获取拍照任务", notes="")
+    @GetMapping("listTask/{personId}")
+    public R listTask(@PathVariable("personId") String personId){
+        return apiService.listTask(personId);
     }
 
 }

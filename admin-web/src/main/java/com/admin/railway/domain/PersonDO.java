@@ -32,8 +32,6 @@ public class PersonDO implements Serializable {
 	private Long stationId;
 	//站点名称
 	private String stationName;
-	//照片上报账号
-	private String account;
 	//是否删除
 	private Integer delState;
 	//创建时间

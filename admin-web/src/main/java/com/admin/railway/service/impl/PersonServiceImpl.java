@@ -17,41 +17,46 @@ import com.admin.railway.service.PersonService;
 @Service
 public class PersonServiceImpl implements PersonService {
     @Autowired
-    PersonDao personMapper;
+    private PersonDao personMapper;
 
 	@Override
 	public void save(PersonDO person) {
-		this.personMapper.save(person);
+		personMapper.save(person);
 	}
 
 	@Override
 	public void update(PersonDO person) {
-		this.personMapper.update(person);
+		personMapper.update(person);
 	}
 
 	@Override
 	public void remove(Long personId) {
-		this.personMapper.remove(personId);
+		personMapper.remove(personId);
 	}
 
 	@Override
 	public void batchRemove(Long[] personIds) {
-		this.personMapper.batchRemove(personIds);
+		personMapper.batchRemove(personIds);
 	}
 
 	@Override
 	public PersonDO get(Long personId) {
-		return this.personMapper.get(personId);
+		return personMapper.get(personId);
+	}
+
+	@Override
+	public PersonDO getPerson(Map<String, Object> map) {
+		return personMapper.getPerson(map);
 	}
 
 	@Override
 	public List<PersonDO> list(Map<String, Object> map) {
-		return this.personMapper.list(map);
+		return personMapper.list(map);
 	}
 
 	@Override
 	public int count(Map<String, Object> map) {
-		return this.personMapper.count(map);
+		return personMapper.count(map);
 	}
 
 }

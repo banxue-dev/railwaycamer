@@ -27,7 +27,7 @@ public class Swagger2Config {
                 .apiInfo(apiInfo())
                 .select()
                 //为当前包路径
-                .apis(RequestHandlerSelectors.any())
+                .apis(RequestHandlerSelectors.basePackage("com.admin.railway.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }
@@ -38,7 +38,7 @@ public class Swagger2Config {
                 //页面标题
                 .title("功能测试")
                 //创建人
-                .contact(new Contact("Edison", "xxx@qq.com", "xxx@qq.com"))
+                .contact(new Contact("L", "", "a.kiss520@foxmail.com"))
                 //版本号
                 .version("1.0")
                 //描述

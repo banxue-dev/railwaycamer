@@ -22,8 +22,12 @@ public class PictureServiceImpl implements PictureService {
     private PictureDao pictureMapper;
 
 	@Override
-	public void save(PictureDO picture) {
-		pictureMapper.save(picture);
+	public boolean save(PictureDO picture) {
+		Integer i = pictureMapper.save(picture);
+		if(i > 0){
+			return true;
+		}
+		return false;
 	}
 
 	@Override

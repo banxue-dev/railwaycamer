@@ -7,7 +7,7 @@ import com.admin.railway.domain.PictureDO;
 
 public interface PictureService {
 	
-	void save(PictureDO picture);
+	boolean save(PictureDO picture);
 
 	void update(PictureDO picture);
 	
