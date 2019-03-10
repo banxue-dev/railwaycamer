@@ -20,7 +20,6 @@ public class StationServiceImpl implements StationService {
 
 	@Override
 	public void save(StationDO station) {
-		station.setId(UuidUtil.get16UUID());
 		stationMapper.save(station);;
 	}
 

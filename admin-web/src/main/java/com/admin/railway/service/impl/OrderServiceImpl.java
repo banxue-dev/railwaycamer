@@ -20,7 +20,6 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public void save(OrderDO order) {
-		order.setId(UuidUtil.get16UUID());
 		orderMapper.save(order);
 	}
 

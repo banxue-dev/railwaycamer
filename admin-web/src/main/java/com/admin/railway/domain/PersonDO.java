@@ -12,14 +12,14 @@ import java.util.Date;
  * 
  * @author luojing
  * @email lg932740579@163.com
- * @date 2019-03-09 10:40:01
+ * @date 2019-03-10 09:22:12
  */
 @Data
 public class PersonDO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	//自增长id
-	private String id;
+	private Long id;
 	//登录名
 	private String loginName;
 	//登录密码
@@ -29,7 +29,7 @@ public class PersonDO implements Serializable {
 	//电话
 	private String phone;
 	//站点id
-	private String stationId;
+	private Long stationId;
 	//站点名称
 	private String stationName;
 	//照片上报账号
