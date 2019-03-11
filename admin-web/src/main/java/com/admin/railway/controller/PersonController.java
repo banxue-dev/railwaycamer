@@ -142,12 +142,22 @@ public class PersonController extends BaseController {
 	 */
 	@PostMapping("/check")
 	@ResponseBody
-	public boolean check(@RequestParam(value="loginName", required = false) String loginName) {
-		if (StringUtils.isBlank(loginName)) {
-			return false;
+	public boolean check(
+			@RequestParam(value="loginName", required = false) String loginName,
+			@RequestParam(value="personId", required = false) Long personId) {
+		// 修改页面, loginName和原始的loginName相同, 检查通过
+		if (personId != null) {
+			PersonDO person = personService.get(personId); 
+			if (StringUtils.equals(person.getLoginName(), loginName)) {
+				return true;
+			}
 		}
+		
 		Map<String, Object> map = new HashMap<>();
-		map.put("loginName", loginName);
+		if (StringUtils.isNotBlank(loginName)) {
+			map.put("loginName", loginName);
+		}
+		
 		return personService.count(map) == 0;
 	}
 

@@ -53,7 +53,7 @@ function load() {
                 {field: '', title: '序号', align: 'center', type: 'numbers'},
                 {field: 'name', title: '姓名', align: 'center'},
                 {field: 'stationName', title: '站点', align: 'center'},
-                {field: 'account', title: '照片上报账号', align: 'center'},
+                {field: 'loginName', title: '照片上报账号', align: 'center'},
                 {field: '', title: '操作', align: 'center', toolbar: '#toolbar'}
             ]]
             , id: 'testReload'
