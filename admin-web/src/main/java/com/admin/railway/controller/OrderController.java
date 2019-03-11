@@ -1,6 +1,7 @@
 package com.admin.railway.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +31,15 @@ public class OrderController extends BaseController {
 	private OrderService orderService;
 	
 	/**
+	 * 返回任务调度页面
+	 * @return
+	 */
+	@GetMapping("/list")
+	public String listUI() {
+		return "railway/order/list";
+	}
+	
+	/**
 	 * 返回任务调度界面列表数据
 	 * @param stationId
 	 * @return
@@ -53,11 +63,27 @@ public class OrderController extends BaseController {
 	}
 	
 	/**
-	 * 返回任务调度页面
+	 * 返回添加页面
 	 * @return
 	 */
-	@GetMapping("/list")
-	public String listUI() {
-		return "railway/order/list";
+	@GetMapping("/add")
+	public String addUI() {
+		return "railway/order/add";
+	}
+	
+	/**
+	 * 返回拍照人员-添加
+	 * @return
+	 */
+	@PostMapping("/add")
+	@ResponseBody
+	public R add(OrderDO order) {
+		
+		order.setDelState(Constants.NO);
+		order.setCreateTime(new Date());
+		order.setCreateUser("系统");
+		
+		orderService.save(order);
+		return R.ok();
 	}
 }
