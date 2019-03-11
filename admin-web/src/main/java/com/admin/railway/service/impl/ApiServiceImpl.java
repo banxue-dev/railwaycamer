@@ -45,17 +45,18 @@ public class ApiServiceImpl implements ApiService {
         //验证
         Map<String, Object> map = new HashMap<>();
         map.put("loginName", vo.getLoginName());
-        PersonDO personDO = personService.getPerson(map);
-        if (personDO == null) {
+        Map<String, Object> personMap = personService.login(map);
+        if (personMap.isEmpty()) {
             return R.error(Constant.ErrorInfo.USER_NOT_EXIST.getCode(), Constant.ErrorInfo.USER_NOT_EXIST.getMsg());
         }
         //验证密码
         String password = MD5Utils.encrypt(vo.getLoginName(), vo.getPassword());
-        if (!password.equals(personDO.getPassword())) {
+        String personPwd = personMap.get("password").toString();
+        if (!password.equals(personPwd)) {
             return R.error(Constant.ErrorInfo.PASSWORD_ERROR.getCode(), Constant.ErrorInfo.PASSWORD_ERROR.getMsg());
         }
         R r = new R();
-        r.put("person",personDO);
+        r.put("person",personMap);
         return r;
     }
 
@@ -114,9 +115,9 @@ public class ApiServiceImpl implements ApiService {
 
     @Override
     public R listTask(String personId) {
-        List<OrderDO> list = orderService.listTask(personId);
+        List<Map<String,Object>> map = orderService.listTask(personId);
         R r = new R();
-        r.put("taskList",list);
+        r.put("taskList",map);
         return r;
     }
 }

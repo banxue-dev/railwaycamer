@@ -45,8 +45,8 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 	@Override
-	public PersonDO getPerson(Map<String, Object> map) {
-		return personMapper.getPerson(map);
+	public Map<String, Object> login(Map<String, Object> map) {
+		return personMapper.login(map);
 	}
 
 	@Override

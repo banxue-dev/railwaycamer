@@ -4,25 +4,20 @@
 <mapper namespace="com.admin.railway.dao.PersonDao">
 
 	<select id="get" resultType="com.admin.railway.domain.PersonDO">
-		select `id`,`login_name`,`password`,`name`,`phone`,`station_id`,`station_name`,`del_state`,`create_time`,`create_user`,`modify_time`,`modify_user` from tbl_person where id = #{value}
+		select id,login_name,password,name,phone,station_id,station_name,del_state,create_time,create_user,modify_time,modify_user from tbl_person where id = #{value}
 	</select>
 
-	<select id="getPerson" resultType="com.admin.railway.domain.PersonDO">
-		select `id`,`login_name`,`password`,`name`,`phone`,`station_id`,`station_name` from tbl_person
+	<select id="login" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select id,login_name as loginName,name,phone,station_id as stationId,station_name as stationName from tbl_person
 		<where>
 			<if test="id != null and id != ''"> and id = #{id} </if>
 			<if test="loginName != null and loginName != ''"> and login_name = #{loginName} </if>
 			<if test="password != null and password != ''"> and password = #{password} </if>
-			<if test="name != null and name != ''"> and name = #{name} </if>
-			<if test="phone != null and phone != ''"> and phone = #{phone} </if>
-			<if test="stationId != null and stationId != ''"> and station_id = #{stationId} </if>
-			<if test="stationName != null and stationName != ''"> and station_name = #{stationName} </if>
-			<if test="delState != null and delState != ''"> and del_state = #{delState} </if>
 		</where>
 	</select>
 
 	<select id="list" resultType="com.admin.railway.domain.PersonDO">
-		select `id`,`login_name`,`password`,`name`,`phone`,`station_id`,`station_name`,`del_state`,`create_time`,`create_user`,`modify_time`,`modify_user` from tbl_person
+		select id,login_name,password,name,phone,station_id,station_name,del_state,create_time,create_user,modify_time,modify_user from tbl_person
         <where>
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
 		  		  <if test="loginName != null and loginName != ''"> and login_name = #{loginName} </if>
@@ -71,18 +66,18 @@
 	<insert id="save" parameterType="com.admin.railway.domain.PersonDO">
 		insert into tbl_person
 		(
-			`id`,
-			`login_name`,
-			`password`,
-			`name`,
-			`phone`,
-			`station_id`,
-			`station_name`,
-			`del_state`,
-			`create_time`,
-			`create_user`,
-			`modify_time`,
-			`modify_user`
+			id,
+			login_name,
+			password,
+			name,
+			phone,
+			station_id,
+			station_name,
+			del_state,
+			create_time,
+			create_user,
+			modify_time,
+			modify_user
 		)
 		values
 		(
@@ -104,17 +99,17 @@
 	<update id="update" parameterType="com.admin.railway.domain.PersonDO">
 		update tbl_person
 		<set>
-			<if test="loginName != null">`login_name` = #{loginName}, </if>
-			<if test="password != null">`password` = #{password}, </if>
-			<if test="name != null">`name` = #{name}, </if>
-			<if test="phone != null">`phone` = #{phone}, </if>
-			<if test="stationId != null">`station_id` = #{stationId}, </if>
-			<if test="stationName != null">`station_name` = #{stationName}, </if>
-			<if test="delState != null">`del_state` = #{delState}, </if>
-			<if test="createTime != null">`create_time` = #{createTime}, </if>
-			<if test="createUser != null">`create_user` = #{createUser}, </if>
-			<if test="modifyTime != null">`modify_time` = #{modifyTime}, </if>
-			<if test="modifyUser != null">`modify_user` = #{modifyUser}</if>
+			<if test="loginName != null">login_name = #{loginName}, </if>
+			<if test="password != null">password = #{password}, </if>
+			<if test="name != null">name = #{name}, </if>
+			<if test="phone != null">phone = #{phone}, </if>
+			<if test="stationId != null">station_id = #{stationId}, </if>
+			<if test="stationName != null">station_name = #{stationName}, </if>
+			<if test="delState != null">del_state = #{delState}, </if>
+			<if test="createTime != null">create_time = #{createTime}, </if>
+			<if test="createUser != null">create_user = #{createUser}, </if>
+			<if test="modifyTime != null">modify_time = #{modifyTime}, </if>
+			<if test="modifyUser != null">modify_user = #{modifyUser}</if>
 		</set>
 		where id = #{id}
 	</update>

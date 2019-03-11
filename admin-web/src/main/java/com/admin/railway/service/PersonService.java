@@ -17,7 +17,7 @@ public interface PersonService {
 	
 	PersonDO get(Long personId);
 
-	PersonDO getPerson(Map<String, Object> map);
+	Map<String, Object> login(Map<String, Object> map);
 
 	List<PersonDO> list(Map<String, Object> map);
 
