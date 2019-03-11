@@ -79,6 +79,8 @@ public class OrderController extends BaseController {
 	@ResponseBody
 	public R add(OrderDO order) {
 		
+		// 根据前端传的 personIds 查找用户名
+		
 		order.setDelState(Constants.NO);
 		order.setCreateTime(new Date());
 		order.setCreateUser("系统");
