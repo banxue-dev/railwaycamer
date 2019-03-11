@@ -148,7 +148,7 @@ public class PersonController extends BaseController {
 		}
 		Map<String, Object> map = new HashMap<>();
 		map.put("loginName", loginName);
-		return personService.count(map) > 0;
+		return personService.count(map) == 0;
 	}
 
 }
