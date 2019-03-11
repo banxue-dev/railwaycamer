@@ -80,7 +80,9 @@ function load() {
             , page: true
         });
 
-        var $ = layui.$, active = {
+        var $ = layui.$;
+        
+        active = {
             reload: function () {
                 var demoReload = $('#demoReload');
                 //执行重载
