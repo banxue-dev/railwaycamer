@@ -100,7 +100,7 @@
 						top + height + 5).css('left', left).css('width', width)
 						.show();
 			})
-	$('body').bind('click', function(event) {
+	$('html').bind('click', function(event) {
 		// IE支持 event.srcElement ， FF支持 event.target
 		var evt = event.srcElement ? event.srcElement : event.target;
 		if (evt.id == 'tree' || evt.id == 'treebox')

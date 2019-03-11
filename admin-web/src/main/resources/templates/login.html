@@ -13,8 +13,8 @@
 <form id="signupForm" >
 <div style="z-index:10;width:20%;border:1px solid #c1c1c1;height:18%;position:absolute;left:40%;top:40%;background-color:white;text-align:center;">
 	<h3>铁路货运管理系统</h3>
-	<div><input type="text" valid="required" tips="请输入用户名！" name="username" id="username" style="width:70%;border:1px solid #A3E1EC;height:28px;border-radius: 5px;" placeholder="用户名" /></div>
-	<div><input type="password" valid="required" tips="请输入密码！"  name="password" id="password"  style="width:70%;border:1px solid #A3E1EC;height:28px;border-radius: 5px;margin-top:5px;"  placeholder="密码"   /></div>
+	<div><input type="text" valid="required" value="system" tips="请输入用户名！" name="username" id="username" style="width:70%;border:1px solid #A3E1EC;height:28px;border-radius: 5px;" placeholder="用户名" /></div>
+	<div><input type="password" valid="required" value="123456" tips="请输入密码！"  name="password" id="password"  style="width:70%;border:1px solid #A3E1EC;height:28px;border-radius: 5px;margin-top:5px;"  placeholder="密码"   /></div>
 	<div id="login" style="margin-top:5px;background-color:#169BD5;width:18%;margin-left:41%;border-radius: 5px;color:white;height:26px;line-height:26px;cursor:pointer;">登录</div>
 </div>
 </form>
@@ -57,6 +57,7 @@
                         shade: [0.1,'#fff'] //0.1透明度的白色背景
                     });
                     parent.location.href = '/railway/index';
+                    parent.location.href = '/index';
                 } else {
                     layer.msg(r.msg);
                 }
