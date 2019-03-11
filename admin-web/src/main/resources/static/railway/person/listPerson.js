@@ -71,7 +71,7 @@ function load() {
                         curr: 1 //重新从第 1 页开始
                     }
                     , where: {
-                        id: 1   // 添加查询条件
+                        id: null   // 添加查询条件
                     }
                 });
             }

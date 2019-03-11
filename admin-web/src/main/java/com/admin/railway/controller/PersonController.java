@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -132,6 +133,22 @@ public class PersonController extends BaseController {
 		
 		personService.update(person);
 		return R.ok();
+	}
+	
+	/**
+	 * 校验数据
+	 * @loginName 校验的数据
+	 * @return
+	 */
+	@PostMapping("/check")
+	@ResponseBody
+	public boolean check(@RequestParam(value="loginName", required = false) String loginName) {
+		if (StringUtils.isBlank(loginName)) {
+			return false;
+		}
+		Map<String, Object> map = new HashMap<>();
+		map.put("loginName", loginName);
+		return personService.count(map) > 0;
 	}
 
 }

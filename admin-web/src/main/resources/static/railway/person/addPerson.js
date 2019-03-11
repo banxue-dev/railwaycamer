@@ -43,7 +43,20 @@ function validateRule() {
 	$("#signupForm").validate({
 		rules : {
 			loginName : {
-				required : true
+				required : true,
+				remote: {
+					url: "/railway/person/check", // 校验登录名是否已经存在
+					type: "post",
+					dataType: "json",
+					data: {
+						loginName:function(){
+								return $("#loginName").val();
+							}
+					}
+				},
+				onfocusout: function(element, event) {
+					console.log($('#loginName').val());
+				}
 			},
 			password : {
 				required : true
