@@ -1,86 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>Admin</title>
-    <meta name="keywords" content="Admin管理系统">
-    <meta name="description" content="Admin管理系统">
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>系统登陆</title> <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/font-awesome.css?v=4.4.0" rel="stylesheet">
     <link href="/css/animate.css" rel="stylesheet">
-    <link href="/css/style.css" rel="stylesheet">
-    <link href="/css/login.css" rel="stylesheet">
-    <!--[if lt IE 9]>
-    <meta http-equiv="refresh" content="0;ie.html"/>
-    <![endif]-->
-    <script>
-        if (window.top !== window.self) {
-            window.top.location = window.location;
-        }
-    </script>
-
 </head>
-
-<body class="signin">
-<div class="signinpanel">
-    <div class="row">
-        <div class="col-sm-7">
-            <div class="signin-info">
-                <div class="logopanel m-b">
-                    <h1>Admin</h1>
-                </div>
-                <div class="m-b"></div>
-                <h3>
-                    欢迎使用 <strong>Admin管理系统</strong>
-                </h3>
-            </div>
-        </div>
-        <div class="col-sm-5">
-            <form id="signupForm">
-                <h3 class="text-center">用户登录</h3>
-                <p class="m-t-md text-center">欢迎登录Admin后台管理系统</p>
-                <input type="text" name="username" class="form-control uname"
-                       value="admin"/>
-                <input type="password" name="password"
-                       class="form-control pword m-b" value="1"/>
-                <a id="login" class="btn btn-login btn-block">登录</a>
-                <!--按钮模块-->
-                <!-- <div class="outside-login">
-                    <div class="outside-login-tit">
-                        <span>代码链接</span>
-                    </div>
-                    <div class="outside-login-cot">
-                        <a class="outside-login-btn wxoa actived oschina J-btnSwitchLoginType" target="_Blank"
-                           href="https://www.oschina.net/p/Admin">
-                            <em><i class="fa fa-home"></i></em>
-                            <span>oschina主页</span>
-                        </a>
-                        <a class="outside-login-btn wxoa actived my J-btnSwitchLoginType" target="_Blank"
-                           href="https://gitee.com/lcg0124/Admin">
-                            <em><i class="fa fa-git-square"></i></em>
-                            <span>码云仓库</span>
-                        </a>
-                        <a class="outside-login-btn wxoa actived git J-btnSwitchLoginType" target="_Blank"
-                           href="https://github.com/lcg0124/Admin">
-                            <em><i class="fa fa-github"></i></em>
-                            <span>GitHub仓库</span>
-                        </a>
-                    </div>
-                </div> -->
-
-            </form>
-        </div>
-    </div>
-    <div class="container">
-	<div class="center-block">该 div 显示在中间</div>
+<body class="layui-layout-body">
+<div style="width:100%;height:50%;background-color:#03BCD4;border:0px;z-index:1;"></div>
+<div style="width:100%;height:50%;background-color:white;border:0px;z-index:1;" ></div>
+<form id="signupForm" >
+<div style="z-index:10;width:20%;border:1px solid #c1c1c1;height:18%;position:absolute;left:40%;top:40%;background-color:white;text-align:center;">
+	<h3>铁路货运管理系统</h3>
+	<div><input type="text" valid="required" tips="请输入用户名！" name="username" id="username" style="width:70%;border:1px solid #A3E1EC;height:28px;border-radius: 5px;" placeholder="用户名" /></div>
+	<div><input type="password" valid="required" tips="请输入密码！"  name="password" id="password"  style="width:70%;border:1px solid #A3E1EC;height:28px;border-radius: 5px;margin-top:5px;"  placeholder="密码"   /></div>
+	<div id="login" style="margin-top:5px;background-color:#169BD5;width:18%;margin-left:41%;border-radius: 5px;color:white;height:26px;line-height:26px;cursor:pointer;">登录</div>
 </div>
-   <!--  <div class="signup-footer">
-        <div class="pull-left">&copy; 2018 All Rights Reserved. Admin </div>
-    </div> -->
-</div>
+</form>
 <script th:inline="javascript"> var ctx = [[@{/}]] ; </script>
 <!-- 全局js -->
 <script src="/js/jquery.min.js?v=2.1.4" th:src="@{/js/jquery.min.js?v=2.1.4}"></script>
@@ -88,16 +25,15 @@
 
 <!-- 自定义js -->
 <script src="/js/content.js?v=1.0.0" th:src="@{/js/content.js?v=1.0.0}"></script>
-
-<!-- jQuery Validation plugin javascript-->
 <script src="/js/ajax-util.js"></script>
-<script src="/js/plugins/validate/jquery.validate.min.js" th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
-<script src="/js/plugins/validate/messages_zh.min.js" th:src="@{/js/plugins/validate/messages_zh.min.js}"></script>
+<script src="/js/utils.js"></script>
 <script src="/js/plugins/layer/layer.min.js" th:src="@{/js/plugins/layer/layer.min.js}"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#login").on('click',function(){$("#signupForm").submit();});
-        validateRule();
+        $("#login").on('click',function(){
+        	login();
+        	
+        });
     });
 
     $.validator.setDefaults({
@@ -107,6 +43,10 @@
     });
 
     function login() {
+    	var res=validateFrom('signupForm');
+    	if(!res.res){
+    		return;
+    	}
         $.ajax({
             type: "POST",
             url: ctx+"login",
@@ -116,7 +56,7 @@
                     var index = layer.load(1, {
                         shade: [0.1,'#fff'] //0.1透明度的白色背景
                     });
-                    parent.location.href = '/index';
+                    parent.location.href = '/railway/index';
                 } else {
                     layer.msg(r.msg);
                 }
@@ -124,27 +64,35 @@
         });
     }
 
-    function validateRule() {
-        var icon = "<i class='fa fa-times-circle'></i> ";
-        $("#signupForm").validate({
-            rules: {
-                username: {
-                    required: true
-                },
-                password: {
-                    required: true
-                }
-            },
-            messages: {
-                username: {
-                    required: icon + "请输入您的用户名",
-                },
-                password: {
-                    required: icon + "请输入您的密码",
-                }
-            }
-        })
-    }
+</script>
+<script>
+	
+	!function (window) //函数：获取尺寸
+	{
+		var c_height=window.screen.height ;
+		$('body').css('height',c_height);
+		var winWidth = 0;
+		var winHeight = 0;
+		//获取窗口宽度
+		if (window.innerWidth)
+			winWidth = window.innerWidth;
+		else if ((document.body) && (document.body.clientWidth))
+			winWidth = document.body.clientWidth;
+		//获取窗口高度
+		if (window.innerHeight)
+			winHeight = window.innerHeight;
+		else if ((document.body) && (document.body.clientHeight))
+			winHeight = document.body.clientHeight;
+		//通过深入Document内部对body进行检测，获取窗口大小
+		if (document.documentElement  && document.documentElement.clientHeight && document.documentElement.clientWidth)
+		{
+			winHeight = document.documentElement.clientHeight;
+			winWidth = document.documentElement.clientWidth;
+		}
+		console.log(winHeight+"---"+winWidth);
+		$('body').css('height',winHeight-20);
+		$('body').css('width',winWidth);
+	}(window);
 </script>
 </body>
 </html>
