@@ -2,6 +2,13 @@ $(function() {
 	validateRule();
 });
 $.validator.setDefaults({
+	// 提交表单时做校验
+	onsubmit: true,
+	// 焦点自动定位到第一个无效元素
+	focusInvalid: true,
+	// 元素获取焦点时清除错误信息
+	focusCleanup: true,
+	//校验通过后的回调，可用来提交表单
 	submitHandler : function() {
 		save();
 	}
@@ -35,13 +42,19 @@ function validateRule() {
 	var icon = "<i class='fa fa-times-circle'></i> ";
 	$("#signupForm").validate({
 		rules : {
-			roleName : {
+			loginName : {
+				required : true
+			},
+			password : {
 				required : true
 			}
 		},
 		messages : {
-			roleName : {
-				required : icon + "请输入角色名"
+			loginName : {
+				required : icon + "请输入照片上报账号"
+			},
+			password : {
+				required : icon + "请输入密码"
 			}
 		}
 	});
