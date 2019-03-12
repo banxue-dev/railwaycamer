@@ -57,6 +57,7 @@ public class ApiServiceImpl implements ApiService {
         }
         R r = new R();
         r.put("person",personMap);
+        r.put("token","");
         return r;
     }
 
