@@ -30,7 +30,7 @@
 							html+='</ul>';
 							html+='</li>';
 						}else{
-							html+='<li><a href="javascript:;">'+tar.text+'</a></li>';
+							html+='<li><a href="javascript:;" data-id="'+tar.attributes.id+'" >'+tar.text+'</a></li>';
 						}
 					
 					}
@@ -55,9 +55,9 @@
 				initcss:function(treedom,params){
 					var defpara={
 						isBind:true,
-						bindTag:'tree',//要绑定到那个元素下,以让起被点击时显示这个树
-						min:10,
-						dz:15,
+						bindTag:'tree',//要绑定到那个元素下,以让其被点击时显示这个树
+						min:10,//上级与下级直接的间距起点
+						dz:15,//上级与下级直接的间距递增量
 						childClick:function(tag){
 							alert($(tag).text());
 						}

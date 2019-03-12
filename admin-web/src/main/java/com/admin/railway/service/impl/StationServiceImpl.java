@@ -70,6 +70,7 @@ public class StationServiceImpl implements StationService {
 			tree.setText(sysStationDO.getName());
 			Map<String, Object> attributes = new HashMap<>(16);
 			attributes.put("name", sysStationDO.getName());
+			attributes.put("id", sysStationDO.getId());
 			tree.setAttributes(attributes);
 			trees.add(tree);
 		}
