@@ -25,5 +25,7 @@ public interface PersonDao {
 	int batchRemove(Long[] personIds);
 
 	Map<String, Object> login(Map<String, Object> map);
+
+	List<PersonDO> getByIds(List<Long> personIds);
 	
 }

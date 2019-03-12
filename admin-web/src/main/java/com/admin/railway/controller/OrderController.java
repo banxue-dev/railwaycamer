@@ -1,10 +1,12 @@
 package com.admin.railway.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +31,8 @@ public class OrderController extends BaseController {
 
 	@Autowired
 	private OrderService orderService;
+	@Autowired
+	private PersonService personService;
 	
 	/**
 	 * 返回任务调度页面
@@ -80,6 +84,19 @@ public class OrderController extends BaseController {
 	public R add(OrderDO order) {
 		
 		// 根据前端传的 personIds 查找用户名
+		String personIds = order.getPersonIds();
+		List<Long> ids = Arrays.stream(personIds.split(","))
+				.map(s -> Long.parseLong(s.trim()))
+				.collect(Collectors.toList());
+		List<PersonDO> personList = personService.getByIds(ids);
+		
+		String personNames = personList.stream().map(PersonDO::getName).collect(Collectors.joining(","));
+		order.setPersonNames(personNames);
+		
+		// 检查 续拍是否设置:没有设置设置默认值 0
+		if (order.getContinueShot() == null) {
+			order.setContinueShot(Constants.NO);
+		}
 		
 		order.setDelState(Constants.NO);
 		order.setCreateTime(new Date());

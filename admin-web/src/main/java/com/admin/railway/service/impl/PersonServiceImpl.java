@@ -59,4 +59,9 @@ public class PersonServiceImpl implements PersonService {
 		return personMapper.count(map);
 	}
 
+	@Override
+	public List<PersonDO> getByIds(List<Long> personIds) {
+		return personMapper.getByIds(personIds);
+	}
+
 }
