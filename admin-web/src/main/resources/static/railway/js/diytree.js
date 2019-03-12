@@ -162,7 +162,7 @@
 					*/
 					if(defpara.bindTag){
 						var bindtags=defpara.bindTag.split(',');
-						for(var i=;i<bindtags.length){
+						for(var i=0;i<bindtags.length;i++){
 							var thisTag=bindtags[i];
 							$('#'+thistage).click(function (){
 //							var btag=$('#'+defpara.bindTag);
