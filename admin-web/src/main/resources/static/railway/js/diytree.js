@@ -48,46 +48,12 @@
 						html+=listree.loophtml(tdata);
 						html+='</ul>';
 						tree.html(html);
-						listree.initcss(treedom,params);
+						listree.initevent(treedom,params);
 					});
 					
 				},
-				initcss:function(treedom,params){
-					var defpara={
-						isBind:true,
-						bindTag:'tree',//要绑定到那个元素下,以让其被点击时显示这个树
-						min:10,//上级与下级直接的间距起点
-						dz:15,//上级与下级直接的间距递增量
-						childClick:function(tag){
-							alert($(tag).text());
-						}
-					}
-					$.extend(defpara,params);
-					/*
-					* 进行菜单的展开与折叠
-					*/
-					$(".treebox .parent>label").click(function(){
-						var d=$(this).siblings('ul').css('display');
-						if(d!='none'){
-							$(this).siblings('ul').slideUp('slow','easeOutQuad');
-							$(this).children("i").removeClass('down')
-							return false;
-						}
-						$(this).addClass('current')   //给当前元素添加"current"样式
-						.find('i').addClass('down')   //小箭头向下样式
-						.parent().next().slideDown('slow','easeOutQuad')  //下一个元素显示
-						.parent().siblings().children('label').removeClass('current')//父元素的兄弟元素的子元素去除"current"样式
-						.find('i').removeClass('down').parent().next().slideUp('slow','easeOutQuad');//隐藏
-						 return false; //阻止默认时间
-					});
-					/*
-					* 子节点点击事件
-					*/
-					$('.child>li>a').click(function(){
-					
-						defpara.childClick(this);
-					});
-					
+				initcss:function(defpara){
+
 					var colors=[
 						{color:"white",backend:"#004069"},
 						{color:"white",backend:"#3E8DD0"},
@@ -134,7 +100,44 @@
 						var par=$(_this).siblings('label').css('padding-left').replace(/px/,'')*1;
 						$(_this).children('li').children('a').css('padding-left',par+=dz);
 					})
+				},
+				initevent:function(treedom,params){
+					var defpara={
+						isBind:true,
+						bindTag:'tree',//要绑定到那个元素下,以让其被点击时显示这个树
+						min:10,//上级与下级直接的间距起点
+						dz:15,//上级与下级直接的间距递增量
+						childClick:function(tag){
+							alert($(tag).text());
+						}
+					}
+					$.extend(defpara,params);
+					/*
+					* 进行菜单的展开与折叠
+					*/
+					$(".treebox .parent>label").click(function(){
+						var d=$(this).siblings('ul').css('display');
+						if(d!='none'){
+							$(this).siblings('ul').slideUp('slow','easeOutQuad');
+							$(this).children("i").removeClass('down')
+							return false;
+						}
+						$(this).addClass('current')   //给当前元素添加"current"样式
+						.find('i').addClass('down')   //小箭头向下样式
+						.parent().next().slideDown('slow','easeOutQuad')  //下一个元素显示
+						.parent().siblings().children('label').removeClass('current')//父元素的兄弟元素的子元素去除"current"样式
+						.find('i').removeClass('down').parent().next().slideUp('slow','easeOutQuad');//隐藏
+						 return false; //阻止默认时间
+					});
+					/*
+					* 子节点点击事件
+					*/
+					$('.child>li>a').click(function(){
 					
+						defpara.childClick(this);
+					});
+					
+					listree.initcss(defpara);
 					/*
 						显示tree
 					*/
