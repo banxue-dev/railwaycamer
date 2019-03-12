@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>layui</title>
+    <title>人员管理</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -15,81 +15,21 @@
         <div class="layui-form-item">
             <div class="layui-inline">
                 <div class="layui-input-inline">
-                    <input type="text" id="tree" lay-filter="tree" class="layui-input">
+                	<input type="text" style="display: none;" id="stationId" name="stationId" class="layui-input">
+                    <input type="text" id="tree" lay-filter="tree" class="layui-input" readonly="readonly" placeholder="请选择站点">
                 </div>
             </div>
             <div class="layui-inline">
-                <div class="layui-input-inline">
+                <div class="layui-input-inline" style="width: 240px;">
                     <button class="layui-btn layui-btn-normal" onclick="reLoad(); return false;"> 查 询 </button>
                     <button class="layui-btn layui-btn-normal" onclick="add(); return false;"> 添 加 </button>
+                    <button class="layui-btn layui-btn-normal" type="reset"> 重 置 </button>
                 </div>
             </div>
         </div>
     </div>
 </form>
-<div class="treebox" style="display:none;" id="treebox">
-		<ul class="menu">
-			<li class="parent top">
-				<label><em class=" "></em>上海铁路中心<i></i></label>
-				<ul class="child">
-					<li class="parent">
-						<label ><em class=" "></em>上海货运中心<i></i></label>
-						<ul class="child">
-							<li><a href="javascript:;">导航选项21</a></li>
-							<li><a href="javascript:;">导航选项22</a></li>
-							<li><a href="javascript:;">导航选项23</a></li>
-						</ul>
-					</li>
-					<li class="parent">
-						<label ><em class=" "></em>金华货运中心<i></i></label>
-						<ul class="child">
-							<li class="parent">
-								<label ><em class=" "></em>金华货运中心<i></i></label>
-								<ul class="child">
-									
-									<li class="parent">
-										<label ><em class=" "></em>大山货运中心<i></i></label>
-										<ul class="child">
-											<li><a href="javascript:;">金华货运站</a></li>
-											<li><a href="javascript:;">义务西货运站</a></li>
-											<li><a href="javascript:;">兰溪货运站</a></li>
-											<li><a href="javascript:;">诸暨货运站</a></li>
-										</ul>
-									</li>
-									<li><a href="javascript:;">金华货运站</a></li>
-									<li><a href="javascript:;">义务西货运站</a></li>
-									<li><a href="javascript:;">兰溪货运站</a></li>
-								</ul>
-							</li>
-							<li><a href="javascript:;">义务西货运站</a></li>
-							<li><a href="javascript:;">兰溪货运站</a></li>
-							<li><a href="javascript:;">诸暨货运站</a></li>
-						</ul>
-					</li>
-					<li><a href="javascript:;">诸暨货运站</a></li>
-					<li><a href="javascript:;">诸暨货运站</a></li>
-				</ul>
-			</li>
-			<li class="parent top">
-				<label><em class=" "></em>芜湖货运中心<i></i></label>
-				<ul class="child">
-					<li><a href="javascript:;">导航选项</a></li>
-					<li><a href="javascript:;">导航选项</a></li>
-					<li><a href="javascript:;">导航选项</a></li>
-					<li><a href="javascript:;">导航选项</a></li>
-				</ul>
-			</li>
-			<li class="parent top">
-				<label ><em class=" "></em>南京货运中心<i></i></label>
-				<ul class="child">
-					<li><a href="javascript:;">导航选项</a></li>
-					<li><a href="javascript:;">导航选项</a></li>
-					<li><a href="javascript:;">导航选项</a></li>
-					<li><a href="javascript:;">导航选项</a></li>
-				</ul>
-			</li>
-		</ul>
-	</div>
+<div id="treebox"></div>
 <table class="layui-table" id="list"></table>
 
 <script type="text/html" id="toolbar">

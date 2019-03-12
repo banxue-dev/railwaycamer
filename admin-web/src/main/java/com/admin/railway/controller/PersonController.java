@@ -22,7 +22,9 @@ import com.admin.common.utils.Query;
 import com.admin.common.utils.QueryParam;
 import com.admin.common.utils.R;
 import com.admin.railway.domain.PersonDO;
+import com.admin.railway.domain.StationDO;
 import com.admin.railway.service.PersonService;
+import com.admin.railway.service.StationService;
 import com.sun.tools.javac.resources.compiler;
 
 @Controller
@@ -31,6 +33,8 @@ public class PersonController extends BaseController {
 
 	@Autowired
 	private PersonService personService;
+	@Autowired
+	private StationService stationService;
 	
 	@GetMapping("/get")
 	@ResponseBody
@@ -90,6 +94,12 @@ public class PersonController extends BaseController {
 	@ResponseBody
 	public R add(PersonDO person) {
 		
+		// 设置stationName
+		if (person.getStationId() != null) {
+			StationDO station = stationService.get(person.getStationId());
+			person.setStationName(station.getName());
+		}
+		
 		person.setDelState(Constants.NO);
 		person.setCreateTime(new Date());
 		person.setCreateUser("系统");
@@ -128,6 +138,12 @@ public class PersonController extends BaseController {
 	@ResponseBody
 	public R update(PersonDO person) {
 		
+		// 设置stationName
+		if (person.getStationId() != null) {
+			StationDO station = stationService.get(person.getStationId());
+			person.setStationName(station.getName());
+		}
+		
 		person.setModifyTime(new Date());
 		person.setModifyUser("系统");
 		
@@ -142,13 +158,23 @@ public class PersonController extends BaseController {
 	 */
 	@PostMapping("/check")
 	@ResponseBody
-	public boolean check(@RequestParam(value="loginName", required = false) String loginName) {
-		if (StringUtils.isBlank(loginName)) {
-			return false;
+	public boolean check(
+			@RequestParam(value="loginName", required = false) String loginName,
+			@RequestParam(value="personId", required = false) Long personId) {
+		// 修改页面, loginName和原始的loginName相同, 检查通过
+		if (personId != null) {
+			PersonDO person = personService.get(personId); 
+			if (StringUtils.equals(person.getLoginName(), loginName)) {
+				return true;
+			}
 		}
+		
 		Map<String, Object> map = new HashMap<>();
-		map.put("loginName", loginName);
-		return personService.count(map) > 0;
+		if (StringUtils.isNotBlank(loginName)) {
+			map.put("loginName", loginName);
+		}
+		
+		return personService.count(map) == 0;
 	}
 
 }

@@ -124,5 +124,13 @@
 			#{id}
 		</foreach>
 	</delete>
+	
+	<select id="getByIds" resultType="com.admin.railway.domain.PersonDO">
+		select id,login_name,password,name,phone,station_id,station_name,del_state,create_time,create_user,modify_time,modify_user from tbl_person 
+		where id IN
+		<foreach item="id" collection="list" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</select>
 
 </mapper>

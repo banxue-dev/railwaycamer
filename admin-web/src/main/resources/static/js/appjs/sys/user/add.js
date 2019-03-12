@@ -20,6 +20,11 @@ function getCheckedRoles() {
 }
 function save() {
 	$("#roleIds").val(getCheckedRoles());
+	var dept=$('#deptId').val();
+	if(!dept){
+		parent.layer.alert("请选择部门");
+		return;
+	}
 	$.ajax({
 		cache : true,
 		type : "POST",
@@ -69,6 +74,9 @@ function validateRule() {
 				required : true,
 				minlength : 6
 			},
+			deptId:{
+				required : true,
+			},
 			confirm_password : {
 				required : true,
 				minlength : 6,
@@ -88,6 +96,9 @@ function validateRule() {
 
 			name : {
 				required : icon + "请输入姓名"
+			},
+			deptId : {
+				required : icon + "请选择部门"
 			},
 			username : {
 				required : icon + "请输入您的用户名",

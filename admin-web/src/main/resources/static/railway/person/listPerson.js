@@ -53,7 +53,7 @@ function load() {
                 {field: '', title: '序号', align: 'center', type: 'numbers'},
                 {field: 'name', title: '姓名', align: 'center'},
                 {field: 'stationName', title: '站点', align: 'center'},
-                {field: 'account', title: '照片上报账号', align: 'center'},
+                {field: 'loginName', title: '照片上报账号', align: 'center'},
                 {field: '', title: '操作', align: 'center', toolbar: '#toolbar'}
             ]]
             , id: 'testReload'
@@ -71,7 +71,9 @@ function load() {
                         curr: 1 //重新从第 1 页开始
                     }
                     , where: {
-                        id: null   // 添加查询条件
+                        stationId: function(){
+                        	return $('#stationId').val();
+                        }   // 添加查询条件
                     }
                 });
             }
@@ -80,6 +82,16 @@ function load() {
         $('.demoTable .layui-btn').on('click', function () {
             var type = $(this).data('type');
             active[type] ? active[type].call(this) : '';
+        });
+        
+        $('#treebox').treeinit('/railway/station/listTree',{
+        	bindTag:'tree',
+        	childClick: function(d){
+        		var name = $(d).text();
+        		var stationId = $(d).attr('data-id');
+        		$('#tree').val(name);
+        		$('#stationId').val(stationId);
+        	}
         });
     });
 }

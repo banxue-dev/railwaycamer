@@ -1,11 +1,32 @@
 $(function() {
+	initTree();
 	validateRule();
 });
 $.validator.setDefaults({
+	// 提交表单时做校验
+	onsubmit: true,
+	// 焦点自动定位到第一个无效元素
+	focusInvalid: true,
+	// 元素获取焦点时清除错误信息
+	focusCleanup: true,
+	//校验通过后的回调，可用来提交表单
 	submitHandler : function() {
 		update();
 	}
 });
+
+function initTree(){
+	 $('#treebox').treeinit('/railway/station/listTree',{
+    	bindTag:'tree',
+    	childClick: function(d){
+    		var name = $(d).text();
+    		var stationId = $(d).attr('data-id');
+    		$('#tree').val(name);
+    		$('#stationId').val(stationId);
+    	}
+    });
+}
+
 function update() {
 	var data = $('#signupForm').serialize();
 	$.ajax({
@@ -35,13 +56,32 @@ function validateRule() {
 	var icon = "<i class='fa fa-times-circle'></i> ";
 	$("#signupForm").validate({
 		rules : {
-			roleName : {
+			loginName : {
+				required : true,
+				remote: {
+					url: "/railway/person/check", // 校验登录名是否已经存在
+					type: "post",
+					dataType: "json",
+					data: {
+						loginName:function(){
+								return $("#loginName").val();
+						},
+						personId:function(){
+								return $("#id").val();
+						}
+					}
+				}
+			},
+			password : {
 				required : true
 			}
 		},
 		messages : {
-			roleName : {
-				required : icon + "请输入角色名"
+			loginName : {
+				required : icon + "请输入照片上报账号"
+			},
+			password : {
+				required : icon + "请输入密码"
 			}
 		}
 	});
