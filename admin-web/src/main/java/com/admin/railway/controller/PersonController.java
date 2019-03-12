@@ -138,6 +138,12 @@ public class PersonController extends BaseController {
 	@ResponseBody
 	public R update(PersonDO person) {
 		
+		// 设置stationName
+		if (person.getStationId() != null) {
+			StationDO station = stationService.get(person.getStationId());
+			person.setStationName(station.getName());
+		}
+		
 		person.setModifyTime(new Date());
 		person.setModifyUser("系统");
 		
