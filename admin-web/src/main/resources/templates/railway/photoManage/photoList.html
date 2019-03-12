@@ -40,68 +40,8 @@
         </div>
     </div>
 </form>
-<div class="treebox" style="display:none;" id="treebox">
-		<ul class="menu">
-			<li class="parent top">
-				<label><em class=" "></em>上海铁路中心<i></i></label>
-				<ul class="child">
-					<li class="parent">
-						<label ><em class=" "></em>上海货运中心<i></i></label>
-						<ul class="child">
-							<li><a href="javascript:;">导航选项21</a></li>
-							<li><a href="javascript:;">导航选项22</a></li>
-							<li><a href="javascript:;">导航选项23</a></li>
-						</ul>
-					</li>
-					<li class="parent">
-						<label ><em class=" "></em>金华货运中心<i></i></label>
-						<ul class="child">
-							<li class="parent">
-								<label ><em class=" "></em>金华货运中心<i></i></label>
-								<ul class="child">
-									
-									<li class="parent">
-										<label ><em class=" "></em>大山货运中心<i></i></label>
-										<ul class="child">
-											<li><a href="javascript:;">金华货运站</a></li>
-											<li><a href="javascript:;">义务西货运站</a></li>
-											<li><a href="javascript:;">兰溪货运站</a></li>
-											<li><a href="javascript:;">诸暨货运站</a></li>
-										</ul>
-									</li>
-									<li><a href="javascript:;">金华货运站</a></li>
-									<li><a href="javascript:;">义务西货运站</a></li>
-									<li><a href="javascript:;">兰溪货运站</a></li>
-								</ul>
-							</li>
-							<li><a href="javascript:;">义务西货运站</a></li>
-							<li><a href="javascript:;">兰溪货运站</a></li>
-							<li><a href="javascript:;">诸暨货运站</a></li>
-						</ul>
-					</li>
-					<li><a href="javascript:;">诸暨货运站</a></li>
-					<li><a href="javascript:;">诸暨货运站</a></li>
-				</ul>
-			</li>
-			<li class="parent top">
-				<label><em class=" "></em>芜湖货运中心<i></i></label>
-				<ul class="child">
-					<li><a href="javascript:;">导航选项</a></li>
-					<li><a href="javascript:;">导航选项</a></li>
-					<li><a href="javascript:;">导航选项</a></li>
-					<li><a href="javascript:;">导航选项</a></li>
-				</ul>
-			</li>
-			<li class="parent top">
-				<label ><em class=" "></em>南京货运中心<i></i></label>
-				<ul class="child">
-					<li><a href="javascript:;">导航选项</a></li>
-					<li><a href="javascript:;">导航选项</a></li>
-					<li><a href="javascript:;">导航选项</a></li>
-					<li><a href="javascript:;">导航选项</a></li>
-				</ul>
-			</li>
-		</ul>
+<div id="treebox">
+		
 	</div>
 <table class="layui-table" id="list"></table>
 <script type="text/html" id="toolbar">
@@ -189,6 +129,9 @@
         $('.demoTable .layui-btn').on('click', function () {
             var type = $(this).data('type');
             active[type] ? active[type].call(this) : '';
+        });
+        $('#treebox').treeinit('/railway/station/listTree',{
+        	bindTag:'tree'
         });
     });
 </script>

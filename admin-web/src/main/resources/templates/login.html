@@ -36,12 +36,6 @@
         });
     });
 
-    $.validator.setDefaults({
-        submitHandler: function () {
-            login();
-        }
-    });
-
     function login() {
     	var res=validateFrom('signupForm');
     	if(!res.res){

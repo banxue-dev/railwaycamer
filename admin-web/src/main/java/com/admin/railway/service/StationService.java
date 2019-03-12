@@ -3,8 +3,10 @@ package com.admin.railway.service;
 import java.util.List;
 import java.util.Map;
 
+import com.admin.common.domain.Tree;
 import com.admin.railway.domain.PersonDO;
 import com.admin.railway.domain.StationDO;
+import com.admin.system.domain.MenuDO;
 
 public interface StationService {
 	
@@ -21,5 +23,6 @@ public interface StationService {
 	List<StationDO> list(Map<String, Object> map);
 
 	int count(Map<String, Object> map);
+	List<Tree<StationDO>> getStationByTree(Map<String, Object> map);
 
 }
