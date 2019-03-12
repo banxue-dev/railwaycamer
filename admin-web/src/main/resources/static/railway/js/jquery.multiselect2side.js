@@ -110,7 +110,7 @@
 							((o.selectedPosition != 'right' && o.moveOptions) ? divUpDown : "") +
 						"<div class='ms2side__select'>" +
 							((o.labelsx || leftSearch != false) ? ("<div class='ms2side__header'>" + (leftSearch != false ? leftSearch : o.labelsx) + "</div>") : "") +
-							"<select title='" + o.labelsx + "' name='" + nameSx + "' id='" + nameSx + "' size='" + size + "' multiple='multiple' ></select>" +
+							"<select title='" + o.labelsx + "' style='height:150px;' name='" + nameSx + "' id='" + nameSx + "' size='" + size + "' multiple='multiple' ></select>" +
 						"</div>" +
 						"<div class='ms2side__options'>" +
 							((o.selectedPosition == 'right')
@@ -128,7 +128,7 @@
 						"</div>" +
 						"<div class='ms2side__select'>" +
 							((o.labeldx || rightSearch != false) ? ("<div class='ms2side__header'>" + (rightSearch != false ? rightSearch : o.labeldx) + "</div>") : "") +
-							"<select title='" + o.labeldx + "' name='" + nameDx + "' id='" + nameDx + "' size='" + size + "' multiple='multiple' ></select>" +
+							"<select title='" + o.labeldx + "' style='height:150px;' name='" + nameDx + "' id='" + nameDx + "' size='" + size + "' multiple='multiple' ></select>" +
 						"</div>" +
 						((o.selectedPosition == 'right' && o.moveOptions) ? divUpDown : "") +
 					"</div>";
