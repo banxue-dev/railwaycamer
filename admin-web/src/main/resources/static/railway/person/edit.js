@@ -1,4 +1,5 @@
 $(function() {
+	initTree();
 	validateRule();
 });
 $.validator.setDefaults({
@@ -13,6 +14,19 @@ $.validator.setDefaults({
 		update();
 	}
 });
+
+function initTree(){
+	 $('#treebox').treeinit('/railway/station/listTree',{
+    	bindTag:'tree',
+    	childClick: function(d){
+    		var name = $(d).text();
+    		var stationId = $(d).attr('data-id');
+    		$('#tree').val(name);
+    		$('#stationId').val(stationId);
+    	}
+    });
+}
+
 function update() {
 	var data = $('#signupForm').serialize();
 	$.ajax({
