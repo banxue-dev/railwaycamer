@@ -154,6 +154,7 @@
 					$('.child>li>a').click(function(){
 					
 						defpara.childClick(this,listree.thisTag);
+						treedom.hide();
 					});
 					
 					listree.initcss(defpara);
@@ -181,7 +182,10 @@
 						$('html').bind('click', function(event) {
 							// IE支持 event.srcElement ， FF支持 event.target    
 							var evt = event.srcElement ? event.srcElement : event.target;    
-							if(defpara.bindTag.indexOf(evt.id) >=0  || evt.id==treedom.attr('id') ) {
+							if(!evt.id){
+								treedom.hide(); // 如不是则隐藏元素
+							}
+							if(defpara.bindTag.indexOf(evt.id) >0  || evt.id==treedom.attr('id') ) {
 								return;
 							} else {
 								treedom.hide(); // 如不是则隐藏元素
