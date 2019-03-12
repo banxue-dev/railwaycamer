@@ -2,20 +2,38 @@
 		var treeinit=function(url,params){
 			var treedom=$(this);
 			var listree={
+				thisTag:'',
 				init:function(treedom,url,params){
 					this.inithtml(treedom,url,params);
 				},
 				initdata:function(uri,callback){
-					//准备ajax
-					$.ajax({
-						url:uri,
-						type:'post',
-						success:function(res){
-							if(res.code=='0'){
-								callback(res.data);
+					if(url){
+						//准备ajax
+						$.ajax({
+							url:uri,
+							type:'post',
+							success:function(res){
+								if(res.code=='0'){
+									callback(res.data);
+								}
 							}
-						}
-					})
+						})
+					}else{
+						var deaddata=[{
+								"attributes": {
+									"icon": "fa fa-file-pdf-o",
+									"url": ""
+								},
+								"checked": false,
+								"children": [],
+								"hasChildren": false,
+								"hasParent": false,
+								"id": "105",
+								"parentId": "0",
+								"text": "照片查询"
+							}]
+						callback(deaddata)
+					}
 					
 				},
 				loophtml:function (tdata){
@@ -107,8 +125,9 @@
 						bindTag:'tree',//要绑定到那个元素下,以让其被点击时显示这个树
 						min:10,//上级与下级直接的间距起点
 						dz:15,//上级与下级直接的间距递增量
-						childClick:function(tag){
-							alert($(tag).text());
+						childClick:function(atag,tag){
+							//atag表示当前那个子节点，tag表示当前是由那个bingtag引出的
+							alert($(atag).text());
 						}
 					}
 					$.extend(defpara,params);
@@ -127,40 +146,50 @@
 						.parent().next().slideDown('slow','easeOutQuad')  //下一个元素显示
 						.parent().siblings().children('label').removeClass('current')//父元素的兄弟元素的子元素去除"current"样式
 						.find('i').removeClass('down').parent().next().slideUp('slow','easeOutQuad');//隐藏
-						 return false; //阻止默认时间
+						 return false; //阻止默认事件
 					});
 					/*
 					* 子节点点击事件
 					*/
 					$('.child>li>a').click(function(){
 					
-						defpara.childClick(this);
+						defpara.childClick(this,listree.thisTag);
 					});
 					
 					listree.initcss(defpara);
 					/*
-						显示tree
+						显示tree,如果有绑定的标签，就给标签加上点击事件
 					*/
-					
-					$('#'+defpara.bindTag).click(function (){
-						var btag=$('#'+defpara.bindTag);
-						var top = btag.offset().top;
-						var left = btag.offset().left;
-						var height = btag.css('height').replace(/px/, '') * 1;
-						var width = btag.css('width').replace(/px/, '') * 1;
-						treedom.css('position', 'absolute').css('top',
-								top + height + 5).css('left', left).css('width', width)
-								.show();
-					})
-					$('html').bind('click', function(event) {
-						// IE支持 event.srcElement ， FF支持 event.target    
-						var evt = event.srcElement ? event.srcElement : event.target;    
-						if(evt.id == defpara.bindTag || evt.id==treedom.attr('id') ) {
-							return;
-						} else {
-							treedom.hide(); // 如不是则隐藏元素
-						}   
-					});
+					if(defpara.bindTag){
+						var bindtags=defpara.bindTag.split(',');
+						for(var i=;i<bindtags.length){
+							var thisTag=bindtags[i];
+							$('#'+thistage).click(function (){
+//							var btag=$('#'+defpara.bindTag);
+								var _this=this;
+								var btag=$(_this);
+								listree.thistag=_this;
+								var top = btag.offset().top;
+								var left = btag.offset().left;
+								var height = btag.css('height').replace(/px/, '') * 1;
+								var width = btag.css('width').replace(/px/, '') * 1;
+								treedom.css('position', 'absolute').css('top',
+										top + height + 5).css('left', left).css('width', width)
+										.show();
+							})
+						}
+						$('html').bind('click', function(event) {
+							// IE支持 event.srcElement ， FF支持 event.target    
+							var evt = event.srcElement ? event.srcElement : event.target;    
+							if(defpara.bindTag.indexOf(evt.id) >=0  || evt.id==treedom.attr('id') ) {
+								return;
+							} else {
+								treedom.hide(); // 如不是则隐藏元素
+							}   
+						});
+					}else{
+						treedom.show(); 
+					}
 				}
 				
 			}
