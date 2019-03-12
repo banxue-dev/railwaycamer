@@ -58,8 +58,8 @@
 						bindTag:'tree',//要绑定到那个元素下,以让起被点击时显示这个树
 						min:10,
 						dz:15,
-						childClick:function(d){
-							alert(d);
+						childClick:function(tag){
+							alert($(tag).text());
 						}
 					}
 					$.extend(defpara,params);
@@ -85,7 +85,7 @@
 					*/
 					$('.child>li>a').click(function(){
 					
-						defpara.childClick($(this).text());
+						defpara.childClick(this);
 					});
 					
 					var colors=[
