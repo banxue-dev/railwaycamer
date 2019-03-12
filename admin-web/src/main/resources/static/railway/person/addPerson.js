@@ -1,6 +1,20 @@
 $(function() {
+	initTree();
 	validateRule();
 });
+
+function initTree(){
+	 $('#treebox').treeinit('/railway/station/listTree',{
+     	bindTag:'tree',
+     	childClick: function(d){
+     		var name = $(d).text();
+     		var stationId = $(d).attr('data-id');
+     		$('#tree').val(name);
+     		$('#stationId').val(stationId);
+     	}
+     });
+}
+
 $.validator.setDefaults({
 	// 提交表单时做校验
 	onsubmit: true,

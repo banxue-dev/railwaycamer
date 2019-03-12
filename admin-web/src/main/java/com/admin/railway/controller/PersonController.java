@@ -22,7 +22,9 @@ import com.admin.common.utils.Query;
 import com.admin.common.utils.QueryParam;
 import com.admin.common.utils.R;
 import com.admin.railway.domain.PersonDO;
+import com.admin.railway.domain.StationDO;
 import com.admin.railway.service.PersonService;
+import com.admin.railway.service.StationService;
 import com.sun.tools.javac.resources.compiler;
 
 @Controller
@@ -31,6 +33,8 @@ public class PersonController extends BaseController {
 
 	@Autowired
 	private PersonService personService;
+	@Autowired
+	private StationService stationService;
 	
 	@GetMapping("/get")
 	@ResponseBody
@@ -89,6 +93,12 @@ public class PersonController extends BaseController {
 	@PostMapping("/add")
 	@ResponseBody
 	public R add(PersonDO person) {
+		
+		// 设置stationName
+		if (person.getStationId() != null) {
+			StationDO station = stationService.get(person.getStationId());
+			person.setStationName(station.getName());
+		}
 		
 		person.setDelState(Constants.NO);
 		person.setCreateTime(new Date());
