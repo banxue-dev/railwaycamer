@@ -165,10 +165,9 @@
 						var bindtags=defpara.bindTag.split(',');
 						for(var i=0;i<bindtags.length;i++){
 							var thistage=bindtags[i];
-							var btag=$('#'+thistage);
-							btag.click(function (){
-//							var btag=$('#'+defpara.bindTag);
-								listree.thisTag=btag;
+							$('#'+thistage).click(function (){
+								var btag=$(this);
+								listree.thisTag=this;
 								var top = btag.offset().top;
 								var left = btag.offset().left;
 								var height = btag.css('height').replace(/px/, '') * 1;
