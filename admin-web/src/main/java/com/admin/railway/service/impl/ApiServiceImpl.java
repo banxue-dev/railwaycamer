@@ -79,7 +79,6 @@ public class ApiServiceImpl implements ApiService {
         //车厢
         sbUrl.append(vo.getTrainNo() + "/");
         try {
-            //
             String fileName = DateUtils.format(new Date(), "yyyyMMddHHmmsss") + ".jpg";
             FileUtil.uploadFile(file.getBytes(), sbUrl.toString(), fileName);
             //保存缩略图
