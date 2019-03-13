@@ -167,7 +167,7 @@ function load() {
 							var f = '<a class="btn btn-success btn-sm ' + s_add_h + '" href="#" title="增加"  mce_href="#" onclick="addD(\''
 								+ row.type +'\',\''+row.description
 								+ '\')"><i class="fa fa-plus"></i></a> ';
-							return e + d +f;
+							return f + d + e;
 						}
 					} ]
 			});

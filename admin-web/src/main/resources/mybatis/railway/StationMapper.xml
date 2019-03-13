@@ -84,7 +84,11 @@
 		</set>
 		where id = #{id}
 	</update>
-	
+
+	<update id="updateState" parameterType="java.util.HashMap">
+		update tbl_station set del_state = #{delState},modify_time = #{modifyTime},modify_user = #{modifyUser} where parent_id = #{parentId}
+	</update>
+
 	<delete id="remove">
 		delete from tbl_station where id = #{value}
 	</delete>

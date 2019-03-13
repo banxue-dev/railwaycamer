@@ -144,7 +144,7 @@ function load() {
                             var f = '<a class="btn btn-success btn-sm" href="#" title="开启"  mce_href="#" onclick="resetPwd(\''
                                 + row.id
                                 + '\')"><i class="fa fa-key"></i></a> ';
-                            return e + d;
+                            return d + e;
                         }
                     }]
             });

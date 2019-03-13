@@ -10,18 +10,20 @@ import com.admin.railway.domain.StationDO;
 @Mapper
 public interface StationDao {
 
-	StationDO get(Long personId);
+	StationDO get(Long id);
 	
 	List<StationDO> list(Map<String,Object> map);
 	
 	int count(Map<String,Object> map);
 
-	int save(StationDO person);
+	int save(StationDO station);
 
-	int update(StationDO person);
+	int update(StationDO station);
 	
 	int remove(Long stationId);
 	
 	int batchRemove(Long[] stationIds);
+
+	int updateState(Map<String,Object> map);
 	
 }

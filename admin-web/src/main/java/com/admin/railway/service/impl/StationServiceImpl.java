@@ -1,19 +1,17 @@
 package com.admin.railway.service.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+import com.admin.common.config.Constant;
 import com.admin.common.domain.Tree;
+import com.admin.common.exception.BDException;
 import com.admin.common.utils.BuildTree;
-import com.admin.common.utils.UuidUtil;
+import com.admin.system.domain.UserDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.admin.railway.dao.StationDao;
-import com.admin.railway.domain.PersonDO;
 import com.admin.railway.domain.StationDO;
 import com.admin.railway.service.StationService;
 
@@ -24,18 +22,71 @@ public class StationServiceImpl implements StationService {
     private StationDao stationMapper;
 
 	@Override
-	public void save(StationDO station) {
-		stationMapper.save(station);;
+	public boolean save(StationDO station, UserDO user) {
+		station.setCreateTime(new Date());
+		station.setCreateUser(String.valueOf(user.getUserId()));
+		int i = stationMapper.save(station);
+		if(i>0){
+			return true;
+		}else {
+			return false;
+		}
 	}
 
 	@Override
-	public void update(StationDO station) {
-		stationMapper.update(station);
+	@Transactional
+	public boolean update(StationDO station, UserDO user) {
+		//验证是否有子节点
+		Map<String,Object> map = new HashMap<>();
+		map.put(StationDO.PARENT_ID,station.getId());
+		List<StationDO> list = stationMapper.list(map);
+		if(list.size() > Constant.Number.ZERO.getCode()){
+			this.updateState(list,station.getDelState(),station.getId(),user);
+		}
+		station.setModifyTime(new Date());
+		station.setModifyUser(String.valueOf(user.getUserId()));
+		int i = stationMapper.update(station);
+		if(i>0){
+			return true;
+		}else {
+			return false;
+		}
+	}
+
+	private void updateState(List<StationDO> list,Integer delState,Long pId, UserDO user){
+		//根据父级节点修改状态
+		Map<String,Object> map = new HashMap<>();
+		map.put(StationDO.PARENT_ID,pId);
+		map.put(StationDO.DEL_STATE,delState);
+		map.put(StationDO.MODIFY_TIME,new Date());
+		map.put(StationDO.MODIFY_USER,user.getUserId());
+		stationMapper.updateState(map);
+		for(StationDO station : list){
+			Map<String,Object> nodeMap = new HashMap<>();
+			nodeMap.put(StationDO.PARENT_ID,station.getId());
+			List<StationDO> nodeList = stationMapper.list(nodeMap);
+			if(nodeList.size() > Constant.Number.ZERO.getCode()){
+				this.updateState(nodeList,delState,station.getId(),user);
+			}
+		}
 	}
 
 	@Override
-	public void remove(Long stationId) {
-		stationMapper.remove(stationId);
+	public boolean remove(Long stationId) {
+		//查询是否存在子节点
+		Map<String,Object> nodeMap = new HashMap<>();
+		nodeMap.put(StationDO.PARENT_ID,stationId);
+		List<StationDO> nodeList = stationMapper.list(nodeMap);
+		if(nodeList.size() > Constant.Number.ZERO.getCode()){
+			throw new BDException(Constant.ErrorInfo.EXIST_STATION_DEL_FAIL.getCode(),Constant.ErrorInfo.EXIST_STATION_DEL_FAIL.getMsg());
+		}else {
+			int i = stationMapper.remove(stationId);
+			if(i>0){
+				return true;
+			}else {
+				return false;
+			}
+		}
 	}
 
 	@Override

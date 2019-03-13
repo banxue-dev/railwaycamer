@@ -35,6 +35,12 @@ public class StationDO implements Serializable {
 	//修改用户
 	private String modifyUser;
 
-	
+	public final static String PARENT_ID = "parentId";
+
+	public final static String DEL_STATE = "delState";
+
+	public final static String MODIFY_TIME = "modifyTime";
+
+	public final static String MODIFY_USER = "modifyUser";
 
 }
