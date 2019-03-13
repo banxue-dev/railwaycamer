@@ -171,4 +171,23 @@ public class OrderController extends BaseController {
 		orderService.update(order);
 		return R.ok();
 	}
+	
+	/**
+	 * 复制
+	 * @param id
+	 * @return
+	 */
+	@PostMapping("/copy")
+	@ResponseBody
+	public R copy(Long id) {
+		OrderDO order = orderService.get(id);
+		order.setId(null);
+		order.setCreateTime(new Date());
+		order.setCreateUser("系统");
+		order.setModifyTime(null);
+		order.setModifyUser(null);
+		orderService.save(order);
+		
+		return R.ok();
+	}
 }
