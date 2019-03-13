@@ -53,9 +53,9 @@ function load() {
             , cols: [[
             	{field: '', title: '序号', align: 'center', type: 'numbers'},
                 {field: 'trainNo', title: '车号', align: 'center'},
-                {field: 'startTime', title: '日期', align: 'center', templet: function(order){
-                	if (order.startTime != null) {
-                        var date = new Date(order.startTime);
+                {field: 'createTime', title: '日期', align: 'center', templet: function(order){
+                	if (order.createTime != null) {
+                        var date = new Date(order.createTime);
                         return date.getFullYear() + '年' + (date.getMonth() + 1) + '月' + date.getDate() + '日';
                     }
                 	return '';
