@@ -39,6 +39,10 @@
 		  		  <if test="createUser != null and createUser != ''"> and create_user = #{createUser} </if>
 		  		  <if test="modifyTime != null and modifyTime != ''"> and modify_time = #{modifyTime} </if>
 		  		  <if test="modifyUser != null and modifyUser != ''"> and modify_user = #{modifyUser} </if>
+		  		  
+		  		  <!-- 前端查询根据时间查询 -->
+		  		  <if test="beginTime != null and beginTime != ''"> and create_time &gt;= #{beginTime} </if>
+		  		  <if test="endTime != null and endTime != ''"> and create_time &lt;= #{endTime} </if>
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">
@@ -80,6 +84,10 @@
 		  		  <if test="createUser != null and createUser != ''"> and create_user = #{createUser} </if>
 		  		  <if test="modifyTime != null and modifyTime != ''"> and modify_time = #{modifyTime} </if>
 		  		  <if test="modifyUser != null and modifyUser != ''"> and modify_user = #{modifyUser} </if>
+		  		  
+		  		  <!-- 前端查询根据时间查询 -->
+		  		  <if test="beginTime != null and beginTime != ''"> and create_time &gt;= #{beginTime} </if>
+		  		  <if test="endTime != null and endTime != ''"> and create_time &lt;= #{endTime} </if>
 		  		</where>
 	</select>
 	 

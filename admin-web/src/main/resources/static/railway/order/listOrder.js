@@ -90,14 +90,14 @@ function load() {
                         curr: 1 //重新从第 1 页开始
                     }
                     , where: {
-                    	stationId: function(){
+                    	endStationId: function(){
                         	return $('#stationId').val();
                         },
                         beginTime: function(){
-                        	return $('#beginTime').val();
+                        	return $('#beginTime').val().replace('年','-').replace('月','-').replace('日','');
                         },
                         endTime: function(){
-                        	return $('#endTime').val();
+                        	return $('#endTime').val().replace('年','-').replace('月','-').replace('日','');
                         },
                     }
                 });
