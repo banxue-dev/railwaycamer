@@ -165,11 +165,10 @@
 						var bindtags=defpara.bindTag.split(',');
 						for(var i=0;i<bindtags.length;i++){
 							var thistage=bindtags[i];
-							$('#'+thistage).click(function (){
+							var btag=$('#'+thistage);
+							btag.click(function (){
 //							var btag=$('#'+defpara.bindTag);
-								var _this=this;
-								var btag=$(_this);
-								listree.thisTag=_this;
+								listree.thisTag=btag;
 								var top = btag.offset().top;
 								var left = btag.offset().left;
 								var height = btag.css('height').replace(/px/, '') * 1;
@@ -185,7 +184,7 @@
 							if(!evt.id){
 								treedom.hide(); // 如不是则隐藏元素
 							}
-							if(defpara.bindTag.indexOf(evt.id) >0  || evt.id==treedom.attr('id') ) {
+							if(defpara.bindTag.indexOf(evt.id) >=0  || evt.id==treedom.attr('id') ) {
 								return;
 							} else {
 								treedom.hide(); // 如不是则隐藏元素
