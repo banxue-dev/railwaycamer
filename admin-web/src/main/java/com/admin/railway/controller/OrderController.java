@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -117,6 +118,57 @@ public class OrderController extends BaseController {
 		order.setCreateUser("系统");
 		
 		orderService.save(order);
+		return R.ok();
+	}
+	
+	/**
+	 * 修改页面
+	 * @return
+	 */
+	@GetMapping("/edit/{id}")
+	public String editUI(@PathVariable("id") Long orderId, Map<String, Object> map) {
+		OrderDO order = orderService.get(orderId);
+		map.put("order", order);
+		return "railway/order/edit";
+	}
+	
+	/**
+	 * 修改
+	 * @return
+	 */
+	@PostMapping("/update")
+	@ResponseBody
+	public R update(OrderDO order) {
+		
+		// 根据前端传的 personIds 查找用户名
+		String personIds = order.getPersonIds();
+		List<Long> ids = Arrays.stream(personIds.split(","))
+				.map(s -> Long.parseLong(s.trim()))
+				.collect(Collectors.toList());
+		List<PersonDO> personList = personService.getByIds(ids);
+		
+		String personNames = personList.stream().map(PersonDO::getName).collect(Collectors.joining(","));
+		order.setPersonNames(personNames);
+		
+		// 设置stationName
+		StationDO station = null;
+		if (order.getStartStationId() != null) {
+			station = stationService.get(order.getStartStationId());
+			order.setStartStationName(station.getName());
+		}
+		if (order.getEndStationId() != null) {
+			station = stationService.get(order.getEndStationId());
+			order.setEndStationName(station.getName());
+		}
+		// 检查 续拍是否设置:没有设置设置默认值 0
+		if (order.getContinueShot() == null) {
+			order.setContinueShot(Constants.NO);
+		}
+		
+		order.setModifyTime(new Date());
+		order.setModifyUser("系统");
+		
+		orderService.update(order);
 		return R.ok();
 	}
 }

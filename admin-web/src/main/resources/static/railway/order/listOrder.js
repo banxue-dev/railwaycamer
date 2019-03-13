@@ -167,7 +167,7 @@ function remove(id) {
 function edit(id) {
 	layer.open({
 		type : 2,
-		title : '修改拍照人员',
+		title : '编辑',
 		maxmin : true,
 		shadeClose : true, // 点击遮罩关闭层
 		area : [ '800px', '520px' ],
