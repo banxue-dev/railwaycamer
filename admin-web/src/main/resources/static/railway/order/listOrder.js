@@ -84,16 +84,21 @@ function load() {
         
         active = {
             reload: function () {
-                var demoReload = $('#demoReload');
                 //执行重载
                 table.reload('testReload', {
                     page: {
                         curr: 1 //重新从第 1 页开始
                     }
                     , where: {
-                        key: {
-                            id: demoReload.val()
-                        }
+                    	stationId: function(){
+                        	return $('#stationId').val();
+                        },
+                        beginTime: function(){
+                        	return $('#beginTime').val();
+                        },
+                        endTime: function(){
+                        	return $('#endTime').val();
+                        },
                     }
                 });
             }
@@ -103,6 +108,17 @@ function load() {
             var type = $(this).data('type');
             active[type] ? active[type].call(this) : '';
         });
+        
+        $('#treebox').treeinit('/railway/station/listTree',{
+        	bindTag:'tree',
+        	childClick: function(d,tag){
+        		var name = $(d).text();
+        		var stationId = $(d).attr('data-id');
+        		$('#tree').val(name);
+        		$('#stationId').val(stationId);
+        	}
+        });
+        
     });
 	
 }

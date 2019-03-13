@@ -22,8 +22,10 @@ import com.admin.common.utils.QueryParam;
 import com.admin.common.utils.R;
 import com.admin.railway.domain.OrderDO;
 import com.admin.railway.domain.PersonDO;
+import com.admin.railway.domain.StationDO;
 import com.admin.railway.service.OrderService;
 import com.admin.railway.service.PersonService;
+import com.admin.railway.service.StationService;
 
 @Controller
 @RequestMapping("/railway/order")
@@ -33,6 +35,8 @@ public class OrderController extends BaseController {
 	private OrderService orderService;
 	@Autowired
 	private PersonService personService;
+	@Autowired
+	private StationService stationService;
 	
 	/**
 	 * 返回任务调度页面
@@ -92,6 +96,16 @@ public class OrderController extends BaseController {
 		
 		String personNames = personList.stream().map(PersonDO::getName).collect(Collectors.joining(","));
 		order.setPersonNames(personNames);
+		
+		// 设置发站 到站名称
+		StationDO startStation = stationService.get(order.getStartStationId());
+		if (startStation != null) {
+			order.setStartStationName(startStation.getName());
+		}
+		StationDO endStation = stationService.get(order.getEndStationId());
+		if (endStation != null) {
+			order.setEndStationName(endStation.getName());
+		}
 		
 		// 检查 续拍是否设置:没有设置设置默认值 0
 		if (order.getContinueShot() == null) {

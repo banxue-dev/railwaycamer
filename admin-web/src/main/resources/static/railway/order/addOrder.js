@@ -1,4 +1,5 @@
 $(function() {
+	initTree();
 	initMultiselect();
 	validateRule();
 });
@@ -14,6 +15,27 @@ $.validator.setDefaults({
 		save();
 	}
 });
+
+function initTree(){
+	 $('#treebox').treeinit('/railway/station/listTree',{
+    	bindTag:'tree,tree1',
+    	childClick: function(d,tag){
+    		var tagId = $(tag).attr("id");
+    		if('tree' == tagId){
+    			var name = $(d).text();
+        		var stationId = $(d).attr('data-id');
+        		$('#tree').val(name);
+        		$('#startStationId').val(stationId);
+    		} else {
+    			var name = $(d).text();
+        		var stationId = $(d).attr('data-id');
+        		$('#tree1').val(name);
+        		$('#endStationId').val(stationId);
+    		}
+    		
+    	}
+    });
+}
 
 // 初始化数据
 function initMultiselect() {
