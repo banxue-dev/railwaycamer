@@ -7,14 +7,15 @@ import com.admin.common.domain.Tree;
 import com.admin.railway.domain.PersonDO;
 import com.admin.railway.domain.StationDO;
 import com.admin.system.domain.MenuDO;
+import com.admin.system.domain.UserDO;
 
 public interface StationService {
 	
-	void save(StationDO station);
+	boolean save(StationDO station, UserDO user);
 
-	void update(StationDO station);
+	boolean update(StationDO station, UserDO user);
 	
-	void remove(Long stationId);
+	boolean remove(Long stationId);
 	
 	void batchRemove(Long[] stationIds);
 	

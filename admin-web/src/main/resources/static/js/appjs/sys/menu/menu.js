@@ -96,7 +96,7 @@ var load = function () {
                                 + '" href="#" title="删除"  mce_href="#" onclick="remove(\''
                                 + item.menuId
                                 + '\')"><i class="fa fa-remove"></i></a> ';
-                            return e + d + p;
+                            return p + d + e;
                         }
                     }]
             });

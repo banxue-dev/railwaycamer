@@ -141,19 +141,19 @@ function reLoad() {
 	active.reload();
 }
 // 删除数据
-function remove(id) {
-	layer.confirm('确定要删除选中的记录？', {
+function copy(id) {
+	layer.confirm('确定要复制选中的记录？', {
 		btn : [ '确定', '取消' ]
 	}, function() {
 		$.ajax({
-			url : prefix + "/remove",
+			url : prefix + "/copy",
 			type : "post",
 			data : {
 				'id' : id
 			},
 			success : function(r) {
 				if (r.code === 0) {
-					layer.msg("删除成功");
+					layer.msg("复制成功");
 					reLoad();
 				} else {
 					layer.msg(r.msg);
