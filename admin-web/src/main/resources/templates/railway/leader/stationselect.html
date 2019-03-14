@@ -61,142 +61,139 @@
 	<!-- 图片查看需要的js -->
 	<script src="/railway/js/lookphoto.js"></script>
 	<script src="/railway/js/jquery.rotate.min.js"></script>
-	<script type="text/javascript">
-$(function () {
 
-
-})
-</script>
-	<script>
-	$('#diytree').treeinit('',{bindTag:''});
-</script>
 	<script type="text/javascript"> 
-
-getPage(1);
-//翻页
-function getPage(pn){
-  var dataCount=100;//总数据条数
-  var pageSize=15;//每页显示条数
-  var pageCount= Math.ceil(dataCount / pageSize);//总页数
-  if(pn==0||pn>pageCount){
-    return;
-  }
-  var ul=$(".listul");
-  ul.empty();
-  //console.log(pageCount+"..."+pn)
-  paintPage(pageCount,pn);   //绘制页码
-  var startPage = pageSize * (pn - 1);
-
-  if (pageCount == 1) {     // 当只有一页时 
-    for (var j = 0; j < dataCount; j++) {  
-      //var e="<li><a href=\"content.html\"><img src=\"images/lbt.jpg\"></a><p><span>点击查看大图"+j+"</span></p></li>";
-      var e="<li><a href=\"javascript:;\"><img src='http://www.17sucai.com/preview/413555/2015-09-23/tanchudatu/photo/1.jpg'></a><p style='text-align:center;'  ><a class='showbig' data-magnify='gallery2' data-group='g2' data-src='http://www.17sucai.com/preview/413555/2015-09-23/tanchudatu/photo/1.jpg' data-caption='测试图片"+j+"' style='cursor:pointer;text-decoration: underline;'>查看"+j+"</a></p></li>";
-      //var e="<li><a href=\"javascript:;\"><img src="+"images/lbt.jpg"+"></a><p style='text-align:center;'  ><a class='showbig' data-magnify='gallery2' data-group='g2' data-src='images/lbt.jpg' data-caption='测试图片"+j+"' style='cursor:pointer;text-decoration: underline;'>查看"+j+"</a></p></li>";
-      ul.append(e);    
-    }
-  }else {      // 当超过一页时 
-    var e=""; 
-    var endPage = pn<pageCount?pageSize * pn:dataCount;
-    for (var j = startPage; j < endPage; j++) {  
-      var e="<li><a href=\"javascript:;\"><img src='http://www.17sucai.com/preview/413555/2015-09-23/tanchudatu/photo/1.jpg'></a><p style='text-align:center;'  ><a class='showbig' data-magnify='gallery2' data-group='g2' data-src='http://www.17sucai.com/preview/413555/2015-09-23/tanchudatu/photo/1.jpg' data-caption='测试图片"+j+"' style='cursor:pointer;text-decoration: underline;'>查看"+j+"</a></p></li>";
-      ul.append(e);
-    }
-  }
-}
-
-//绘制页码
-  function paintPage(number,currNum)  //number 总页数,currNum 当前页  
-  {
-    var pageUl=$(".fenye");
-    pageUl.empty();
-    var ulDetail="";
-
-    if(number==1){
-     ulDetail= "<li class=\"num\"><a href=\"javascript:void(0)\">共"+number+"页</a></li>"+
-     "<li class=\"prev\"><a href=\"javascript:void(0)\">上一页</a></li>"+
-     "<li class=\"numb choose\"><a href=\"javascript:getPage(1)\">1</a></li>"+
-     "<li class=\"next\"><a href=\"javascript:void(0)\">下一页</a></li>";
-   }else if(number==2){
-     ulDetail= "<li class=\"num\"><a href=\"javascript:void(0)\">共"+number+"页</a></li>"+
-    "<li class=\"prev\"><a href=\"javascript:getPage("+parseInt(currNum-1)+")\">上一页</a></li>"+
-     "<li class=\"numb"+choosele(currNum,1)+"\"><a href=\"javascript:getPage(1)\">1</a></li>"+
-     "<li class=\"numb"+choosele(currNum,2)+"\"><a href=\"javascript:getPage(2)\">2</a></li>"+
-     "<li class=\"next\"><a href=\"javascript:getPage(2)\">下一页</a></li>";
-   }else if(number==3){
-     ulDetail= "<li class=\"num\"><a href=\"javascript:void(0)\">共"+number+"页</a></li>"+
-    "<li class=\"prev\"><a href=\"javascript:getPage("+parseInt(currNum-1)+")\">上一页</a></li>"+
-     "<li class=\"numb"+choosele(currNum,1)+"\"><a href=\"javascript:getPage(1)\">1</a></li>"+
-     "<li class=\"numb"+choosele(currNum,2)+"\"><a href=\"javascript:getPage(2)\">2</a></li>"+
-     "<li class=\"numb"+choosele(currNum,3)+"\"><a href=\"javascript:getPage(3)\">3</a></li>"+
-     "<li class=\"next\"><a href=\"javascript:getPage("+parseInt(currNum+1)+")\">下一页</a></li>";
-   }else if(number==currNum&&currNum>3){
-     ulDetail= "<li class=\"num\"><a href=\"javascript:void(0)\">共"+number+"页</a></li>"+
-    "<li class=\"prev\"><a href=\"javascript:getPage("+parseInt(currNum-1)+")\">上一页</a></li>"+
-     "<li class=\"numb\"><a href=\"javascript:getPage("+parseInt(currNum-2)+")\">"+parseInt(currNum-2)+"</a></li>"+
-     "<li class=\"numb\"><a href=\"javascript:getPage("+parseInt(currNum-1)+")\">"+parseInt(currNum-1)+"</a></li>"+
-     "<li class=\"numb choose\"><a href=\"javascript:getPage("+currNum+")\">"+currNum+"</a></li>"+
-     "<li class=\"next\"><a href=\"javascript:getPage("+currNum+")\">下一页</a></li>";
-   }else if(currNum==1&&number>3){
-     ulDetail= "<li class=\"num\"><a href=\"javascript:void(0)\">共"+number+"页</a></li>"+
-    "<li class=\"prev\"><a href=\"javascript:getPage("+parseInt(currNum-1)+")\">上一页</a></li>"+
-     "<li class=\"numb choose\"><a href=\"javascript:void(0)\">1</a></li>"+
-     "<li class=\"numb\"><a href=\"javascript:getPage(2)\">2</a></li>"+
-     "<li class=\"numb\"><a href=\"javascript:getPage(3)\">3</a></li>"+
-     "<li class=\"next\"><a href=\"javascript:getPage(2)\">下一页</a></li>";
-   }else{
-     ulDetail= "<li class=\"num\"><a href=\"javascript:void(0)\">共"+number+"页</a></li>"+
-    "<li class=\"prev\"><a href=\"javascript:getPage("+parseInt(currNum-1)+")\">上一页</a></li>"+
-     "<li class=\"numb\"><a href=\"javascript:getPage("+parseInt(currNum-1)+")\">"+parseInt(currNum-1)+"</a></li>"+
-     "<li class=\"numb choose\"><a href=\"javascript:getPage("+currNum+")\">"+currNum+"</a></li>"+
-     "<li class=\"numb\"><a href=\"javascript:getPage("+parseInt(currNum+1)+")\">"+parseInt(currNum+1)+"</a></li>"+
-     "<li class=\"next\"><a href=\"javascript:getPage("+parseInt(currNum+1)+")\">下一页</a></li>";
-   }
-
-   $(".fenye").append(ulDetail);
-
-	
- }
-
-  $('.showbig').Magnify({
-		Toolbar: [
-			'prev',
-			'next',
-			'rotateLeft',
-			'rotateRight',
-			'zoomIn',
-			'actualSize',
-			'zoomOut'
-		],
-		keyboard:true,
-		draggable:true,
-		movable:true,
-		modalSize:[800,600],
-		beforeOpen:function (obj,data) {
-			//console.log('beforeOpen')
-		},
-		opened:function (obj,data) {
-			//console.log('opened')
-		},
-		beforeClose:function (obj,data) {
-			//console.log('beforeClose')
-		},
-		closed:function (obj,data) {
-			//console.log('closed')
-		},
-		beforeChange:function (obj,data) {
-			//console.log('beforeChange')
-		},
-		changed:function (obj,data) {
-			//console.log('changed')
+		$('#diytree').treeinit('',{bindTag:''});
+		getPage(1);
+		//翻页
+		function getPage(pn){
+		  var dataCount=100;//总数据条数
+		  var pageSize=15;//每页显示条数
+		  var pageCount= Math.ceil(dataCount / pageSize);//总页数
+		  if(pn==0||pn>pageCount){
+		    return;
+		  }
+		  var ul=$(".listul");
+		  ul.empty();
+		  //console.log(pageCount+"..."+pn)
+		  paintPage(pageCount,pn);   //绘制页码
+		  var startPage = pageSize * (pn - 1);
+		
+		  if (pageCount == 1) {     // 当只有一页时 
+		    for (var j = 0; j < dataCount; j++) {  
+		      //var e="<li><a href=\"content.html\"><img src=\"images/lbt.jpg\"></a><p><span>点击查看大图"+j+"</span></p></li>";
+		      var e="<li><a href=\"javascript:;\"><img src='http://www.17sucai.com/preview/413555/2015-09-23/tanchudatu/photo/1.jpg'></a><p style='text-align:center;'  ><a class='showbig' data-magnify='gallery2' data-group='g2' data-src='http://www.17sucai.com/preview/413555/2015-09-23/tanchudatu/photo/1.jpg' data-caption='测试图片"+j+"' style='cursor:pointer;text-decoration: underline;'>查看"+j+"</a></p></li>";
+		      //var e="<li><a href=\"javascript:;\"><img src="+"images/lbt.jpg"+"></a><p style='text-align:center;'  ><a class='showbig' data-magnify='gallery2' data-group='g2' data-src='images/lbt.jpg' data-caption='测试图片"+j+"' style='cursor:pointer;text-decoration: underline;'>查看"+j+"</a></p></li>";
+		      ul.append(e);    
+		    }
+		  }else {      // 当超过一页时 
+		    var e=""; 
+		    var endPage = pn<pageCount?pageSize * pn:dataCount;
+		    for (var j = startPage; j < endPage; j++) {  
+		      var e="<li><a href=\"javascript:;\"><img src='http://www.17sucai.com/preview/413555/2015-09-23/tanchudatu/photo/1.jpg'></a><p style='text-align:center;'  ><a class='showbig' data-magnify='gallery2' data-group='g2' data-src='http://www.17sucai.com/preview/413555/2015-09-23/tanchudatu/photo/1.jpg' data-caption='测试图片"+j+"' style='cursor:pointer;text-decoration: underline;'>查看"+j+"</a></p></li>";
+		      ul.append(e);
+		    }
+		  }
+		  //增加点击大图事件
+		  initShowBig();
 		}
-	});
-
- function choosele(num,cur){
-  if(num==cur){
-    return " choose";
-  }else{
-    return "";
-  }
+		
+		//绘制页码
+		function paintPage(number,currNum)  //number 总页数,currNum 当前页  
+		  {
+		    var pageUl=$(".fenye");
+		    pageUl.empty();
+		    var ulDetail="";
+		
+		    if(number==1){
+		     ulDetail= "<li class=\"num\"><a href=\"javascript:void(0)\">共"+number+"页</a></li>"+
+		     "<li class=\"prev\"><a href=\"javascript:void(0)\">上一页</a></li>"+
+		     "<li class=\"numb choose\"><a href=\"javascript:getPage(1)\">1</a></li>"+
+		     "<li class=\"next\"><a href=\"javascript:void(0)\">下一页</a></li>";
+		   }else if(number==2){
+		     ulDetail= "<li class=\"num\"><a href=\"javascript:void(0)\">共"+number+"页</a></li>"+
+		    "<li class=\"prev\"><a href=\"javascript:getPage("+parseInt(currNum-1)+")\">上一页</a></li>"+
+		     "<li class=\"numb"+choosele(currNum,1)+"\"><a href=\"javascript:getPage(1)\">1</a></li>"+
+		     "<li class=\"numb"+choosele(currNum,2)+"\"><a href=\"javascript:getPage(2)\">2</a></li>"+
+		     "<li class=\"next\"><a href=\"javascript:getPage(2)\">下一页</a></li>";
+		   }else if(number==3){
+		     ulDetail= "<li class=\"num\"><a href=\"javascript:void(0)\">共"+number+"页</a></li>"+
+		    "<li class=\"prev\"><a href=\"javascript:getPage("+parseInt(currNum-1)+")\">上一页</a></li>"+
+		     "<li class=\"numb"+choosele(currNum,1)+"\"><a href=\"javascript:getPage(1)\">1</a></li>"+
+		     "<li class=\"numb"+choosele(currNum,2)+"\"><a href=\"javascript:getPage(2)\">2</a></li>"+
+		     "<li class=\"numb"+choosele(currNum,3)+"\"><a href=\"javascript:getPage(3)\">3</a></li>"+
+		     "<li class=\"next\"><a href=\"javascript:getPage("+parseInt(currNum+1)+")\">下一页</a></li>";
+		   }else if(number==currNum&&currNum>3){
+		     ulDetail= "<li class=\"num\"><a href=\"javascript:void(0)\">共"+number+"页</a></li>"+
+		    "<li class=\"prev\"><a href=\"javascript:getPage("+parseInt(currNum-1)+")\">上一页</a></li>"+
+		     "<li class=\"numb\"><a href=\"javascript:getPage("+parseInt(currNum-2)+")\">"+parseInt(currNum-2)+"</a></li>"+
+		     "<li class=\"numb\"><a href=\"javascript:getPage("+parseInt(currNum-1)+")\">"+parseInt(currNum-1)+"</a></li>"+
+		     "<li class=\"numb choose\"><a href=\"javascript:getPage("+currNum+")\">"+currNum+"</a></li>"+
+		     "<li class=\"next\"><a href=\"javascript:getPage("+currNum+")\">下一页</a></li>";
+		   }else if(currNum==1&&number>3){
+		     ulDetail= "<li class=\"num\"><a href=\"javascript:void(0)\">共"+number+"页</a></li>"+
+		    "<li class=\"prev\"><a href=\"javascript:getPage("+parseInt(currNum-1)+")\">上一页</a></li>"+
+		     "<li class=\"numb choose\"><a href=\"javascript:void(0)\">1</a></li>"+
+		     "<li class=\"numb\"><a href=\"javascript:getPage(2)\">2</a></li>"+
+		     "<li class=\"numb\"><a href=\"javascript:getPage(3)\">3</a></li>"+
+		     "<li class=\"next\"><a href=\"javascript:getPage(2)\">下一页</a></li>";
+		   }else{
+		     ulDetail= "<li class=\"num\"><a href=\"javascript:void(0)\">共"+number+"页</a></li>"+
+		    "<li class=\"prev\"><a href=\"javascript:getPage("+parseInt(currNum-1)+")\">上一页</a></li>"+
+		     "<li class=\"numb\"><a href=\"javascript:getPage("+parseInt(currNum-1)+")\">"+parseInt(currNum-1)+"</a></li>"+
+		     "<li class=\"numb choose\"><a href=\"javascript:getPage("+currNum+")\">"+currNum+"</a></li>"+
+		     "<li class=\"numb\"><a href=\"javascript:getPage("+parseInt(currNum+1)+")\">"+parseInt(currNum+1)+"</a></li>"+
+		     "<li class=\"next\"><a href=\"javascript:getPage("+parseInt(currNum+1)+")\">下一页</a></li>";
+		   }
+		
+		   $(".fenye").append(ulDetail);
+		
+			
+		 }
+		
+		//显示大图
+		function initShowBig(){
+		  $('.showbig').Magnify({
+				Toolbar: [
+					'prev',
+					'next',
+					'rotateLeft',
+					'rotateRight',
+					'zoomIn',
+					'actualSize',
+					'zoomOut'
+				],
+				keyboard:true,
+				draggable:true,
+				movable:true,
+				modalSize:[800,600],
+				beforeOpen:function (obj,data) {
+					//console.log('beforeOpen')
+				},
+				opened:function (obj,data) {
+					//console.log('opened')
+				},
+				beforeClose:function (obj,data) {
+					//console.log('beforeClose')
+				},
+				closed:function (obj,data) {
+					//console.log('closed')
+				},
+				beforeChange:function (obj,data) {
+					//console.log('beforeChange')
+				},
+				changed:function (obj,data) {
+					//console.log('changed')
+				}
+			});
+		}
+		
+		function choosele(num,cur){
+		  if(num==cur){
+		    return " choose";
+		  }else{
+		    return "";
+		}
 }
 </script>
 </body>
