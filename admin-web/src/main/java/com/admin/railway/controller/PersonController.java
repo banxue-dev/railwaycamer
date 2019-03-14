@@ -21,10 +21,12 @@ import com.admin.common.controller.BaseController;
 import com.admin.common.utils.Constants;
 import com.admin.common.utils.QueryParam;
 import com.admin.common.utils.R;
+import com.admin.common.utils.ShiroUtils;
 import com.admin.railway.domain.PersonDO;
 import com.admin.railway.domain.StationDO;
 import com.admin.railway.service.PersonService;
 import com.admin.railway.service.StationService;
+import com.admin.system.domain.UserDO;
 
 @Controller
 @RequestMapping("/railway/person")
@@ -98,6 +100,8 @@ public class PersonController extends BaseController {
 	@ResponseBody
 	public R add(PersonDO person) {
 		
+		UserDO user = ShiroUtils.getUser();
+		
 		// 设置stationName
 		if (person.getStationId() != null) {
 			StationDO station = stationService.get(person.getStationId());
@@ -106,7 +110,7 @@ public class PersonController extends BaseController {
 		
 		person.setDelState(Constants.NO);
 		person.setCreateTime(new Date());
-		person.setCreateUser("系统");
+		person.setCreateUser(user.getName());
 		
 		personService.save(person);
 		return R.ok();
@@ -145,6 +149,8 @@ public class PersonController extends BaseController {
 	@ResponseBody
 	public R update(PersonDO person) {
 		
+		UserDO user = ShiroUtils.getUser();
+		
 		// 设置stationName
 		if (person.getStationId() != null) {
 			StationDO station = stationService.get(person.getStationId());
@@ -152,7 +158,7 @@ public class PersonController extends BaseController {
 		}
 		
 		person.setModifyTime(new Date());
-		person.setModifyUser("系统");
+		person.setModifyUser(user.getName());
 		
 		personService.update(person);
 		return R.ok();
