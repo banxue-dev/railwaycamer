@@ -115,12 +115,7 @@ public class OrderController extends BaseController {
 		if (endStation != null) {
 			order.setEndStationName(endStation.getName());
 		}
-		
-		// 检查 续拍是否设置:没有设置设置默认值 0
-		if (order.getContinueShot() == null) {
-			order.setContinueShot(Constants.NO);
-		}
-		
+
 		order.setDelState(Constants.NO);
 		order.setCreateTime(new Date());
 		order.setCreateUser("系统");
@@ -172,11 +167,7 @@ public class OrderController extends BaseController {
 			station = stationService.get(order.getEndStationId());
 			order.setEndStationName(station.getName());
 		}
-		// 检查 续拍是否设置:没有设置设置默认值 0
-		if (order.getContinueShot() == null) {
-			order.setContinueShot(Constants.NO);
-		}
-		
+
 		order.setModifyTime(new Date());
 		order.setModifyUser("系统");
 		
@@ -199,6 +190,7 @@ public class OrderController extends BaseController {
 		order.setCreateUser("系统");
 		order.setModifyTime(null);
 		order.setModifyUser(null);
+		order.setContinueShot(id);
 		orderService.save(order);
 		
 		return R.ok();

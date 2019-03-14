@@ -48,8 +48,8 @@ public class OrderDO implements Serializable {
 	private String personIds;
 	//拍摄人员name集合,逗号分隔
 	private String personNames;
-	//续拍
-	private Integer continueShot;
+	//为0时不是续拍，不为0时为续拍，存放上次任务ID
+	private Long continueShot;
 	//开始时间
 	private Date startTime;
 	//结束时间
@@ -66,4 +66,8 @@ public class OrderDO implements Serializable {
 	private Date modifyTime;
 	//修改用户
 	private String modifyUser;
+
+	public final static String DEL_STATE = "delState";
+
+	public final static String ID = "id";
 }

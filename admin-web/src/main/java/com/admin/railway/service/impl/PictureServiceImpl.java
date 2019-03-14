@@ -41,8 +41,12 @@ public class PictureServiceImpl implements PictureService {
 	}
 
 	@Override
-	public void batchRemove(Long[] pictureIds) {
-		pictureMapper.batchRemove(pictureIds);
+	public boolean batchRemove(Long[] pictureIds) {
+		int i = pictureMapper.batchRemove(pictureIds);
+		if(i > 0){
+			return true;
+		}
+		return false;
 	}
 
 	@Override

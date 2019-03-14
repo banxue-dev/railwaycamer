@@ -12,8 +12,8 @@ public interface PictureService {
 	void update(PictureDO picture);
 	
 	void remove(Long pictureId);
-	
-	void batchRemove(Long[] pictureIds);
+
+	boolean batchRemove(Long[] pictureIds);
 	
 	PictureDO get(Long pictureId);
 

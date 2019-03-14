@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.admin.railway.dao.PhotoManageDao">
+    <select id="list" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        SELECT
+        id,train_no AS trainNo,start_station_id AS startStationId,start_station_name AS startStationName,end_station_id
+        AS endStationId,end_station_name AS endStationName,
+        consignor AS consignor,consignee AS consignee,
+        product_name AS productName,train_type AS trainType,project_no AS projectNo,loading_line AS loadingLine,
+        description AS description,person_ids AS personIds,person_names AS personNames,
+        continue_shot AS continueShot,(select count(1) from tbl_picture p where p.train_no = a.train_no) as photoNumber
+        FROM tbl_order a
+        <where>
+            <if test="id != null and id != ''">and id = #{id}</if>
+            <if test="trainNo != null and trainNo != ''">and train_no = #{trainNo}</if>
+            <if test="personId != null and personId != ''">and person_id = #{personId}</if>
+            <if test="delState != null and delState != ''">and del_state = #{delState}</if>
+        </where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+            <otherwise>
+                order by id desc
+            </otherwise>
+        </choose>
+        <if test="offset != null and limit != null">
+            limit #{offset}, #{limit}
+        </if>
+    </select>
+
+</mapper>

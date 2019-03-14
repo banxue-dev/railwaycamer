@@ -52,7 +52,6 @@ function initMultiselect() {
 			alert("Connection error");
 		},
 		success : function(r) {
-			console.log($('#personIds').val());
 			var personIds = null;
 			if($('#personIds').val()){
 				personIds = $('#personIds').val().split(',');

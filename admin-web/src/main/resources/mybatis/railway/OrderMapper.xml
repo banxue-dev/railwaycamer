@@ -49,7 +49,7 @@
                 order by ${sort} ${order}
             </when>
 			<otherwise>
-                order by id desc
+                order by create_time desc
 			</otherwise>
         </choose>
 		<if test="offset != null and limit != null">

@@ -36,19 +36,10 @@ function load() {
             }
         })
 
-        
-
-        var data = [
-            {"a": "1", "b": "001", "c": "09-23", "d": "重庆", "e": "成都"},
-            {"a": "2", "b": "001", "c": "09-23", "d": "重庆", "e": "成都"},
-            {"a": "3", "b": "001", "c": "09-23", "d": "重庆", "e": "成都"},
-            {"a": "4", "b": "001", "c": "09-23", "d": "重庆", "e": "成都"}
-        ]
         //方法级渲染
         table.render({
             elem: '#list'
             , url: '/railway/order/list'
-            , data: data
             , method: 'POST'
             , cols: [[
             	{field: '', title: '序号', align: 'center', type: 'numbers'},

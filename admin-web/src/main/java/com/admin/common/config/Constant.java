@@ -2,25 +2,29 @@ package com.admin.common.config;
 
 public class Constant {
     //演示系统账户
-    public static String DEMO_ACCOUNT = "test";
+    public final static String DEMO_ACCOUNT = "test";
     //自动去除表前缀
-    public static String AUTO_REOMVE_PRE = "true";
+    public final static String AUTO_REOMVE_PRE = "true";
     //停止计划任务
-    public static String STATUS_RUNNING_STOP = "stop";
+    public final static String STATUS_RUNNING_STOP = "stop";
     //开启计划任务
-    public static String STATUS_RUNNING_START = "start";
+    public final static String STATUS_RUNNING_START = "start";
     //通知公告阅读状态-未读
-    public static String OA_NOTIFY_READ_NO = "0";
+    public final static String OA_NOTIFY_READ_NO = "0";
     //通知公告阅读状态-已读
-    public static int OA_NOTIFY_READ_YES = 1;
+    public final static int OA_NOTIFY_READ_YES = 1;
     //部门根节点id
-    public static Long DEPT_ROOT_ID = 0l;
+    public final static Long DEPT_ROOT_ID = 0l;
     //缓存方式
-    public static String CACHE_TYPE_REDIS = "redis";
+    public final static String CACHE_TYPE_REDIS = "redis";
 
-    public static String LOG_ERROR = "error";
+    public final static String LOG_ERROR = "error";
 
-    public static String ROOT_DIRECTORY = "根目录";
+    public final static String ROOT_DIRECTORY = "根目录";
+
+    public final static String DATA = "data";
+
+    public final static String COUNT = "count";
 
     /**
      * @Author: luojing
@@ -29,6 +33,7 @@ public class Constant {
      **/
     public enum SuccessInfo {
         ADD_SUCCESS("添加成功"),
+        DELETE_SUCCESS("删除成功"),
         UPDATE_SUCCESS("修改成功");
         private String msg;
 
@@ -58,7 +63,8 @@ public class Constant {
         PERSION_NULL(-10008, "系统中不存在拍照人员"),
 
         ADD_FAIL(-20000, "添加失败"),
-        UPDATE_FAIL(-20001, "修改失败"),
+        DELETE_FAIL(-20001, "删除失败"),
+        UPDATE_FAIL(-20002, "修改失败"),
         EXIST_STATION_DEL_FAIL(-20003, "存在下级站点，删除失败");
 
         private int code;
