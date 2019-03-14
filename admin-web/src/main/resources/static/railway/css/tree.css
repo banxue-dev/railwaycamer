@@ -36,3 +36,16 @@
 			color:#0485c7;
 			background-color:#FFF;
 		 }
+		 
+		 .menu>li>a{
+			color:#0485c7;
+			background-color:#FFF;
+		 }
+		 .menu>li>a{
+		 	display: block;
+			height: 45px;
+			line-height: 45px;
+			font-size: 14px;
+			border-bottom:1px solid #B3B3B3;
+		 }
+		 

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>照片查询</title>
+  <link href="/railway/css/tree.css" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" href="/railway/css/imglist.css">
+    <link rel="stylesheet" href="/railway/css/lookphoto.css">
+  <style>
+	#right_top>label{
+		border-left:1px solid black;
+		margin-left: 20px;
+		padding-left: 10px;
+	}
+	#right_top>label:first-child{
+		border-left:0px;
+	}
+	.img_par{
+		text-align:center;
+		width:33%;
+	}
+	.img_par>img{
+		width:100%;
+	}
+  </style>
+</head>
+<body class="layui-layout-body">
+<div id="diytree" style="margin-left:0; float:left;width:20%;margin-top:20px;">
+</div>
+<div style="float:left;width:74%;margin-left:4%;padding-right:2%;margin-top:20px">
+	<div id="right_top" style="width:100%;height:45px;line-height:45px;border:1px solid #BCBCBC;">
+		<label>车号：1201201</label>
+		<label>拍摄日期：2018-2-8</label>
+		<label>品名</label>
+		<label>车型</label>
+		<label>装车线路</label>
+	</div>
+	<div style="width:100%;margin-top:30px;">
+		<div class="piclist">
+			<ul class="listul">
+
+			</ul>
+			<div style="width:100%;">
+				<div class="fydiv">
+				  <ul class="fenye">
+
+				  </ul>
+				</div>
+			</div>
+		 </div>
+	</div>
+</div>
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/railway/js/easing.js"></script>
+<script src="/railway/js/diytree2.js"></script>
+<!-- 图片查看需要的js -->
+<script src="/railway/js/lookphoto.js"></script>
+<script src="/railway/js/jquery.rotate.min.js"></script>
+<script type="text/javascript">
+$(function () {
+	
+	$('.showbig').Magnify({
+		Toolbar: [
+			'prev',
+			'next',
+			'rotateLeft',
+			'rotateRight',
+			'zoomIn',
+			'actualSize',
+			'zoomOut'
+		],
+		keyboard:true,
+		draggable:true,
+		movable:true,
+		modalSize:[800,600],
+		beforeOpen:function (obj,data) {
+			//console.log('beforeOpen')
+		},
+		opened:function (obj,data) {
+			//console.log('opened')
+		},
+		beforeClose:function (obj,data) {
+			//console.log('beforeClose')
+		},
+		closed:function (obj,data) {
+			//console.log('closed')
+		},
+		beforeChange:function (obj,data) {
+			//console.log('beforeChange')
+		},
+		changed:function (obj,data) {
+			//console.log('changed')
+		}
+	});
+
+})
+</script>
+<script>
+	$('#diytree').treeinit('',{bindTag:''});
+</script>
+<script type="text/javascript"> 
+  getPage(1);
+//翻页
+function getPage(pn){
+  var dataCount=100;//总数据条数
+  var pageSize=15;//每页显示条数
+  var pageCount= Math.ceil(dataCount / pageSize);//总页数
+  if(pn==0||pn>pageCount){
+    return;
+  }
+  var ul=$(".listul");
+  ul.empty();
+  //console.log(pageCount+"..."+pn)
+  paintPage(pageCount,pn);   //绘制页码
+  var startPage = pageSize * (pn - 1);
+
+  if (pageCount == 1) {     // 当只有一页时 
+    for (var j = 0; j < dataCount; j++) {  
+      //var e="<li><a href=\"content.html\"><img src=\"images/lbt.jpg\"></a><p><span>点击查看大图"+j+"</span></p></li>";
+      var e="<li><a href=\"javascript:;\"><img src="+"images/lbt.jpg"+"></a><p style='text-align:center;'  ><a class='showbig' data-magnify='gallery2' data-group='g2' data-src='images/lbt.jpg' data-caption='测试图片"+j+"' style='cursor:pointer;text-decoration: underline;'>查看"+j+"</a></p></li>";
+      ul.append(e);    
+    }
+  }else {      // 当超过一页时 
+    var e=""; 
+    var endPage = pn<pageCount?pageSize * pn:dataCount;
+    for (var j = startPage; j < endPage; j++) {  
+      var e="<li><a href=\"javascript:;\"><img src="+"images/lbt.jpg"+"></a><p style='text-align:center;'  ><a class='showbig' data-magnify='gallery2' data-group='g2' data-src='images/lbt.jpg' data-caption='测试图片"+j+"' style='cursor:pointer;text-decoration: underline;'>查看"+j+"</a></p></li>";
+      ul.append(e);
+    }
+  }
+}
+
+//绘制页码
+  function paintPage(number,currNum)  //number 总页数,currNum 当前页  
+  {
+    var pageUl=$(".fenye");
+    pageUl.empty();
+    var ulDetail="";
+
+    if(number==1){
+     ulDetail= "<li class=\"num\"><a href=\"javascript:void(0)\">共"+number+"页</a></li>"+
+     "<li class=\"prev\"><a href=\"javascript:void(0)\">上一页</a></li>"+
+     "<li class=\"numb choose\"><a href=\"javascript:getPage(1)\">1</a></li>"+
+     "<li class=\"next\"><a href=\"javascript:void(0)\">下一页</a></li>";
+   }else if(number==2){
+     ulDetail= "<li class=\"num\"><a href=\"javascript:void(0)\">共"+number+"页</a></li>"+
+    "<li class=\"prev\"><a href=\"javascript:getPage("+parseInt(currNum-1)+")\">上一页</a></li>"+
+     "<li class=\"numb"+choosele(currNum,1)+"\"><a href=\"javascript:getPage(1)\">1</a></li>"+
+     "<li class=\"numb"+choosele(currNum,2)+"\"><a href=\"javascript:getPage(2)\">2</a></li>"+
+     "<li class=\"next\"><a href=\"javascript:getPage(2)\">下一页</a></li>";
+   }else if(number==3){
+     ulDetail= "<li class=\"num\"><a href=\"javascript:void(0)\">共"+number+"页</a></li>"+
+    "<li class=\"prev\"><a href=\"javascript:getPage("+parseInt(currNum-1)+")\">上一页</a></li>"+
+     "<li class=\"numb"+choosele(currNum,1)+"\"><a href=\"javascript:getPage(1)\">1</a></li>"+
+     "<li class=\"numb"+choosele(currNum,2)+"\"><a href=\"javascript:getPage(2)\">2</a></li>"+
+     "<li class=\"numb"+choosele(currNum,3)+"\"><a href=\"javascript:getPage(3)\">3</a></li>"+
+     "<li class=\"next\"><a href=\"javascript:getPage("+parseInt(currNum+1)+")\">下一页</a></li>";
+   }else if(number==currNum&&currNum>3){
+     ulDetail= "<li class=\"num\"><a href=\"javascript:void(0)\">共"+number+"页</a></li>"+
+    "<li class=\"prev\"><a href=\"javascript:getPage("+parseInt(currNum-1)+")\">上一页</a></li>"+
+     "<li class=\"numb\"><a href=\"javascript:getPage("+parseInt(currNum-2)+")\">"+parseInt(currNum-2)+"</a></li>"+
+     "<li class=\"numb\"><a href=\"javascript:getPage("+parseInt(currNum-1)+")\">"+parseInt(currNum-1)+"</a></li>"+
+     "<li class=\"numb choose\"><a href=\"javascript:getPage("+currNum+")\">"+currNum+"</a></li>"+
+     "<li class=\"next\"><a href=\"javascript:getPage("+currNum+")\">下一页</a></li>";
+   }else if(currNum==1&&number>3){
+     ulDetail= "<li class=\"num\"><a href=\"javascript:void(0)\">共"+number+"页</a></li>"+
+    "<li class=\"prev\"><a href=\"javascript:getPage("+parseInt(currNum-1)+")\">上一页</a></li>"+
+     "<li class=\"numb choose\"><a href=\"javascript:void(0)\">1</a></li>"+
+     "<li class=\"numb\"><a href=\"javascript:getPage(2)\">2</a></li>"+
+     "<li class=\"numb\"><a href=\"javascript:getPage(3)\">3</a></li>"+
+     "<li class=\"next\"><a href=\"javascript:getPage(2)\">下一页</a></li>";
+   }else{
+     ulDetail= "<li class=\"num\"><a href=\"javascript:void(0)\">共"+number+"页</a></li>"+
+    "<li class=\"prev\"><a href=\"javascript:getPage("+parseInt(currNum-1)+")\">上一页</a></li>"+
+     "<li class=\"numb\"><a href=\"javascript:getPage("+parseInt(currNum-1)+")\">"+parseInt(currNum-1)+"</a></li>"+
+     "<li class=\"numb choose\"><a href=\"javascript:getPage("+currNum+")\">"+currNum+"</a></li>"+
+     "<li class=\"numb\"><a href=\"javascript:getPage("+parseInt(currNum+1)+")\">"+parseInt(currNum+1)+"</a></li>"+
+     "<li class=\"next\"><a href=\"javascript:getPage("+parseInt(currNum+1)+")\">下一页</a></li>";
+   }
+
+   $(".fenye").append(ulDetail);
+
+ }
+
+ function choosele(num,cur){
+  if(num==cur){
+    return " choose";
+  }else{
+    return "";
+  }
+}
+</script>
+</body>
+</html>

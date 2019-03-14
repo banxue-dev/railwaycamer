@@ -13,7 +13,7 @@
 
       <li class="layui-nav-item" th:each="menu : ${menus}">
       		
-	        <a target="iframeCamera" th:href="${menu.attributes eq null?'javascript:;':menu.attributes.url}" th:text="${menu.attributes eq null?'javascript:;':menu.text}">系统管理</a>
+	        <a target="iframeCamera" th:href="${menu.attributes eq null ?'javascript:;':menu.attributes.url eq null || menu.attributes.url eq '' ?'javascript:;':menu.attributes.url}" th:text="${menu.attributes eq null?'javascript:;':menu.text}">系统管理</a>
 	        <dl class="layui-nav-child" th:if="${menu.hasChildren} eq true">
 	          <dd th:each="cmenu : ${menu.children}"><a target="iframeCamera" th:text="${cmenu.text}" th:href="${cmenu.attributes.url}">站点管理</a></dd>
 	        </dl>

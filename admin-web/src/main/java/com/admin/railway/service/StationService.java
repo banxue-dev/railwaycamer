@@ -25,4 +25,8 @@ public interface StationService {
 	int count(Map<String, Object> map);
 	List<Tree<StationDO>> getStationByTree(Map<String, Object> map);
 
+
+
+	List<Tree<String>> getStationTimeByTree(Map<String, Object> map);
+
 }

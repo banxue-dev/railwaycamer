@@ -42,13 +42,13 @@
 						var tar=tdata[i];
 						if(tar.hasChildren){
 							html+='<li class="parent '+(tar.parentId==0?'top':'')+'">';
-							html+='<label   href="#none"><em class=" "></em>'+tar.text+'<i></i></label>';
-							html+='<ul class="child">';
+							html+='<label class="haschild" data-id="'+tar.id+'"><em class=" "></em>'+tar.text+'<i></i></label>';
+							html+='<ul parent-id="'+tar.parentId+'" class="child">';
 							html+=listree.loophtml(tar.children);
 							html+='</ul>';
 							html+='</li>';
 						}else{
-							html+='<li><a href="javascript:;" data-id="'+tar.attributes.id+'" >'+tar.text+'</a></li>';
+							html+='<li><a class="bottoma" href="javascript:;" data-id="'+tar.id+'" >'+tar.text+'</a></li>';
 						}
 					
 					}
@@ -73,8 +73,8 @@
 				initcss:function(defpara){
 
 					var colors=[
-						{color:"white",backend:"#004069"},
-						{color:"white",backend:"#3E8DD0"},
+						{color:"white",backend:"#003C71"},
+						{color:"white",backend:"#398CD3"},
 						{color:"white",backend:"#81DAEA"},
 						{color:"black",backend:"#E4E4E4"}
 					];
@@ -91,6 +91,7 @@
 						var _this=this;
 						var index=0;
 						$(_this).children('label').css('padding-left',min);
+						$('.menu>li>a').css('padding-left',min);
 						$(_this).children('label').css('color',colors[index].color);
 						$(_this).children('label').css('background-color',colors[index].backend);
 						setPadding(_this,min,index);
@@ -113,7 +114,7 @@
 							})
 						}
 					}
-					$('.child').each(function(i){
+					$('.bottoma').each(function(i){
 						var _this=this;
 						var par=$(_this).siblings('label').css('padding-left').replace(/px/,'')*1;
 						$(_this).children('li').children('a').css('padding-left',par+=dz);
@@ -134,7 +135,7 @@
 					/*
 					* 进行菜单的展开与折叠
 					*/
-					$(".treebox .parent>label").click(function(){
+					$(".haschild").click(function(){
 						var d=$(this).siblings('ul').css('display');
 						if(d!='none'){
 							$(this).siblings('ul').slideUp('slow','easeOutQuad');

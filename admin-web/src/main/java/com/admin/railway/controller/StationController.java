@@ -33,4 +33,8 @@ public class StationController extends BaseController {
 			return R.error();
 		}
 	}
+	@RequestMapping("/leaderLook")
+	public String leaderLook() {
+		return "railway/leader/stationselect";
+	}
 }

@@ -43,7 +43,7 @@
                 	
                    <ul class="nav nav-second-level" th:if="${menu.children} ne null">
                         <li th:each="cmenu : ${menu.children}">
-                        	<a class="J_menuItem" href="#" th:text="${cmenu.text}" th:href="${cmenu.attributes.url}"></a>
+                        	<a class="J_menuItem" href="javascript:;" th:text="${cmenu.text}" th:href="${cmenu.attributes.url}"></a>
                         </li>
                     </ul>
                 </li>
