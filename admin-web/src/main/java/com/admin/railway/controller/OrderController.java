@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -95,13 +96,15 @@ public class OrderController extends BaseController {
 		
 		// 根据前端传的 personIds 查找用户名
 		String personIds = order.getPersonIds();
-		List<Long> ids = Arrays.stream(personIds.split(","))
-				.map(s -> Long.parseLong(s.trim()))
-				.collect(Collectors.toList());
-		List<PersonDO> personList = personService.getByIds(ids);
-		
-		String personNames = personList.stream().map(PersonDO::getName).collect(Collectors.joining(","));
-		order.setPersonNames(personNames);
+		if(StringUtils.isNoneBlank(personIds)){
+			List<Long> ids = Arrays.stream(personIds.split(","))
+					.map(s -> Long.parseLong(s.trim()))
+					.collect(Collectors.toList());
+			List<PersonDO> personList = personService.getByIds(ids);
+			
+			String personNames = personList.stream().map(PersonDO::getName).collect(Collectors.joining(","));
+			order.setPersonNames(personNames);
+		}
 		
 		// 设置发站 到站名称
 		StationDO startStation = stationService.get(order.getStartStationId());
@@ -149,13 +152,15 @@ public class OrderController extends BaseController {
 		
 		// 根据前端传的 personIds 查找用户名
 		String personIds = order.getPersonIds();
-		List<Long> ids = Arrays.stream(personIds.split(","))
-				.map(s -> Long.parseLong(s.trim()))
-				.collect(Collectors.toList());
-		List<PersonDO> personList = personService.getByIds(ids);
-		
-		String personNames = personList.stream().map(PersonDO::getName).collect(Collectors.joining(","));
-		order.setPersonNames(personNames);
+		if(StringUtils.isNoneBlank(personIds)){
+			List<Long> ids = Arrays.stream(personIds.split(","))
+					.map(s -> Long.parseLong(s.trim()))
+					.collect(Collectors.toList());
+			List<PersonDO> personList = personService.getByIds(ids);
+			
+			String personNames = personList.stream().map(PersonDO::getName).collect(Collectors.joining(","));
+			order.setPersonNames(personNames);
+		}
 		
 		// 设置stationName
 		StationDO station = null;

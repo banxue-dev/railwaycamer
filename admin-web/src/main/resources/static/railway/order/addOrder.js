@@ -79,8 +79,10 @@ function initMultiselect() {
 // 保存
 function save() {
 	// personIds 赋值
-	var personIds = $('#liOption').val().join(',');
-	$('#personIds').val(personIds);
+	var personIds = $('#liOption').val();
+	if(personIds){
+		$('#personIds').val(personIds.join(','));
+	}
 	
 	var data = $('#signupForm').serialize();
 	
