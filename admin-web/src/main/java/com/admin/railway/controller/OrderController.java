@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,6 +44,7 @@ public class OrderController extends BaseController {
 	 * 返回任务调度页面
 	 * @return
 	 */
+	@RequiresPermissions("railway:order:list")
 	@GetMapping("/list")
 	public String listUI() {
 		return "railway/order/list";
@@ -53,6 +55,7 @@ public class OrderController extends BaseController {
 	 * @param stationId
 	 * @return
 	 */
+	@RequiresPermissions("railway:order:list")
 	@PostMapping("/list")
 	@ResponseBody
 	public R list(@RequestParam Map<String, Object> params) {
@@ -75,6 +78,7 @@ public class OrderController extends BaseController {
 	 * 返回添加页面
 	 * @return
 	 */
+	@RequiresPermissions("railway:order:add")
 	@GetMapping("/add")
 	public String addUI() {
 		return "railway/order/add";
@@ -84,6 +88,7 @@ public class OrderController extends BaseController {
 	 * 返回拍照人员-添加
 	 * @return
 	 */
+	@RequiresPermissions("railway:order:add")
 	@PostMapping("/add")
 	@ResponseBody
 	public R add(OrderDO order) {
@@ -125,6 +130,7 @@ public class OrderController extends BaseController {
 	 * 修改页面
 	 * @return
 	 */
+	@RequiresPermissions("railway:order:edit")
 	@GetMapping("/edit/{id}")
 	public String editUI(@PathVariable("id") Long orderId, Map<String, Object> map) {
 		OrderDO order = orderService.get(orderId);
@@ -136,6 +142,7 @@ public class OrderController extends BaseController {
 	 * 修改
 	 * @return
 	 */
+	@RequiresPermissions("railway:order:edit")
 	@PostMapping("/update")
 	@ResponseBody
 	public R update(OrderDO order) {
@@ -177,6 +184,7 @@ public class OrderController extends BaseController {
 	 * @param id
 	 * @return
 	 */
+	@RequiresPermissions("railway:order:copy")
 	@PostMapping("/copy")
 	@ResponseBody
 	public R copy(Long id) {

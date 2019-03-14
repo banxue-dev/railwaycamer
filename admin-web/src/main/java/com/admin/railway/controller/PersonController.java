@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +35,7 @@ public class PersonController extends BaseController {
 	@Autowired
 	private StationService stationService;
 	
+	@RequiresPermissions("railway:person:eidt")
 	@GetMapping("/get")
 	@ResponseBody
 	public PersonDO get(@RequestParam(name="id") String personId) {
@@ -46,6 +48,7 @@ public class PersonController extends BaseController {
 	 * @param stationId
 	 * @return
 	 */
+	@RequiresPermissions("railway:person:list")
 	@PostMapping("/list")
 	@ResponseBody
 	public R list(@RequestParam Map<String, Object> params) {
@@ -70,6 +73,7 @@ public class PersonController extends BaseController {
 	 * 返回拍照人员-人员管理界面
 	 * @return
 	 */
+	@RequiresPermissions("railway:person:list")
 	@GetMapping("/list")
 	public String listUI() {
 		return "/railway/person/list";
@@ -79,6 +83,7 @@ public class PersonController extends BaseController {
 	 * 返回拍照人员-添加页面
 	 * @return
 	 */
+	@RequiresPermissions("railway:person:add")
 	@GetMapping("/add")
 	public String addUI() {
 		return "/railway/person/add";
@@ -88,6 +93,7 @@ public class PersonController extends BaseController {
 	 * 返回拍照人员-添加
 	 * @return
 	 */
+	@RequiresPermissions("railway:person:add")
 	@PostMapping("/add")
 	@ResponseBody
 	public R add(PersonDO person) {
@@ -110,6 +116,7 @@ public class PersonController extends BaseController {
 	 * @param id
 	 * @return
 	 */
+	@RequiresPermissions("railway:person:remove")
 	@PostMapping("/remove")
 	@ResponseBody
 	public R remove(Long id) {
@@ -121,6 +128,7 @@ public class PersonController extends BaseController {
 	 * 返回拍照人员-添加页面
 	 * @return
 	 */
+	@RequiresPermissions("railway:person:edit")
 	@GetMapping("/edit/{id}")
 	public String editUI(@PathVariable("id") Long pesonId, Map<String, Object> map) {
 		PersonDO person = personService.get(pesonId);
@@ -132,6 +140,7 @@ public class PersonController extends BaseController {
 	 * 返回拍照人员-添加
 	 * @return
 	 */
+	@RequiresPermissions("railway:person:edit")
 	@PostMapping("/update")
 	@ResponseBody
 	public R update(PersonDO person) {
@@ -154,6 +163,7 @@ public class PersonController extends BaseController {
 	 * @loginName 校验的数据
 	 * @return
 	 */
+	@RequiresPermissions("railway:person:add")
 	@PostMapping("/check")
 	@ResponseBody
 	public boolean check(
