@@ -114,7 +114,7 @@
 							})
 						}
 					}
-					$('.bottoma').each(function(i){
+					$('.child').each(function(i){
 						var _this=this;
 						var par=$(_this).siblings('label').css('padding-left').replace(/px/,'')*1;
 						$(_this).children('li').children('a').css('padding-left',par+=dz);

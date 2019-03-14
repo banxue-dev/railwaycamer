@@ -365,6 +365,14 @@ var testdata2=[{
 						
 						return false;
 					}
+					//nowsize=现在这个兄弟有多少条
+					$.ajax({
+						url:'',
+						data:{stationId:id,nowsize:,pagesize:5},
+						success:function(){
+							
+						}
+					})
 					var html='';
 					html+='<ul parent-id="'+id+'" class="child newchild">';
 					html+=listree.looptimehtml(testdata2);
@@ -443,7 +451,7 @@ var testdata2=[{
 						}else{
 							//html+='<li><a href="javascript:;" data-id="'+tar.attributes.id+'" >'+tar.text+'</a></li>';
 							html+='<li class="parent '+(tar.parentId==0?'top':'')+'">';
-							html+='<label data-id="7" class="childlabel oneClick" ><em class=" "></em>'+tar.text+'<i></i></label>';
+							html+='<label data-id="'+tar.id+'" class="childlabel oneClick" ><em class=" "></em>'+tar.text+'<i></i></label>';
 							html+='</li>';
 						}
 					

@@ -147,9 +147,8 @@ public class StationServiceImpl implements StationService {
 		Long stationId=(Long) map.get("stationId");
 		Integer nowsize= (Integer) map.get("nowsize");//从1开始，表示第几页
 		Integer pagesize= (Integer) map.get("pagesize");//从每次多少，相当于每页多少条
-		int start=(nowsize-1)*pagesize+1;
 		Date now=new Date();
-		for(int i=start;i<=pagesize*nowsize;i++) {
+		for(int i=nowsize;i<=pagesize+nowsize;i++) {
 			String date=TargetTime.getBeforeOrAfterDateReString(now , 1-i);
 			String sdate=date+" 00:00:00";
 			String edate=date+" 23:59:59";

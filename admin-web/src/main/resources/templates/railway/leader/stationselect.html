@@ -63,8 +63,9 @@
 	<script src="/railway/js/jquery.rotate.min.js"></script>
 
 	<script type="text/javascript"> 
-		$('#diytree').treeinit('',{bindTag:''});
-		getPage(1);
+		$('#diytree').treeinit('/railway/station/listTree',{bindTag:''});
+		var nowPageNo=1;
+		getPage(nowPageNo);
 		//翻页
 		function getPage(pn){
 		  var dataCount=100;//总数据条数
