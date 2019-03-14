@@ -368,7 +368,7 @@ var testdata2=[{
 					//nowsize=现在这个兄弟有多少条
 					$.ajax({
 						url:'',
-						data:{stationId:id,nowsize:,pagesize:5},
+						data:{stationId:id,nowsize:'',pagesize:5},
 						success:function(){
 							
 						}
