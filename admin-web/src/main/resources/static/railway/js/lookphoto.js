@@ -128,6 +128,7 @@
 
     magnify.prototype = {
         init: function (ele) {
+        	this.tdom=ele;
             var imgSrc = getImgSrc(ele);
             this.groupName = null;
             var currentGroupName = $(ele).data('group');
@@ -341,7 +342,7 @@
                     src: src,
                     caption: $(item).data('caption')
                 });
-                if (imgSrc === src) {
+                if ($(item).data('caption') === $(self.tdom).data('caption')) {
                     self.groupIndex = index;
                 }
             })
