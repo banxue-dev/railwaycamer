@@ -54,7 +54,7 @@ public class ApiFilter implements Filter {
     }
 
     private boolean isUrl(String requestUrl){
-		String [] urlArry = {"/api/uploadImg","/api/listTask"};
+		String [] urlArry = {"/api/uploadImg","/api/listTask","/api/updatePassword"};
 		for(String url : urlArry){
 			if(requestUrl.indexOf(url) != -1){
 				return true;
