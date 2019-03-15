@@ -1,7 +1,10 @@
 package com.admin.system.controller;
 
 import java.util.List;
+import java.util.Map;
 
+import com.admin.common.utils.PageUtils;
+import com.admin.common.utils.Query;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,9 +39,13 @@ public class RoleController extends BaseController {
 	@RequiresPermissions("sys:role:role")
 	@GetMapping("/list")
 	@ResponseBody()
-	List<RoleDO> list() {
-		List<RoleDO> roles = roleService.list();
-		return roles;
+	PageUtils list(@RequestParam Map<String, Object> params) {
+		// 查询列表数据
+		Query query = new Query(params);
+		List<RoleDO> roles = roleService.list(query);
+		int count = roleService.count(query);
+		PageUtils pageUtils = new PageUtils(roles,count);
+		return pageUtils;
 	}
 
 	@Log("添加角色")

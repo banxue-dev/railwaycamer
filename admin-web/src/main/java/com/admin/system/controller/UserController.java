@@ -65,7 +65,7 @@ public class UserController extends BaseController {
 	@Log("添加用户")
 	@GetMapping("/add")
 	String add(Model model) {
-		List<RoleDO> roles = roleService.list();
+		List<RoleDO> roles = roleService.list(new HashMap<>(16));
 		model.addAttribute("roles", roles);
 		return prefix + "/add";
 	}

@@ -21,10 +21,17 @@ function load() {
 						// //发送到服务器的数据编码类型
 						pageSize : 10, // 如果设置了分页，每页数据条数
 						pageNumber : 1, // 如果设置了分布，首页页码
-						search : true, // 是否显示搜索框
-						showColumns : true, // 是否显示内容下拉框（选择显示的列）
-						sidePagination : "client", // 设置在哪里进行分页，可选值为"client" 或者
-						// "server"
+						// search : true, // 是否显示搜索框
+						showColumns : false, // 是否显示内容下拉框（选择显示的列）
+						sidePagination : "server", // 设置在哪里进行分页，可选值为"client" 或者 "server"
+                        queryParams : function(params) {
+                            return {
+                                // 说明：传入后台的参数包括offset开始索引，limit步长，sort排序列，order：desc或者,以及所有列的键值对
+                                limit : params.limit,
+                                offset : params.offset,
+                                roleName : $('#roleName').val()
+                            };
+                        },
 						// queryParams : queryParams,
 						// //请求服务器数据时，你可以通过重写参数的方式添加一些额外的参数，例如 toolbar 中的参数 如果
 						// queryParamsType = 'limit' ,返回参数必须包含
