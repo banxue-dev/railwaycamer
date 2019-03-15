@@ -36,19 +36,11 @@ function load() {
             }
         })
 
-        var data = [
-            {"a": "1", "b": "001", "c": "09-23", "d": "重庆", "e": "成都"},
-            {"a": "2", "b": "001", "c": "09-23", "d": "重庆", "e": "成都"},
-            {"a": "3", "b": "001", "c": "09-23", "d": "重庆", "e": "成都"},
-            {"a": "4", "b": "001", "c": "09-23", "d": "重庆", "e": "成都"}
-        ]
-        
         //方法级渲染
         table.render({
             elem: '#list'
             , url: '/railway/person/list'
             , method: 'POST'
-            , data: data
             , cols: [[
                 {field: '', title: '序号', align: 'center', type: 'numbers'},
                 {field: 'name', title: '姓名', align: 'center'},
@@ -64,7 +56,6 @@ function load() {
         
         active = {
             reload: function () {
-                var demoReload = $('#demoReload');
                 //执行重载
                 table.reload('testReload', {
                     page: {
