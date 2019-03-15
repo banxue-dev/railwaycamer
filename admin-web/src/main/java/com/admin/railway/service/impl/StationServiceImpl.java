@@ -121,6 +121,8 @@ public class StationServiceImpl implements StationService {
 	@Override
 	public List<Tree<StationDO>> getStationByTree(Map<String, Object> map) {
 		// TODO 此处为方法主题
+		map.put("sort", "id");
+		map.put("order", "asc");
 		List<Tree<StationDO>> trees = new ArrayList<Tree<StationDO>>();
 		List<StationDO> StationDOs = stationMapper.list(map);
 		for (StationDO sysStationDO : StationDOs) {
