@@ -173,7 +173,8 @@ public class ApiServiceImpl implements ApiService {
     public boolean updatePassword(PasswordVo vo) {
         PersonDO person = new PersonDO();
         person.setLoginName(vo.getLoginName());
-        person.setPassword(vo.getPassword());
+        String password = MD5Utils.encrypt(vo.getLoginName(),vo.getPassword());
+        person.setPassword(password);
         return personService.update(person);
     }
 }
