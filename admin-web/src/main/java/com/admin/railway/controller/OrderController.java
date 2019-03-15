@@ -23,12 +23,14 @@ import com.admin.common.controller.BaseController;
 import com.admin.common.utils.Constants;
 import com.admin.common.utils.QueryParam;
 import com.admin.common.utils.R;
+import com.admin.common.utils.ShiroUtils;
 import com.admin.railway.domain.OrderDO;
 import com.admin.railway.domain.PersonDO;
 import com.admin.railway.domain.StationDO;
 import com.admin.railway.service.OrderService;
 import com.admin.railway.service.PersonService;
 import com.admin.railway.service.StationService;
+import com.admin.system.domain.UserDO;
 
 @Controller
 @RequestMapping("/railway/order")
@@ -94,6 +96,8 @@ public class OrderController extends BaseController {
 	@ResponseBody
 	public R add(OrderDO order) {
 		
+		UserDO user = ShiroUtils.getUser();
+		
 		// 根据前端传的 personIds 查找用户名
 		String personIds = order.getPersonIds();
 		if(StringUtils.isNoneBlank(personIds)){
@@ -118,7 +122,7 @@ public class OrderController extends BaseController {
 
 		order.setDelState(Constants.NO);
 		order.setCreateTime(new Date());
-		order.setCreateUser("系统");
+		order.setCreateUser(user.getName());
 		
 		orderService.save(order);
 		return R.ok();
@@ -144,6 +148,7 @@ public class OrderController extends BaseController {
 	@PostMapping("/update")
 	@ResponseBody
 	public R update(OrderDO order) {
+		UserDO user = ShiroUtils.getUser();
 		
 		// 根据前端传的 personIds 查找用户名
 		String personIds = order.getPersonIds();
@@ -169,7 +174,7 @@ public class OrderController extends BaseController {
 		}
 
 		order.setModifyTime(new Date());
-		order.setModifyUser("系统");
+		order.setModifyUser(user.getName());
 		
 		orderService.update(order);
 		return R.ok();
@@ -184,10 +189,12 @@ public class OrderController extends BaseController {
 	@PostMapping("/copy")
 	@ResponseBody
 	public R copy(Long id) {
+		UserDO user = ShiroUtils.getUser();
+		
 		OrderDO order = orderService.get(id);
 		order.setId(null);
 		order.setCreateTime(new Date());
-		order.setCreateUser("系统");
+		order.setCreateUser(user.getName());
 		order.setModifyTime(null);
 		order.setModifyUser(null);
 		order.setContinueShot(id);
