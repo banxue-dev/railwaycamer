@@ -30,7 +30,7 @@ public class RailWayFileController {
 
     @ApiOperation(value="获取略缩图照片", notes="")
     @ApiImplicitParam(name = "id", value = "照片ID", required = true, dataType = "string")
-    @GetMapping("/getThumPhoto/{id}")
+    @RequestMapping("/getThumPhoto/{id}")
     public void getThumPhoto(@PathVariable("id") Long id, HttpServletResponse response){
         PictureDO picture = pictureService.get(id);
         if(picture != null){

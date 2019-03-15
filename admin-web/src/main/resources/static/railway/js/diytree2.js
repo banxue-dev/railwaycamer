@@ -1,7 +1,7 @@
 
 //http://localhost:8888/railway/station/listTree
 
-!function(win){
+function diytree(){
 		var treeinit=function(url,params){
 			var treedom=$(this);
 			var listree={
@@ -51,7 +51,20 @@
 					* 子节点点击事件
 					*/
 					$('.child>li>.bottom_').unbind('click').bind('click',function(){
-					
+						var order_id=$(this).attr('data-id');
+						//去获取图片。
+						$.ajax({
+							url:'/railway/photomanage/listPicturebyr',
+							type:'post',
+							data:{orderId:order_id},
+							success:function(data){
+								if(data.code==0){
+									pictureboxs.picdatas=data.data;
+									getPage(1);
+								}
+							}
+						})
+						
 						alert($(this).text());
 					});
 				},loadPhoto:function(tdom){
@@ -90,6 +103,7 @@
 									var loadmore=$(_this);
 									var nowsize=loadmore.parent().siblings('li').length;
 									nowsize=nowsize<1?1:nowsize;
+									nowsize=nowsize>1?nowsize+1:nowsize;
 									$.ajax({
 										url:'/railway/station/listTimeTree',
 										type:'post',
@@ -306,4 +320,4 @@
 		}
 		
 		$.fn.extend({treeinit:treeinit});
-	}(window);
+	};

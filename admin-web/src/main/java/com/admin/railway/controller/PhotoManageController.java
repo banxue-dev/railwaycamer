@@ -59,10 +59,21 @@ public class PhotoManageController {
         return "railway/photoManage/viewPhoto";
     }
 
-    @GetMapping("/listPicture")
+    @RequestMapping("/listPicture")
     @ResponseBody
     public List<PictureDO> listPicture(@RequestParam Map<String, Object> map) {
+    	
         return photoManageService.listPicture(map);
+    }
+    @RequestMapping("/listPicturebyr")
+    @ResponseBody
+    public R listPicturebyr(@RequestParam Map<String, Object> map) {
+    	try {
+        	return R.okdata(photoManageService.listPicture(map));
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    		return R.error();
+    	}
     }
 
     @Log("删除图片")

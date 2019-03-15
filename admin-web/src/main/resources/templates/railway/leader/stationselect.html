@@ -43,7 +43,7 @@
 		<div style="width: 100%; margin-top: 30px;">
 			<div class="piclist">
 				<ul class="listul">
-
+					<li style="width:100%;color:#003c72;text-align:center;">请在左侧选择对应日期下的车号</li>
 				</ul>
 				<div style="width: 100%;">
 					<div class="fydiv">
@@ -56,21 +56,30 @@
 		</div>
 	</div>
 	<script src="/js/jquery.min.js" type="text/javascript"></script>
+	<script src="/js/plugins/layer/layer.min.js" th:src="@{/js/plugins/layer/layer.min.js}"></script>
 	<script src="/railway/js/easing.js"></script>
+	<script src="/js/ajax-util.js"></script>
 	<script src="/railway/js/diytree2.js"></script>
 	<!-- 图片查看需要的js -->
 	<script src="/railway/js/lookphoto.js"></script>
 	<script src="/railway/js/jquery.rotate.min.js"></script>
 
 	<script type="text/javascript"> 
+		var pictureboxs={
+				picdatas:[],
+				pageSize:10
+		}
+		diytree();
 		$('#diytree').treeinit('/railway/station/listTree',{bindTag:''});
 		var nowPageNo=1;
 		getPage(nowPageNo);
+		
 		//翻页
 		function getPage(pn){
-		  var dataCount=100;//总数据条数
-		  var pageSize=10;//每页显示条数
+		  var dataCount=pictureboxs.picdatas.length;//总数据条数
+		  var pageSize=pictureboxs.pageSize;//每页显示条数
 		  var pageCount= Math.ceil(dataCount / pageSize);//总页数
+		  console.log(dataCount+"-"+pageSize+"-"+pageCount);
 		  if(pn==0||pn>pageCount){
 		    return;
 		  }
@@ -82,8 +91,9 @@
 		
 		  if (pageCount == 1) {     // 当只有一页时 
 		    for (var j = 0; j < dataCount; j++) {  
+		    	var thisdata=pictureboxs.picdatas[j];
 		      //var e="<li><a href=\"content.html\"><img src=\"images/lbt.jpg\"></a><p><span>点击查看大图"+j+"</span></p></li>";
-		      var e="<li><a href=\"javascript:;\"><img src='http://www.17sucai.com/preview/413555/2015-09-23/tanchudatu/photo/1.jpg'></a><p style='text-align:center;'  ><a class='showbig' data-magnify='gallery2' data-group='g2' data-src='http://www.17sucai.com/preview/413555/2015-09-23/tanchudatu/photo/1.jpg' data-caption='测试图片"+j+"' style='cursor:pointer;text-decoration: underline;'>查看"+j+"</a></p></li>";
+		      var e="<li><a href=\"javascript:;\"><img src='/railway/file/getThumPhoto/"+thisdata.id+"'  ></a><p style='text-align:center;'  ><a class='showbig' data-magnify='gallery2' data-group='g2' data-src='/railway/file/getPhoto/"+thisdata.id+"' data-caption='第"+j+"张' style='cursor:pointer;text-decoration: underline;'>查看</a></p></li>";
 		      //var e="<li><a href=\"javascript:;\"><img src="+"images/lbt.jpg"+"></a><p style='text-align:center;'  ><a class='showbig' data-magnify='gallery2' data-group='g2' data-src='images/lbt.jpg' data-caption='测试图片"+j+"' style='cursor:pointer;text-decoration: underline;'>查看"+j+"</a></p></li>";
 		      ul.append(e);    
 		    }
@@ -91,8 +101,9 @@
 		    var e=""; 
 		    var endPage = pn<pageCount?pageSize * pn:dataCount;
 		    for (var j = startPage; j < endPage; j++) {  
-		      var e="<li><a href=\"javascript:;\"><img src='http://www.17sucai.com/preview/413555/2015-09-23/tanchudatu/photo/1.jpg'></a><p style='text-align:center;'  ><a class='showbig' data-magnify='gallery2' data-group='g2' data-src='http://www.17sucai.com/preview/413555/2015-09-23/tanchudatu/photo/1.jpg' data-caption='测试图片"+j+"' style='cursor:pointer;text-decoration: underline;'>查看"+j+"</a></p></li>";
-		      ul.append(e);
+		    	var thisdata=pictureboxs.picdatas[j];
+			      var e="<li><a href=\"javascript:;\"><img src='/railway/file/getThumPhoto/"+thisdata.id+"'  ><a class='showbig' data-magnify='gallery2' data-group='g2' data-src='/railway/file/getPhoto/"+thisdata.id+"' data-caption='第"+j+"张' style='cursor:pointer;text-decoration: underline;'>查看</a></p></li>";
+			      ul.append(e);
 		    }
 		  }
 		  //增加点击大图事件
