@@ -5,6 +5,8 @@ import com.admin.railway.domain.vo.LoginVo;
 import com.admin.railway.domain.vo.UploadImgVo;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+
 
 /**
  * @ClassName: ApiService
@@ -21,7 +23,7 @@ public interface ApiService {
      * @Return: com.admin.common.utils.R
      * @Date: 2019/3/10 14:05
      **/
-    R login(LoginVo vo);
+    R login(LoginVo vo, HttpServletRequest request);
 
     /**
      * @Author: luojing
@@ -41,5 +43,15 @@ public interface ApiService {
      * @Date: 2019/3/10 14:47
      **/
     R listTask(String personId);
+
+
+    /**
+     * @Author: luojing
+     * @Description: 获取Token
+     * @Param: [token]
+     * @Return: R
+     * @Date: 2019/3/15 16:33
+     **/
+    R getToken(String token);
 
 }

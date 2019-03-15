@@ -3,6 +3,8 @@ package com.admin.railway.service.impl;
 import com.admin.common.config.AdminConfig;
 import com.admin.common.config.Constant;
 import com.admin.common.utils.*;
+import com.admin.railway.dao.LoginUserTokenDo;
+import com.admin.railway.domain.LoginUserToken;
 import com.admin.railway.domain.OrderDO;
 import com.admin.railway.domain.PersonDO;
 import com.admin.railway.domain.PictureDO;
@@ -12,11 +14,12 @@ import com.admin.railway.service.ApiService;
 import com.admin.railway.service.OrderService;
 import com.admin.railway.service.PersonService;
 import com.admin.railway.service.PictureService;
-import org.apache.shiro.crypto.hash.Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -39,9 +42,11 @@ public class ApiServiceImpl implements ApiService {
     private OrderService orderService;
     @Autowired
     private PictureService pictureService;
+    @Autowired
+    private LoginUserTokenDo loginUserTokenDo;
 
     @Override
-    public R login(LoginVo vo) {
+    public R login(LoginVo vo, HttpServletRequest request) {
         //验证
         Map<String, Object> map = new HashMap<>();
         map.put("loginName", vo.getLoginName());
@@ -56,8 +61,27 @@ public class ApiServiceImpl implements ApiService {
             return R.error(Constant.ErrorInfo.PASSWORD_ERROR.getCode(), Constant.ErrorInfo.PASSWORD_ERROR.getMsg());
         }
         R r = new R();
-        r.put("person",personMap);
-        r.put("token","");
+        r.put(Constant.PERSION, personMap);
+        //生成token
+        String tokenStr = MD5Utils.encrypt(vo.getLoginName(), String.valueOf(System.currentTimeMillis()));
+        String userId = personMap.get("id").toString();
+        Map<String, Object> tokenMap = new HashMap<>();
+        tokenMap.put("usreId", userId);
+        LoginUserToken token = loginUserTokenDo.getUserToken(tokenMap);
+        if (token == null) {
+            token = new LoginUserToken();
+            token.setUserId(userId);
+            token.setToken(tokenStr);
+            token.setTimeOut(Constant.TOKEN_TIME_OUT);
+            token.setTime(System.currentTimeMillis());
+            loginUserTokenDo.save(token);
+        } else {
+            token.setToken(tokenStr);
+            token.setTimeOut(Constant.TOKEN_TIME_OUT);
+            token.setTime(System.currentTimeMillis());
+            loginUserTokenDo.update(token);
+        }
+        r.put(Constant.TOKEN, tokenStr);
         return r;
     }
 
@@ -65,7 +89,7 @@ public class ApiServiceImpl implements ApiService {
     public R uploadImg(UploadImgVo vo, MultipartFile file) {
         //查询拍照人信息
         PersonDO personDO = personService.get(Long.valueOf(vo.getPersonId()));
-        if(personDO == null){
+        if (personDO == null) {
             return R.error(Constant.ErrorInfo.PERSION_NULL.getCode(), Constant.ErrorInfo.PERSION_NULL.getMsg());
         }
         //上传地址路径
@@ -115,10 +139,33 @@ public class ApiServiceImpl implements ApiService {
 
     @Override
     public R listTask(String personId) {
-        List<Map<String,Object>> map = orderService.listTask(personId);
+        List<Map<String, Object>> map = orderService.listTask(personId);
         R r = new R();
-        r.put("taskList",map);
+        r.put("taskList", map);
         return r;
+    }
+
+    @Override
+    public R getToken(String token) {
+        Map<String, Object> tokenMap = new HashMap<>();
+        tokenMap.put("token", token);
+        LoginUserToken userToken = loginUserTokenDo.getUserToken(tokenMap);
+        if (userToken != null) {
+            //计算时间是否过期
+            long loginTime = userToken.getTime();
+            //当前时间
+            long curTime = System.currentTimeMillis();
+            long time = (curTime - loginTime) / 1000;
+            if (time > userToken.getTimeOut()) {
+                return R.error(Constant.ErrorInfo.LOGIN_TIME_OUT.getCode(), Constant.ErrorInfo.LOGIN_TIME_OUT.getMsg());
+            } else {
+                userToken.setTime(System.currentTimeMillis());
+                loginUserTokenDo.update(userToken);
+                return R.ok();
+            }
+        } else {
+            return R.error(Constant.ErrorInfo.LOGIN_TIME_OUT.getCode(), Constant.ErrorInfo.LOGIN_TIME_OUT.getMsg());
+        }
     }
 }
 

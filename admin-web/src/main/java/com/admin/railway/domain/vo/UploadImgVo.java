@@ -24,8 +24,4 @@ public class UploadImgVo {
 
     @ApiModelProperty(value = "调度任务ID,为空时代表拍照人员主动上传照片", dataType = "string", required = false)
     private String taskId;
-
-    @ApiModelProperty(value = "token", dataType = "string", required = false)
-    private String token;
-
 }

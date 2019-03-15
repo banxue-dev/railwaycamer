@@ -1,5 +1,7 @@
 package com.admin.common.config;
 
+import io.swagger.models.auth.In;
+
 public class Constant {
     //演示系统账户
     public final static String DEMO_ACCOUNT = "test";
@@ -25,6 +27,13 @@ public class Constant {
     public final static String DATA = "data";
 
     public final static String COUNT = "count";
+
+    public final static String PERSION = "person";
+
+    public final static String TOKEN = "token";
+
+    // 单位秒
+    public final static Integer TOKEN_TIME_OUT = 1800;
 
     /**
      * @Author: luojing
@@ -65,7 +74,11 @@ public class Constant {
         ADD_FAIL(-20000, "添加失败"),
         DELETE_FAIL(-20001, "删除失败"),
         UPDATE_FAIL(-20002, "修改失败"),
-        EXIST_STATION_DEL_FAIL(-20003, "存在下级站点，删除失败");
+        EXIST_STATION_DEL_FAIL(-20003, "存在下级站点，删除失败"),
+
+
+        LOGIN_TIME_OUT(-20004, "登录超时,请重新登录"),
+        AUTH_FAIL(-20005, "身份验证失败，请输入有效的身份认证");
 
         private int code;
         private String msg;

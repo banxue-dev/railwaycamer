@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @ClassName: ApiController
  * @Description: App接口
@@ -30,14 +32,14 @@ public class ApiController {
     @Log("App登录")
     @ApiOperation(value="App登录接口", notes="")
     @PostMapping("login")
-    public R login(LoginVo vo){
+    public R login(LoginVo vo, HttpServletRequest request){
         if(StringUtils.isEmpty(vo.getLoginName())){
             return R.error(Constant.ErrorInfo.LOGIN_NAME_NULL.getCode(),Constant.ErrorInfo.LOGIN_NAME_NULL.getMsg());
         }
         if(StringUtils.isEmpty(vo.getPassword())){
             return R.error(Constant.ErrorInfo.PASSWORD_NULL.getCode(),Constant.ErrorInfo.PASSWORD_NULL.getMsg());
         }
-        return apiService.login(vo);
+        return apiService.login(vo,request);
     }
 
     @Log("拍照上传")
