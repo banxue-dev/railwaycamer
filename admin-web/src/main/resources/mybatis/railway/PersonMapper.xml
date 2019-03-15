@@ -113,10 +113,10 @@
 		</set>
 		<where>
 			<if test="id != null">
-				id = #{id}
+				and id = #{id} 
 			</if>
 			<if test="loginName != null and loginName != ''">
-				login_name = #{loginName}
+				and login_name = #{loginName}
 			</if>
 		</where>
 	</update>
