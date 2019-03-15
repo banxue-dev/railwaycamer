@@ -51,7 +51,18 @@ function diytree(){
 					* 子节点点击事件
 					*/
 					$('.child>li>.bottom_').unbind('click').bind('click',function(){
-						var order_id=$(this).attr('data-id');
+						var _this=this;
+						var order_id=$(_this).attr('data-id');
+						var pname=$(_this).attr('panme');
+						var ptime=$(_this).attr('ptime);
+						var ptype=$(_this).attr('trainType');
+						var tline=$(_this).attr('loadingLine');
+						var trinno=$(_this).attr('trinno');
+						$('#trinno').text('车号：'+trinno);
+						$('#pname').text('品名：'+pname);
+						$('#ptime').text('拍摄日期：'+ptime);
+						$('#ptype').text('车型：'+ptype);
+						$('#tline').text('装车线路：'+tline);
 						//去获取图片。
 						$.ajax({
 							url:'/railway/photomanage/listPicturebyr',
@@ -65,7 +76,6 @@ function diytree(){
 							}
 						})
 						
-						alert($(this).text());
 					});
 				},loadPhoto:function(tdom){
 					var thistdom=$(tdom);
@@ -141,7 +151,7 @@ function diytree(){
 							html+='</ul>';
 							html+='</li>';
 						}else{
-							html+='<li><a data-id="'+tar.id+'" data-code="'+tar.text+'" class="bottom_" href="javascript:;" >'+tar.text+'</a></li>';
+							html+='<li><a data-id="'+tar.id+'" data-code="'+tar.attributes.trinno+'" data-pname="'+tar.attributes.productName+'" data-ptime="'+tar.attributes.ptime+'" data-trainType="'+tar.attributes.trainType+'" data-loadingLine="'+tar.attributes.loadingLine+'"  class="bottom_" href="javascript:;" >'+tar.text+'</a></li>';
 						}
 					
 					}

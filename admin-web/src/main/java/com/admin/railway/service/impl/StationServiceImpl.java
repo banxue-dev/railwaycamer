@@ -184,6 +184,10 @@ public class StationServiceImpl implements StationService {
 					Map<String, Object> attributes1 = new HashMap<>(16);
 					attributes1.put("orderid", temp.getId().toString());
 					attributes.put("trinno", temp.getTrainNo());
+					attributes.put("ptime", date);
+					attributes.put("productName", temp.getProductName());
+					attributes.put("trainType", temp.getTrainType());
+					attributes.put("loadingLine", temp.getLoadingLine());
 					tree.setAttributes(attributes1);
 					trees.add(tree1);
 				}
