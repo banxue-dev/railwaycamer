@@ -115,7 +115,7 @@ public class PersonController extends BaseController {
 			person.setPassword("123456");
 		}
 		// 用户密码加密
-		person.setPassword(MD5Utils.encrypt(person.getPassword()));
+		person.setPassword(MD5Utils.encrypt(person.getLoginName(),person.getPassword()));
 		
 		person.setDelState(Constants.NO);
 		person.setCreateTime(new Date());
@@ -170,7 +170,7 @@ public class PersonController extends BaseController {
 		
 		if (StringUtils.isNotBlank(person.getPassword())) {
 			// 用户密码加密
-			person.setPassword(MD5Utils.encrypt(person.getPassword()));
+			person.setPassword(MD5Utils.encrypt(person.getLoginName(),person.getPassword()));
 		}
 		
 		person.setModifyTime(new Date());
