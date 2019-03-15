@@ -85,10 +85,10 @@ function load() {
                         	return $('#stationId').val();
                         },
                         beginTime: function(){
-                        	return $('#beginTime').val().replace('年','-').replace('月','-').replace('日','');
+                        	return $('#beginTime').val().replace('年','-').replace('月','-').replace('日','') + ' 00:00:00';
                         },
                         endTime: function(){
-                        	return $('#endTime').val().replace('年','-').replace('月','-').replace('日','');
+                        	return $('#endTime').val().replace('年','-').replace('月','-').replace('日','') + ' 23:59:59';
                         },
                     }
                 });
