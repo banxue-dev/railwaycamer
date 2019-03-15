@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.admin.common.annotation.Log;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,6 +96,7 @@ public class PersonController extends BaseController {
 	 * 返回拍照人员-添加
 	 * @return
 	 */
+	@Log("添加拍照人员")
 	@RequiresPermissions("railway:person:add")
 	@PostMapping("/add")
 	@ResponseBody
@@ -120,6 +122,7 @@ public class PersonController extends BaseController {
 	 * @param id
 	 * @return
 	 */
+	@Log("删除拍照人员")
 	@RequiresPermissions("railway:person:remove")
 	@PostMapping("/remove")
 	@ResponseBody
@@ -144,6 +147,7 @@ public class PersonController extends BaseController {
 	 * 返回拍照人员-添加
 	 * @return
 	 */
+	@Log("修改拍照人员")
 	@RequiresPermissions("railway:person:edit")
 	@PostMapping("/update")
 	@ResponseBody

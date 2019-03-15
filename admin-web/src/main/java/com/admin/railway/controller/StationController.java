@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.admin.common.annotation.Log;
 import com.admin.common.config.Constant;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,7 @@ public class StationController extends BaseController {
 		return "railway/station/add";
 	}
 
+	@Log("新增站点")
 	@RequiresPermissions("railway:station:add")
 	@PostMapping("/save")
 	@ResponseBody
@@ -75,6 +77,7 @@ public class StationController extends BaseController {
 		return "railway/station/edit";
 	}
 
+	@Log("修改站点")
 	@RequiresPermissions("railway:station:edit")
 	@PostMapping("/update")
 	@ResponseBody
@@ -87,6 +90,7 @@ public class StationController extends BaseController {
 		}
 	}
 
+	@Log("删除站点")
 	@RequiresPermissions("railway:station:remove")
 	@PostMapping("/remove")
 	@ResponseBody

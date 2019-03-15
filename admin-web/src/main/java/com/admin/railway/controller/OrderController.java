@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import com.admin.common.annotation.Log;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,6 +92,7 @@ public class OrderController extends BaseController {
 	 * 返回拍照人员-添加
 	 * @return
 	 */
+	@Log("新增调度任务")
 	@RequiresPermissions("railway:order:add")
 	@PostMapping("/add")
 	@ResponseBody
@@ -144,6 +146,7 @@ public class OrderController extends BaseController {
 	 * 修改
 	 * @return
 	 */
+	@Log("修改调度任务")
 	@RequiresPermissions("railway:order:edit")
 	@PostMapping("/update")
 	@ResponseBody
@@ -185,6 +188,7 @@ public class OrderController extends BaseController {
 	 * @param id
 	 * @return
 	 */
+	@Log("复制调度任务")
 	@RequiresPermissions("railway:order:copy")
 	@PostMapping("/copy")
 	@ResponseBody
