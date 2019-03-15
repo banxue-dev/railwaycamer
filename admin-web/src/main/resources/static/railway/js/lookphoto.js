@@ -342,7 +342,10 @@
                     src: src,
                     caption: $(item).data('caption')
                 });
-                if ($(item).data('caption') === $(self.tdom).data('caption')) {
+                /*if ($(item).data('caption') === $(self.tdom).data('caption')) {
+                    self.groupIndex = index;
+                }*/
+                if (imgSrc === src) {
                     self.groupIndex = index;
                 }
             })

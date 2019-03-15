@@ -158,23 +158,35 @@ public class StationServiceImpl implements StationService {
 			maporder.put("startStationId", stationId);
 			Tree<String> tree = new Tree<String>();
 			tree.setId(date);
-			tree.setParentId(stationId.toString());
+			tree.setParentId("0");
 			tree.setText(date);
 			Map<String, Object> attributes = new HashMap<>(16);
 			attributes.put("trinno", "");
 			tree.setAttributes(attributes);
 			trees.add(tree);
 			List<OrderDO>  orders=orderDao.list(maporder);
-			for(OrderDO temp:orders) {
+			if(orders==null || orders.size()<1) {
 				Tree<String> tree1 = new Tree<String>();
 				tree1.setId(i+"");
 				tree1.setParentId(date);
-				tree1.setText("车号："+temp.getTrainNo());
+				tree1.setText("暂无数据");
 				Map<String, Object> attributes1 = new HashMap<>(16);
-				attributes1.put("ttt", "11");
-				attributes.put("trinno", temp.getTrainNo());
+				attributes1.put("orderid", "0");
+				attributes.put("trinno", "暂无数据");
 				tree.setAttributes(attributes1);
 				trees.add(tree1);
+			}else {
+				for(OrderDO temp:orders) {
+					Tree<String> tree1 = new Tree<String>();
+					tree1.setId(temp.getId()+"");
+					tree1.setParentId(date);
+					tree1.setText("车号："+temp.getTrainNo());
+					Map<String, Object> attributes1 = new HashMap<>(16);
+					attributes1.put("orderid", temp.getId().toString());
+					attributes.put("trinno", temp.getTrainNo());
+					tree.setAttributes(attributes1);
+					trees.add(tree1);
+				}
 			}
 			
 		}

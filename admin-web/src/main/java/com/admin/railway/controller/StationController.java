@@ -110,6 +110,21 @@ public class StationController extends BaseController {
 			return R.error();
 		}
 	}
+	@ResponseBody
+	@RequestMapping("/listTimeTree")
+	public R getStationListByTimeTree(Long stationId,Integer nowsize,Integer pagesize) {
+		try {
+			Map<String, Object> map=new HashMap<>();
+			map.put("stationId", stationId);
+			map.put("nowsize", nowsize);
+			map.put("pagesize", pagesize);
+			List<Tree<String>> lst=stationService.getStationTimeByTree(map);
+			return R.okdata(lst);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return R.error();
+		}
+	}
 	@RequestMapping("/leaderLook")
 	public String leaderLook() {
 		return "railway/leader/stationselect";

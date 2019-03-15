@@ -10,8 +10,8 @@ a {
 }
 .listul img {
 	border-style: none;
-	width:100%;
-	height:270px;
+	width:240px;
+	height:180px;
 }
 ul{list-style: none;}
 /* 基础部分*/
@@ -24,9 +24,10 @@ body {
 }
 
 /*图片列表*/
-.piclist{ margin: 0 auto;}
-.listul{margin-left: 0; overflow:hidden;padding: 5px 20px;}
-.listul li{float: left;width: 240px;padding-left: 20px;;height: 300px;position: relative;}
+.piclist{ margin: 0 auto;background-color: #fff;border: 1px solid #bcbcbc;}
+.listul{margin-left: 0; overflow:hidden;padding: 5px 20px;border-bottom: 1px solid #bcbcbc;}
+.listul li{float: left;width: 265px;height: 210px;position: relative;}
+.listul li span{position: absolute;bottom: 30px;width: 240px;text-align: center;background: rgba(0,0,0,0.6);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000,endColorstr=#99000000); color: #fff;font-size: 15px;padding: 3px 0;}
 
 /*分页样式*/
 .fydiv{width: 350px;text-align: center;height: 30px;margin: 0 auto;margin-top: 15px;margin-bottom: 15px;}

@@ -51,9 +51,9 @@ public class OrderDO implements Serializable {
 	//为0时不是续拍，不为0时为续拍，存放上次任务ID
 	private Long continueShot;
 	//开始时间
-	private Date startTime;
+	private Date orderStartTime;
 	//结束时间
-	private Date endTime;
+	private Date orderEndTime;
 	//任务状态:0已拍照，1未拍照，
 	private Integer orderState;
 	//是否删除
