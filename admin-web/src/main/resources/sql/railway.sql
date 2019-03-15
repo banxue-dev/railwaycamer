@@ -414,4 +414,13 @@ CREATE TABLE `tbl_station`  (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '站点表' ROW_FORMAT = Dynamic;
 
+DROP TABLE IF EXISTS `login_user_token`;
+CREATE TABLE `login_user_token`  (
+  `user_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '用户ID',
+  `token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'token',
+  `time_out` int(10) NOT NULL COMMENT '失效时间 秒',
+  `time` bigint(30) NULL DEFAULT NULL COMMENT '登录时间',
+  PRIMARY KEY (`user_id`, `token`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '拍照人登录token' ROW_FORMAT = Dynamic;
+
 SET FOREIGN_KEY_CHECKS = 1;
