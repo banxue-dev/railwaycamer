@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import com.admin.common.annotation.Log;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +24,14 @@ import com.admin.common.controller.BaseController;
 import com.admin.common.utils.Constants;
 import com.admin.common.utils.QueryParam;
 import com.admin.common.utils.R;
+import com.admin.common.utils.ShiroUtils;
 import com.admin.railway.domain.OrderDO;
 import com.admin.railway.domain.PersonDO;
 import com.admin.railway.domain.StationDO;
 import com.admin.railway.service.OrderService;
 import com.admin.railway.service.PersonService;
 import com.admin.railway.service.StationService;
+import com.admin.system.domain.UserDO;
 
 @Controller
 @RequestMapping("/railway/order")
@@ -89,10 +92,13 @@ public class OrderController extends BaseController {
 	 * 返回拍照人员-添加
 	 * @return
 	 */
+	@Log("新增调度任务")
 	@RequiresPermissions("railway:order:add")
 	@PostMapping("/add")
 	@ResponseBody
 	public R add(OrderDO order) {
+		
+		UserDO user = ShiroUtils.getUser();
 		
 		// 根据前端传的 personIds 查找用户名
 		String personIds = order.getPersonIds();
@@ -118,7 +124,7 @@ public class OrderController extends BaseController {
 
 		order.setDelState(Constants.NO);
 		order.setCreateTime(new Date());
-		order.setCreateUser("系统");
+		order.setCreateUser(user.getName());
 		
 		orderService.save(order);
 		return R.ok();
@@ -140,10 +146,12 @@ public class OrderController extends BaseController {
 	 * 修改
 	 * @return
 	 */
+	@Log("修改调度任务")
 	@RequiresPermissions("railway:order:edit")
 	@PostMapping("/update")
 	@ResponseBody
 	public R update(OrderDO order) {
+		UserDO user = ShiroUtils.getUser();
 		
 		// 根据前端传的 personIds 查找用户名
 		String personIds = order.getPersonIds();
@@ -169,7 +177,7 @@ public class OrderController extends BaseController {
 		}
 
 		order.setModifyTime(new Date());
-		order.setModifyUser("系统");
+		order.setModifyUser(user.getName());
 		
 		orderService.update(order);
 		return R.ok();
@@ -180,14 +188,17 @@ public class OrderController extends BaseController {
 	 * @param id
 	 * @return
 	 */
+	@Log("复制调度任务")
 	@RequiresPermissions("railway:order:copy")
 	@PostMapping("/copy")
 	@ResponseBody
 	public R copy(Long id) {
+		UserDO user = ShiroUtils.getUser();
+		
 		OrderDO order = orderService.get(id);
 		order.setId(null);
 		order.setCreateTime(new Date());
-		order.setCreateUser("系统");
+		order.setCreateUser(user.getName());
 		order.setModifyTime(null);
 		order.setModifyUser(null);
 		order.setContinueShot(id);

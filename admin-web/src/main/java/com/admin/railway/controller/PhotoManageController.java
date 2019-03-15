@@ -1,5 +1,6 @@
 package com.admin.railway.controller;
 
+import com.admin.common.annotation.Log;
 import com.admin.common.config.Constant;
 import com.admin.common.utils.GenUtils;
 import com.admin.common.utils.R;
@@ -64,6 +65,7 @@ public class PhotoManageController {
         return photoManageService.listPicture(map);
     }
 
+    @Log("删除图片")
     @PostMapping("/deletePic")
     @ResponseBody
     public R deletePic(@RequestParam("ids[]") Long[] ids) {

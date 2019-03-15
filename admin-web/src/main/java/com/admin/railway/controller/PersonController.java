@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.admin.common.annotation.Log;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.admin.common.controller.BaseController;
 import com.admin.common.utils.Constants;
+import com.admin.common.utils.MD5Utils;
 import com.admin.common.utils.QueryParam;
 import com.admin.common.utils.R;
 import com.admin.common.utils.ShiroUtils;
@@ -95,6 +97,7 @@ public class PersonController extends BaseController {
 	 * 返回拍照人员-添加
 	 * @return
 	 */
+	@Log("添加拍照人员")
 	@RequiresPermissions("railway:person:add")
 	@PostMapping("/add")
 	@ResponseBody
@@ -108,6 +111,12 @@ public class PersonController extends BaseController {
 			person.setStationName(station.getName());
 		}
 		
+		if (StringUtils.isBlank(person.getPassword())) {
+			person.setPassword("123456");
+		}
+		// 用户密码加密
+		person.setPassword(MD5Utils.encrypt(person.getLoginName(),person.getPassword()));
+		
 		person.setDelState(Constants.NO);
 		person.setCreateTime(new Date());
 		person.setCreateUser(user.getName());
@@ -120,6 +129,7 @@ public class PersonController extends BaseController {
 	 * @param id
 	 * @return
 	 */
+	@Log("删除拍照人员")
 	@RequiresPermissions("railway:person:remove")
 	@PostMapping("/remove")
 	@ResponseBody
@@ -144,6 +154,7 @@ public class PersonController extends BaseController {
 	 * 返回拍照人员-添加
 	 * @return
 	 */
+	@Log("修改拍照人员")
 	@RequiresPermissions("railway:person:edit")
 	@PostMapping("/update")
 	@ResponseBody
@@ -155,6 +166,11 @@ public class PersonController extends BaseController {
 		if (person.getStationId() != null) {
 			StationDO station = stationService.get(person.getStationId());
 			person.setStationName(station.getName());
+		}
+		
+		if (StringUtils.isNotBlank(person.getPassword())) {
+			// 用户密码加密
+			person.setPassword(MD5Utils.encrypt(person.getLoginName(),person.getPassword()));
 		}
 		
 		person.setModifyTime(new Date());

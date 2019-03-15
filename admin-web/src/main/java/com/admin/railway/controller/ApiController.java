@@ -1,5 +1,6 @@
 package com.admin.railway.controller;
 
+import com.admin.common.annotation.Log;
 import com.admin.common.config.Constant;
 import com.admin.common.utils.R;
 import com.admin.common.utils.StringUtils;
@@ -26,6 +27,7 @@ public class ApiController {
     @Autowired
     private ApiService apiService;
 
+    @Log("App登录")
     @ApiOperation(value="App登录接口", notes="")
     @PostMapping("login")
     public R login(LoginVo vo){
@@ -38,6 +40,7 @@ public class ApiController {
         return apiService.login(vo);
     }
 
+    @Log("拍照上传")
     @ApiOperation(value="拍照上传接口", notes="")
     @PostMapping("uploadImg")
     public R uploadImg(UploadImgVo vo,@RequestParam("file") MultipartFile file) {
@@ -53,6 +56,7 @@ public class ApiController {
         return apiService.uploadImg(vo,file);
     }
 
+    @Log("获取拍照任务")
     @ApiOperation(value="获取拍照任务", notes="")
     @GetMapping("listTask/{personId}")
     public R listTask(@PathVariable("personId") String personId){
