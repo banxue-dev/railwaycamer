@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.admin.common.controller.BaseController;
 import com.admin.common.utils.Constants;
+import com.admin.common.utils.MD5Utils;
 import com.admin.common.utils.QueryParam;
 import com.admin.common.utils.R;
 import com.admin.common.utils.ShiroUtils;
@@ -110,6 +111,12 @@ public class PersonController extends BaseController {
 			person.setStationName(station.getName());
 		}
 		
+		if (StringUtils.isBlank(person.getPassword())) {
+			person.setPassword("123456");
+		}
+		// 用户密码加密
+		person.setPassword(MD5Utils.encrypt(person.getPassword()));
+		
 		person.setDelState(Constants.NO);
 		person.setCreateTime(new Date());
 		person.setCreateUser(user.getName());
@@ -159,6 +166,11 @@ public class PersonController extends BaseController {
 		if (person.getStationId() != null) {
 			StationDO station = stationService.get(person.getStationId());
 			person.setStationName(station.getName());
+		}
+		
+		if (StringUtils.isNotBlank(person.getPassword())) {
+			// 用户密码加密
+			person.setPassword(MD5Utils.encrypt(person.getPassword()));
 		}
 		
 		person.setModifyTime(new Date());
