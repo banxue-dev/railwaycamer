@@ -53,11 +53,11 @@ function diytree(){
 					$('.child>li>.bottom_').unbind('click').bind('click',function(){
 						var _this=this;
 						var order_id=$(_this).attr('data-id');
-						var pname=$(_this).attr('panme');
-						var ptime=$(_this).attr('ptime);
-						var ptype=$(_this).attr('trainType');
-						var tline=$(_this).attr('loadingLine');
-						var trinno=$(_this).attr('trinno');
+						var pname=$(_this).attr('data-pname');
+						var ptime=$(_this).attr('data-ptime');
+						var ptype=$(_this).attr('data-trainType');
+						var tline=$(_this).attr('data-loadingLine');
+						var trinno=$(_this).attr('data-trinno');
 						$('#trinno').text('车号：'+trinno);
 						$('#pname').text('品名：'+pname);
 						$('#ptime').text('拍摄日期：'+ptime);
@@ -151,7 +151,11 @@ function diytree(){
 							html+='</ul>';
 							html+='</li>';
 						}else{
-							html+='<li><a data-id="'+tar.id+'" data-code="'+tar.attributes.trinno+'" data-pname="'+tar.attributes.productName+'" data-ptime="'+tar.attributes.ptime+'" data-trainType="'+tar.attributes.trainType+'" data-loadingLine="'+tar.attributes.loadingLine+'"  class="bottom_" href="javascript:;" >'+tar.text+'</a></li>';
+							if(tar.attributes.trinno=='暂无数据'){
+								html+='<li><a data-id="'+tar.id+'"  class="" href="javascript:;" >'+tar.text+'</a></li>';
+							}else{	
+								html+='<li><a data-id="'+tar.id+'" data-trinno="'+tar.attributes.trinno+'" data-pname="'+tar.attributes.productName+'" data-ptime="'+tar.attributes.ptime+'" data-trainType="'+tar.attributes.trainType+'" data-loadingLine="'+tar.attributes.loadingLine+'"  class="bottom_" href="javascript:;" >'+tar.text+'</a></li>';
+							}
 						}
 					
 					}
