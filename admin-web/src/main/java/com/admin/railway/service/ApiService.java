@@ -2,6 +2,7 @@ package com.admin.railway.service;
 
 import com.admin.common.utils.R;
 import com.admin.railway.domain.vo.LoginVo;
+import com.admin.railway.domain.vo.PasswordVo;
 import com.admin.railway.domain.vo.UploadImgVo;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -53,5 +54,14 @@ public interface ApiService {
      * @Date: 2019/3/15 16:33
      **/
     R getToken(String token);
+
+    /**
+     * @Author: luojing
+     * @Description: 修改密码
+     * @Param: [vo]
+     * @Return: com.admin.common.utils.R
+     * @Date: 2019/3/15 18:33
+     **/
+    boolean updatePassword(PasswordVo vo);
 
 }

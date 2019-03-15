@@ -25,8 +25,13 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 	@Override
-	public void update(PersonDO person) {
-		personMapper.update(person);
+	public boolean update(PersonDO person) {
+		int i = personMapper.update(person);
+		if (i>0){
+			return true;
+		}else {
+			return false;
+		}
 	}
 
 	@Override

@@ -9,6 +9,7 @@ import com.admin.railway.domain.OrderDO;
 import com.admin.railway.domain.PersonDO;
 import com.admin.railway.domain.PictureDO;
 import com.admin.railway.domain.vo.LoginVo;
+import com.admin.railway.domain.vo.PasswordVo;
 import com.admin.railway.domain.vo.UploadImgVo;
 import com.admin.railway.service.ApiService;
 import com.admin.railway.service.OrderService;
@@ -166,6 +167,14 @@ public class ApiServiceImpl implements ApiService {
         } else {
             return R.error(Constant.ErrorInfo.LOGIN_TIME_OUT.getCode(), Constant.ErrorInfo.LOGIN_TIME_OUT.getMsg());
         }
+    }
+
+    @Override
+    public boolean updatePassword(PasswordVo vo) {
+        PersonDO person = new PersonDO();
+        person.setLoginName(vo.getLoginName());
+        person.setPassword(vo.getPassword());
+        return personService.update(person);
     }
 }
 

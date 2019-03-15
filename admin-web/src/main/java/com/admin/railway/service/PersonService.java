@@ -9,7 +9,7 @@ public interface PersonService {
 	
 	void save(PersonDO person);
 
-	void update(PersonDO person);
+	boolean update(PersonDO person);
 	
 	void remove(Long personId);
 	

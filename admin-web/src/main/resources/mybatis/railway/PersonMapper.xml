@@ -111,7 +111,14 @@
 			<if test="modifyTime != null">modify_time = #{modifyTime}, </if>
 			<if test="modifyUser != null">modify_user = #{modifyUser}</if>
 		</set>
-		where id = #{id}
+		<where>
+			<if test="id != null">
+				id = #{id}
+			</if>
+			<if test="loginName != null and loginName != ''">
+				login_name = #{loginName}
+			</if>
+		</where>
 	</update>
 	
 	<delete id="remove">

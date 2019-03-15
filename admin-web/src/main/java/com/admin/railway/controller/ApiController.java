@@ -5,6 +5,7 @@ import com.admin.common.config.Constant;
 import com.admin.common.utils.R;
 import com.admin.common.utils.StringUtils;
 import com.admin.railway.domain.vo.LoginVo;
+import com.admin.railway.domain.vo.PasswordVo;
 import com.admin.railway.domain.vo.UploadImgVo;
 import com.admin.railway.service.ApiService;
 import io.swagger.annotations.Api;
@@ -29,7 +30,7 @@ public class ApiController {
     @Autowired
     private ApiService apiService;
 
-    @Log("App登录")
+    @Log("APP登录")
     @ApiOperation(value="App登录接口", notes="")
     @PostMapping("login")
     public R login(LoginVo vo, HttpServletRequest request){
@@ -42,7 +43,7 @@ public class ApiController {
         return apiService.login(vo,request);
     }
 
-    @Log("拍照上传")
+    @Log("APP拍照上传")
     @ApiOperation(value="拍照上传接口", notes="")
     @PostMapping("uploadImg")
     public R uploadImg(UploadImgVo vo,@RequestParam("file") MultipartFile file) {
@@ -58,11 +59,23 @@ public class ApiController {
         return apiService.uploadImg(vo,file);
     }
 
-    @Log("获取拍照任务")
+    @Log("APP获取拍照任务")
     @ApiOperation(value="获取拍照任务", notes="")
     @GetMapping("listTask/{personId}")
     public R listTask(@PathVariable("personId") String personId){
         return apiService.listTask(personId);
+    }
+
+    @Log("APP修改密码")
+    @ApiOperation(value="获取拍照任务", notes="")
+    @GetMapping("updatePassword")
+    public R updatePassword(PasswordVo vo){
+        boolean fag = apiService.updatePassword(vo);
+        if(fag){
+            return R.ok(Constant.SuccessInfo.UPDATE_SUCCESS.getMsg());
+        }else {
+            return R.error(Constant.ErrorInfo.UPDATE_FAIL.getCode(),Constant.ErrorInfo.UPDATE_FAIL.getMsg());
+        }
     }
 
 }
