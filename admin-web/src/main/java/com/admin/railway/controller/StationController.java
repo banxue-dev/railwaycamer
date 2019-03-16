@@ -68,7 +68,7 @@ public class StationController extends BaseController {
 	public String edit(@PathVariable("id") Long id, Model model){
 		StationDO station = stationService.get(id);
 		Long pId = station.getParentId();
-		if(pId == Constant.Number.ZERO.getCode()){
+		if(pId.intValue() == Constant.Number.ZERO.getCode()){
 			model.addAttribute("pName", Constant.ROOT_DIRECTORY);
 		}else {
 			model.addAttribute("pName", stationService.get(pId).getName());
