@@ -28,7 +28,6 @@ public class ApiFilter implements Filter {
   		if(this.isUrl(requestUrl)){
 			rep.setContentType("application/json; charset=utf-8");
 			rep.setCharacterEncoding("UTF-8");
-			PrintWriter writer = rep.getWriter();
 			ApiService apiService = ApplicationContextRegister.getBean(ApiService.class);
 			String token = req.getHeader(Constant.TOKEN);
 			//验证App接口
@@ -38,15 +37,19 @@ public class ApiFilter implements Filter {
 				if(Constant.Number.ZERO.getCode() == code){
 					filterChain.doFilter(request, response);
 				}else {
+					PrintWriter writer = rep.getWriter();
 					String json = JSON.toJSONString(r);
 					writer.write(json);
+					writer.flush();
+					writer.close();
 				}
 			}else {
+				PrintWriter writer = rep.getWriter();
 				String json = JSON.toJSONString(R.error(Constant.ErrorInfo.AUTH_FAIL.getCode(),Constant.ErrorInfo.AUTH_FAIL.getMsg()));
 				writer.write(json);
+				writer.flush();
+				writer.close();
 			}
-			writer.flush();
-			writer.close();
 		}else {
 			filterChain.doFilter(request, response);
 		}
