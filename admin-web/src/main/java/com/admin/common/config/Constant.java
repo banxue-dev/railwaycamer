@@ -104,13 +104,13 @@ public class Constant {
      **/
     public enum Number {
         ZERO(0);
-        private int code;
+        private Integer code;
 
-        Number(int code) {
+        Number(Integer code) {
             this.code = code;
         }
 
-        public int getCode() {
+        public Integer getCode() {
             return code;
         }
     }

@@ -114,6 +114,7 @@ public class ApiServiceImpl implements ApiService {
                 orderDO.setTrainNo(vo.getTrainNo());
                 orderDO.setCreateTime(new Date());
                 orderDO.setPersonIds(vo.getPersonId());
+                orderDO.setContinueShot(Long.valueOf(Constant.Number.ZERO.getCode()));
                 orderService.save(orderDO);
                 vo.setTaskId(String.valueOf(orderDO.getId()));
             }

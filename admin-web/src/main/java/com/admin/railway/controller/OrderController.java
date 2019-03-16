@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.admin.common.annotation.Log;
+import com.admin.common.config.Constant;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -125,7 +126,7 @@ public class OrderController extends BaseController {
 		order.setDelState(Constants.NO);
 		order.setCreateTime(new Date());
 		order.setCreateUser(user.getName());
-		
+		order.setContinueShot(Long.valueOf(Constant.Number.ZERO.getCode()));
 		orderService.save(order);
 		return R.ok();
 	}
