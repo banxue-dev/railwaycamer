@@ -60,7 +60,7 @@ function photoList() {
             for (var j = 0; j < data.length; j++) {
                 var e = "<li>\n" +
                     "                <a href=\"javascript:;\"><img src='" + prefixPic + "/getThumPhoto/" + data[j].id + "'/></a>\n" +
-                    "                <label style=\"float: left;cursor:pointer;\"><a class='showbig' data-magnify='gallery2' data-group='g2'\n" +
+                    "                <label style=\"float: left;cursor:pointer;\"><a class='showbig' data-caption='第"+(j+1)+"张' data-magnify='gallery2' data-group='g2'\n" +
                     "                                                 data-src='" + prefixPic + "/getPhoto/" + data[j].id + "'>查看</a></label>\n" +
                     "                    <label style=\"float: right;cursor:pointer;\"><input type=\"checkbox\" value='" + data[j].id + "' name=\"photo\" lay-skin=\"primary\">选择</label>\n" +
                     "            </li>";
@@ -76,7 +76,7 @@ function initShowBig() {
         keyboard: true,
         draggable: true,
         movable: true,
-        modalSize: [800, 600],
+        modalSize: [1000, 800],
         beforeOpen: function (obj, data) {
         },
         opened: function (obj, data) {

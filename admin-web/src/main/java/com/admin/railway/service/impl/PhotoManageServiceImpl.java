@@ -71,7 +71,6 @@ public class PhotoManageServiceImpl implements PhotoManageService {
         OrderDO order = orderService.get(id);
         if(order != null){
             //不为0时续拍
-            System.out.println(order.getContinueShot().intValue() != Constant.Number.ZERO.getCode());
             if (order.getContinueShot().intValue() != Constant.Number.ZERO.getCode()) {
                 Map<String, Object> map = new HashMap<>();
                 map.put(PictureDO.ORDER_ID, order.getContinueShot());
