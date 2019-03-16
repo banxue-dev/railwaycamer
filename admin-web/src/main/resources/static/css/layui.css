@@ -1,4 +1,8 @@
 /** layui-v2.4.5 MIT License By https://www.layui.com */
+.railway-div{
+    padding-left: 15px;
+    padding-right: 15px;
+}
 .layui-inline, img {
     display: inline-block;
     vertical-align: middle
