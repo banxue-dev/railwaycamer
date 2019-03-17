@@ -23,14 +23,14 @@ function load() {
 
         var beginTime = laydate.render({
             elem: '#beginTime',
-            format: 'yyyy年MM月dd',
+            format: 'yyyy-MM-dd',
             done: function (value, date) {
                 endTime.config.min = utils.doneTime(date);
             }
         });
         var endTime = laydate.render({
             elem: '#endTime',
-            format: 'yyyy年MM月dd',
+            format: 'yyyy-MM-dd',
             done: function (value, date) {
                 beginTime.config.max = utils.doneTime(date);
             }

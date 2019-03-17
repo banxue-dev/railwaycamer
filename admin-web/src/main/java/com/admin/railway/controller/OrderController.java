@@ -98,9 +98,13 @@ public class OrderController extends BaseController {
 	@PostMapping("/add")
 	@ResponseBody
 	public R add(OrderDO order) {
-		
 		UserDO user = ShiroUtils.getUser();
-		
+		order.setDelState(Constants.NO);
+		//验证车厢号是否重复添加
+		OrderDO o = orderService.getOrder(order);
+		if(o != null){
+			return R.error(Constant.ErrorInfo.ADD_TASK_EXIST_TRANIN.getCode(),Constant.ErrorInfo.ADD_TASK_EXIST_TRANIN.getMsg());
+		}
 		// 根据前端传的 personIds 查找用户名
 		String personIds = order.getPersonIds();
 		if(StringUtils.isNoneBlank(personIds)){
@@ -112,7 +116,6 @@ public class OrderController extends BaseController {
 			String personNames = personList.stream().map(PersonDO::getName).collect(Collectors.joining(","));
 			order.setPersonNames(personNames);
 		}
-		
 		// 设置发站 到站名称
 		StationDO startStation = stationService.get(order.getStartStationId());
 		if (startStation != null) {
@@ -122,8 +125,6 @@ public class OrderController extends BaseController {
 		if (endStation != null) {
 			order.setEndStationName(endStation.getName());
 		}
-
-		order.setDelState(Constants.NO);
 		order.setCreateTime(new Date());
 		order.setCreateUser(user.getName());
 		order.setContinueShot(Long.valueOf(Constant.Number.ZERO.getCode()));
@@ -195,16 +196,19 @@ public class OrderController extends BaseController {
 	@ResponseBody
 	public R copy(Long id) {
 		UserDO user = ShiroUtils.getUser();
-		
 		OrderDO order = orderService.get(id);
-		order.setId(null);
 		order.setCreateTime(new Date());
+		//验证车厢号是否重复添加
+		OrderDO o = orderService.getOrder(order);
+		if(o != null){
+			return R.error(Constant.ErrorInfo.ADD_TASK_EXIST_TRANIN.getCode(),Constant.ErrorInfo.ADD_TASK_EXIST_TRANIN.getMsg());
+		}
+		order.setId(null);
 		order.setCreateUser(user.getName());
 		order.setModifyTime(null);
 		order.setModifyUser(null);
 		order.setContinueShot(id);
 		orderService.save(order);
-		
 		return R.ok();
 	}
 }

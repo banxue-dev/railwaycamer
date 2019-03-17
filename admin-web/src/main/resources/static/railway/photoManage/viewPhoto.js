@@ -71,12 +71,14 @@ function photoList() {
 }
 
 function initShowBig() {
+    var width = $(window).width();
+    var height = $(window).height();
     $('.showbig').Magnify({
         Toolbar: ['prev', 'next', 'rotateLeft', 'rotateRight', 'zoomIn', 'zoomOut', 'actualSize'],
         keyboard: true,
         draggable: true,
         movable: true,
-        modalSize: [1000, 800],
+        modalSize: [width, height],
         beforeOpen: function (obj, data) {
         },
         opened: function (obj, data) {
@@ -105,13 +107,7 @@ function load() {
                 {field: '', title: '序号', align: 'center', type: 'numbers'},
                 {field: 'trainNo', title: '车号', align: 'center'},
                 {
-                    field: 'createTime', title: '日期', align: 'center', templet: function (order) {
-                        if (order.createTime != null) {
-                            var date = new Date(order.createTime);
-                            return date.getFullYear() + '年' + (date.getMonth() + 1) + '月' + date.getDate() + '日';
-                        }
-                        return '';
-                    }
+                    field: 'createTime', title: '日期', align: 'center',width:180
                 },
                 {field: 'endStationName', title: '到站', align: 'center'},
                 {field: 'consignor', title: '托货人', align: 'center'},

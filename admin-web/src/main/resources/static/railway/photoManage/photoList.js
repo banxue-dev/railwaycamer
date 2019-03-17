@@ -1,14 +1,14 @@
 var prefix = '/railway/photomanage'; // 路径前缀
-var active;
+var active,activeReset;
 $(function () {
     load();
 });
 
 // 加载表格
 function load() {
-    layui.use(['table', 'laydate','layer'], function () {
+    layui.use(['table', 'laydate', 'layer'], function () {
         var table = layui.table,
-            $ = layui.jquery,
+            $ = layui.$,
             laydate = layui.laydate;
         var utils = {
             doneTime: function (date) {
@@ -18,21 +18,21 @@ function load() {
                     date: date.date
                 }
             }
-        }
+        };
         var beginTime = laydate.render({
             elem: '#beginTime',
-            format: 'yyyy年MM月dd',
+            format: 'yyyy-MM-dd',
             done: function (value, date) {
                 endTime.config.min = utils.doneTime(date);
             }
         });
         var endTime = laydate.render({
             elem: '#endTime',
-            format: 'yyyy年MM月dd',
+            format: 'yyyy-MM-dd',
             done: function (value, date) {
                 beginTime.config.max = utils.doneTime(date);
             }
-        })
+        });
 
         //方法级渲染
         table.render({
@@ -42,15 +42,7 @@ function load() {
             , cols: [[
                 {field: '', title: '序号', align: 'center', type: 'numbers'},
                 {field: 'trainNo', title: '车号', align: 'center'},
-                {
-                    field: 'createTime', title: '日期', align: 'center', templet: function (order) {
-                        if (order.createTime != null) {
-                            var date = new Date(order.createTime);
-                            return date.getFullYear() + '年' + (date.getMonth() + 1) + '月' + date.getDate() + '日';
-                        }
-                        return '';
-                    }
-                },
+                {field: 'createTime', title: '日期', align: 'center',width:180},
                 {field: 'endStationName', title: '到站', align: 'center'},
                 {field: 'consignor', title: '托货人', align: 'center'},
                 {field: 'consignee', title: '收货人', align: 'center'},
@@ -61,7 +53,7 @@ function load() {
                 {field: 'photoNumber', title: '照片数量', align: 'center'},
                 {
                     field: '', title: '操作', align: 'center', templet: function (item) {
-                        var a = '<a class="layui-btn layui-btn-primary layui-btn-xs '+s_view_h+'" target="iframeCamera" onclick="viewPhoto('+item.id+')">查看照片</a>';
+                        var a = '<a class="layui-btn layui-btn-primary layui-btn-xs ' + s_view_h + '" target="iframeCamera" onclick="viewPhoto(' + item.id + ')">查看照片</a>';
                         return a;
                     }
                 }
@@ -70,10 +62,8 @@ function load() {
             page: true
         });
 
-        var $ = layui.$;
-
         active = {
-            reload: function () {
+            load: function () {
                 //执行重载
                 table.reload('testReload', {
                     page: {
@@ -84,15 +74,16 @@ function load() {
                             return $('#stationId').val();
                         },
                         beginTime: function () {
-                            return $('#beginTime').val().replace('年', '-').replace('月', '-').replace('日', '');
+                            return $('#beginTime').val();
                         },
                         endTime: function () {
-                            return $('#endTime').val().replace('年', '-').replace('月', '-').replace('日', '');
-                        },
+                            return $('#endTime').val();
+                        }
                     }
                 });
             }
         };
+
 
         $('.demoTable .layui-btn').on('click', function () {
             var type = $(this).data('type');
@@ -115,9 +106,9 @@ function load() {
 
 // 重新加载
 function reLoad() {
-    active.reload();
+    active.load();
 }
 
 function viewPhoto(id) {
-    window.location.href = "/railway/photomanage/viewPhoto/"+id
+    window.location.href = "/railway/photomanage/viewPhoto/" + id
 }
