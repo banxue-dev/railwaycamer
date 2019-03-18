@@ -70,6 +70,9 @@ function diytree(){
 							data:{orderId:order_id},
 							success:function(data){
 								if(data.code==0){
+									if(data.data.length<1){
+										$('#notdata').text('暂无图片数据，请检查。');
+									}
 									pictureboxs.picdatas=data.data;
 									getPage(1);
 								}
