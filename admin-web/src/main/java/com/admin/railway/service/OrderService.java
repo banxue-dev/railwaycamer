@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.admin.common.domain.PageDO;
 import com.admin.railway.domain.OrderDO;
+import org.springframework.core.annotation.Order;
 
 public interface OrderService {
 	
@@ -30,5 +31,14 @@ public interface OrderService {
 	 * @Date: 2019/3/10 14:51
 	 **/
 	List<Map<String, Object>> listTask(String personId);
+
+	/**
+	 * @Author: luojing
+	 * @Description: 查询任务信息
+	 * @Param: [order]
+	 * @Return: com.admin.railway.domain.OrderDO
+	 * @Date: 2019/3/17 14:24
+	 **/
+	OrderDO getOrder(OrderDO order);
 
 }

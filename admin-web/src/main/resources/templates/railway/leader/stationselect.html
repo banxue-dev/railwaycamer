@@ -92,7 +92,7 @@
 		    for (var j = 0; j < dataCount; j++) {  
 		    	var thisdata=pictureboxs.picdatas[j];
 		      //var e="<li><a href=\"content.html\"><img src=\"images/lbt.jpg\"></a><p><span>点击查看大图"+j+"</span></p></li>";
-		      var e="<li><a href=\"javascript:;\"><img src='/railway/file/getThumPhoto/"+thisdata.id+"'  ></a><p style='text-align:center;'  ><a class='showbig' data-magnify='gallery2' data-group='g2' data-src='/railway/file/getPhoto/"+thisdata.id+"' data-caption='第"+j+"张' style='cursor:pointer;text-decoration: underline;'>查看</a></p></li>";
+		      var e="<li><a href=\"javascript:;\"><img src='/railway/file/getThumPhoto/"+thisdata.id+"'  ></a><p style='text-align:center;'  ><a class='showbig' data-magnify='gallery2' data-group='g2' data-src='/railway/file/getPhoto/"+thisdata.id+"' data-caption='第"+(j+1)+"张' style='cursor:pointer;text-decoration: underline;'>查看</a></p></li>";
 		      //var e="<li><a href=\"javascript:;\"><img src="+"images/lbt.jpg"+"></a><p style='text-align:center;'  ><a class='showbig' data-magnify='gallery2' data-group='g2' data-src='images/lbt.jpg' data-caption='测试图片"+j+"' style='cursor:pointer;text-decoration: underline;'>查看"+j+"</a></p></li>";
 		      ul.append(e);    
 		    }
@@ -101,7 +101,7 @@
 		    var endPage = pn<pageCount?pageSize * pn:dataCount;
 		    for (var j = startPage; j < endPage; j++) {  
 		    	var thisdata=pictureboxs.picdatas[j];
-			      var e="<li><a href=\"javascript:;\"><img src='/railway/file/getThumPhoto/"+thisdata.id+"'  ><a class='showbig' data-magnify='gallery2' data-group='g2' data-src='/railway/file/getPhoto/"+thisdata.id+"' data-caption='第"+j+"张' style='cursor:pointer;text-decoration: underline;'>查看</a></p></li>";
+			      var e="<li><a href=\"javascript:;\"><img src='/railway/file/getThumPhoto/"+thisdata.id+"'  ><a class='showbig' data-magnify='gallery2' data-group='g2' data-src='/railway/file/getPhoto/"+thisdata.id+"' data-caption='第"+(j+1)+"张' style='cursor:pointer;text-decoration: underline;'>查看</a></p></li>";
 			      ul.append(e);
 		    }
 		  }
@@ -164,37 +164,25 @@
 		
 		//显示大图
 		function initShowBig(){
-		  $('.showbig').Magnify({
-				Toolbar: [
-					'prev',
-					'next',
-					'rotateLeft',
-					'rotateRight',
-					'zoomIn',
-                    'zoomOut',
-					'actualSize'
-				],
-				keyboard:true,
-				draggable:true,
-				movable:true,
-				modalSize:[800,600],
+            var width = $(window).width();
+            var height = $(window).height();
+            $('.showbig').Magnify({
+                Toolbar: ['prev', 'next', 'rotateLeft', 'rotateRight', 'zoomIn', 'zoomOut', 'actualSize'],
+                keyboard: true,
+                draggable: true,
+                movable: true,
+                modalSize: [width, height],
 				beforeOpen:function (obj,data) {
-					//console.log('beforeOpen')
 				},
 				opened:function (obj,data) {
-					//console.log('opened')
 				},
 				beforeClose:function (obj,data) {
-					//console.log('beforeClose')
 				},
 				closed:function (obj,data) {
-					//console.log('closed')
 				},
 				beforeChange:function (obj,data) {
-					//console.log('beforeChange')
 				},
 				changed:function (obj,data) {
-					//console.log('changed')
 				}
 			});
 		}

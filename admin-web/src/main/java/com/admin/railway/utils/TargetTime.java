@@ -22,8 +22,6 @@ public class TargetTime {
 	public static void main(String[] args) {
 		Date firstDay = getBeforeOrAfterDate(new Date(), -7);
 		Date lastDay = getBeforeOrAfterDate(new Date(), 0);
-		System.out.println("firstDate：" + sdf.format(firstDay));
-		System.out.println("endDate：" + sdf.format(lastDay));
 	}
 
 	/**

@@ -71,6 +71,8 @@ public class Constant {
         PASSWORD_ERROR(-10007, "密码错误"),
         PERSION_NULL(-10008, "系统中不存在拍照人员"),
 
+        ADD_TASK_EXIST_TRANIN(-10009, "该车号今日已经添加任务，如需操作，可以进行修改"),
+
         ADD_FAIL(-20000, "添加失败"),
         DELETE_FAIL(-20001, "删除失败"),
         UPDATE_FAIL(-20002, "修改失败"),
@@ -104,13 +106,13 @@ public class Constant {
      **/
     public enum Number {
         ZERO(0);
-        private int code;
+        private Integer code;
 
-        Number(int code) {
+        Number(Integer code) {
             this.code = code;
         }
 
-        public int getCode() {
+        public Integer getCode() {
             return code;
         }
     }

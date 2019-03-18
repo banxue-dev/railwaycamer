@@ -114,6 +114,7 @@ public class ApiServiceImpl implements ApiService {
                 orderDO.setTrainNo(vo.getTrainNo());
                 orderDO.setCreateTime(new Date());
                 orderDO.setPersonIds(vo.getPersonId());
+                orderDO.setContinueShot(Long.valueOf(Constant.Number.ZERO.getCode()));
                 orderService.save(orderDO);
                 vo.setTaskId(String.valueOf(orderDO.getId()));
             }
@@ -173,7 +174,8 @@ public class ApiServiceImpl implements ApiService {
     public boolean updatePassword(PasswordVo vo) {
         PersonDO person = new PersonDO();
         person.setLoginName(vo.getLoginName());
-        person.setPassword(vo.getPassword());
+        String password = MD5Utils.encrypt(vo.getLoginName(),vo.getPassword());
+        person.setPassword(password);
         return personService.update(person);
     }
 }

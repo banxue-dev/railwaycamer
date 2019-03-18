@@ -4,17 +4,14 @@ import com.admin.common.config.Constant;
 import com.admin.common.utils.Constants;
 import com.admin.common.utils.QueryParam;
 import com.admin.common.utils.R;
-import com.admin.common.utils.StringUtils;
 import com.admin.railway.dao.PhotoManageDao;
 import com.admin.railway.domain.OrderDO;
 import com.admin.railway.domain.PictureDO;
 import com.admin.railway.service.OrderService;
 import com.admin.railway.service.PhotoManageService;
 import com.admin.railway.service.PictureService;
-import io.swagger.models.auth.In;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
@@ -71,7 +68,6 @@ public class PhotoManageServiceImpl implements PhotoManageService {
         OrderDO order = orderService.get(id);
         if(order != null){
             //不为0时续拍
-            System.out.println(order.getContinueShot().intValue() != Constant.Number.ZERO.getCode());
             if (order.getContinueShot().intValue() != Constant.Number.ZERO.getCode()) {
                 Map<String, Object> map = new HashMap<>();
                 map.put(PictureDO.ORDER_ID, order.getContinueShot());

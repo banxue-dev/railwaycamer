@@ -80,7 +80,7 @@ public class PersonController extends BaseController {
 	@RequiresPermissions("railway:person:list")
 	@GetMapping("/list")
 	public String listUI() {
-		return "/railway/person/list";
+		return "railway/person/list";
 	}
 	
 	/**
@@ -90,7 +90,7 @@ public class PersonController extends BaseController {
 	@RequiresPermissions("railway:person:add")
 	@GetMapping("/add")
 	public String addUI() {
-		return "/railway/person/add";
+		return "railway/person/add";
 	}
 	
 	/**

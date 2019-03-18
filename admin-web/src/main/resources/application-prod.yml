@@ -1,5 +1,5 @@
 admin: 
-  uploadPath: /railwaycamera/
+  uploadPath: C:/App/railwaycamera/
 logging: 
   level: 
     root: info
@@ -8,9 +8,9 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://171.221.221.50:8871/yunh_qc?useUnicode=true&characterEncoding=utf8
-    username: root
-    password: qaz123
+    url: jdbc:mysql://120.77.148.235:3306/railwaycamera?useUnicode=true&characterEncoding=utf8
+    username: feng
+    password: feng.123456
     initialSize: 1
     minIdle: 3
     maxActive: 20

@@ -23,14 +23,14 @@ function load() {
 
         var beginTime = laydate.render({
             elem: '#beginTime',
-            format: 'yyyy年MM月dd',
+            format: 'yyyy-MM-dd',
             done: function (value, date) {
                 endTime.config.min = utils.doneTime(date);
             }
         });
         var endTime = laydate.render({
             elem: '#endTime',
-            format: 'yyyy年MM月dd',
+            format: 'yyyy-MM-dd',
             done: function (value, date) {
                 beginTime.config.max = utils.doneTime(date);
             }
@@ -44,13 +44,7 @@ function load() {
             , cols: [[
             	{field: '', title: '序号', align: 'center', type: 'numbers'},
                 {field: 'trainNo', title: '车号', align: 'center'},
-                {field: 'createTime', title: '日期', align: 'center', templet: function(order){
-                	if (order.createTime != null) {
-                        var date = new Date(order.createTime);
-                        return date.getFullYear() + '年' + (date.getMonth() + 1) + '月' + date.getDate() + '日';
-                    }
-                	return '';
-                }},
+                {field: 'createTime', title: '日期', align: 'center',width:180},
                 {field: 'endStationName', title: '到站', align: 'center'},
                 {field: 'consignor', title: '托货人', align: 'center'},
                 {field: 'consignee', title: '收货人', align: 'center'},
@@ -60,10 +54,7 @@ function load() {
                 {field: 'loadingLine', title: '装车线路', align: 'center'},
                 {field: 'personNames', title: '拍照人员', align: 'center'},
                 {field: 'continueShot', title: '续拍', align: 'center', templet: function(order){
-                	if (order.continueShot != null) {
-                        return order.continueShot == 1 ? '是' : '否';
-                    }
-                	return '';
+                        return order.continueShot == 0 ? '否' : '是';
                 }},
                 {field: '', title: '操作', align: 'center', toolbar: '#toolbar'}
             ]]
@@ -85,10 +76,10 @@ function load() {
                         	return $('#stationId').val();
                         },
                         beginTime: function(){
-                        	return $('#beginTime').val().replace('年','-').replace('月','-').replace('日','');
+                        	return $('#beginTime').val();
                         },
                         endTime: function(){
-                        	return $('#endTime').val().replace('年','-').replace('月','-').replace('日','');
+                        	return $('#endTime').val();
                         },
                     }
                 });

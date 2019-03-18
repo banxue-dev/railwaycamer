@@ -17,6 +17,20 @@
 							<input id="id" name="id" type="hidden" th:value="${person.id}">
 							<input id="stationId" name="stationId" type="hidden" th:value="${person.stationId}">
 							<div class="form-group">
+								<label class="col-sm-3 control-label">录账号：</label>
+								<div class="col-sm-8">
+									<input id="loginName" name="loginName" class="form-control"
+										   type="text" th:value="${person.loginName}">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">账号密码：</label>
+								<div class="col-sm-8">
+									<input id="password" name="password" class="form-control" th:value="${person.password}"
+										   type="password">
+								</div>
+							</div>
+							<div class="form-group">
 								<label class="col-sm-3 control-label">姓名：</label>
 								<div class="col-sm-8">
 									<input id="name" name="name" class="form-control"
@@ -34,20 +48,6 @@
 								<label class="col-sm-3 control-label">所属站点：</label>
 								<div class="col-sm-8">
                     				<input type="text" id="tree" class="form-control" readonly="readonly" th:value="${person.stationName}" placeholder="请选择站点">
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-3 control-label">照片上报账号：</label>
-								<div class="col-sm-8">
-									<input id="loginName" name="loginName" class="form-control"
-										type="text" th:value="${person.loginName}">
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-3 control-label">设置密码：</label>
-								<div class="col-sm-8">
-									<input id="password" name="password" class="form-control"
-										type="text" th:value="${person.password}">
 								</div>
 							</div>
 							<div class="form-group">

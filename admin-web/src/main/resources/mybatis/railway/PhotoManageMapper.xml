@@ -9,13 +9,17 @@
         consignor AS consignor,consignee AS consignee,
         product_name AS productName,train_type AS trainType,project_no AS projectNo,loading_line AS loadingLine,
         description AS description,person_ids AS personIds,person_names AS personNames,
-        continue_shot AS continueShot,(select count(1) from tbl_picture p where p.train_no = a.train_no) as photoNumber
+        continue_shot AS continueShot,(select count(1) from tbl_picture p where p.train_no = a.train_no) as photoNumber,
+        create_time as createTime
         FROM tbl_order a
         <where>
             <if test="id != null and id != ''">and id = #{id}</if>
             <if test="trainNo != null and trainNo != ''">and train_no = #{trainNo}</if>
             <if test="personId != null and personId != ''">and person_id = #{personId}</if>
             <if test="delState != null and delState != ''">and del_state = #{delState}</if>
+            <if test="endStationId != null and endStationId != ''"> and end_station_id = #{endStationId} </if>
+            <if test="beginTime != null and beginTime != ''"> and create_time &gt;= #{beginTime} </if>
+            <if test="endTime != null and endTime != ''"> and create_time &lt;= #{endTime} </if>
         </where>
         <choose>
             <when test="sort != null and sort.trim() != ''">

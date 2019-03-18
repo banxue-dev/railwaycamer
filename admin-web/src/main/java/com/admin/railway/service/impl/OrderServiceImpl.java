@@ -59,4 +59,9 @@ public class OrderServiceImpl implements OrderService {
 		return orderMapper.listTask(personId);
 	}
 
+	@Override
+	public OrderDO getOrder(OrderDO order) {
+		return orderMapper.getOrder(order);
+	}
+
 }

@@ -23,37 +23,29 @@ function load() {
 
         var beginTime = laydate.render({
             elem: '#beginTime',
-            format: 'yyyy年MM月dd',
+            format: 'yyyy-MM-dd',
             done: function (value, date) {
                 endTime.config.min = utils.doneTime(date);
             }
         });
         var endTime = laydate.render({
             elem: '#endTime',
-            format: 'yyyy年MM月dd',
+            format: 'yyyy-MM-dd',
             done: function (value, date) {
                 beginTime.config.max = utils.doneTime(date);
             }
         })
 
-        var data = [
-            {"a": "1", "b": "001", "c": "09-23", "d": "重庆", "e": "成都"},
-            {"a": "2", "b": "001", "c": "09-23", "d": "重庆", "e": "成都"},
-            {"a": "3", "b": "001", "c": "09-23", "d": "重庆", "e": "成都"},
-            {"a": "4", "b": "001", "c": "09-23", "d": "重庆", "e": "成都"}
-        ]
-        
         //方法级渲染
         table.render({
             elem: '#list'
             , url: '/railway/person/list'
             , method: 'POST'
-            , data: data
             , cols: [[
                 {field: '', title: '序号', align: 'center', type: 'numbers'},
+                {field: 'loginName', title: '登录账号', align: 'center'},
                 {field: 'name', title: '姓名', align: 'center'},
                 {field: 'stationName', title: '站点', align: 'center'},
-                {field: 'loginName', title: '照片上报账号', align: 'center'},
                 {field: '', title: '操作', align: 'center', toolbar: '#toolbar'}
             ]]
             , id: 'testReload'
@@ -64,7 +56,6 @@ function load() {
         
         active = {
             reload: function () {
-                var demoReload = $('#demoReload');
                 //执行重载
                 table.reload('testReload', {
                     page: {
