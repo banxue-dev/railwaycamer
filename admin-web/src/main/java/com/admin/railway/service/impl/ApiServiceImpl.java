@@ -90,7 +90,7 @@ public class ApiServiceImpl implements ApiService {
 
     @Override
     @Transactional
-    public R uploadImg(UploadImgVo vo, MultipartFile[] file) {
+    public R uploadImg(UploadImgVo vo, MultipartFile[] files) {
         //查询拍照人信息
         PersonDO personDO = personService.get(Long.valueOf(vo.getPersonId()));
         if (personDO == null) {
@@ -107,11 +107,11 @@ public class ApiServiceImpl implements ApiService {
         //车厢
         sbUrl.append(vo.getTrainNo() + "/");
         try {
-            for(int i=0;i<file.length;i++){
+            for(int i=0;i<files.length;i++){
                 String fileName = DateUtils.format(new Date(), "yyyyMMddHHmmsss") + ".jpg";
-                FileUtil.uploadFile(file[i].getBytes(), sbUrl.toString(), fileName);
+                FileUtil.uploadFile(files[i].getBytes(), sbUrl.toString(), fileName);
                 //保存缩略图
-                String thumUrl = ImageUtil.thumbnail(file[i], sbUrl.toString(), fileName);
+                String thumUrl = ImageUtil.thumbnail(files[i], sbUrl.toString(), fileName);
                 OrderDO orderDO = new OrderDO();
                 orderDO.setTrainNo(vo.getTrainNo());
                 orderDO.setCreateTime(new Date());
