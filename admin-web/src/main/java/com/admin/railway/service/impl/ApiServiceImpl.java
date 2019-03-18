@@ -16,7 +16,9 @@ import com.admin.railway.service.OrderService;
 import com.admin.railway.service.PersonService;
 import com.admin.railway.service.PictureService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -87,7 +89,8 @@ public class ApiServiceImpl implements ApiService {
     }
 
     @Override
-    public R uploadImg(UploadImgVo vo, MultipartFile file) {
+    @Transactional
+    public R uploadImg(UploadImgVo vo, MultipartFile[] file) {
         //查询拍照人信息
         PersonDO personDO = personService.get(Long.valueOf(vo.getPersonId()));
         if (personDO == null) {
@@ -104,39 +107,46 @@ public class ApiServiceImpl implements ApiService {
         //车厢
         sbUrl.append(vo.getTrainNo() + "/");
         try {
-            String fileName = DateUtils.format(new Date(), "yyyyMMddHHmmsss") + ".jpg";
-            FileUtil.uploadFile(file.getBytes(), sbUrl.toString(), fileName);
-            //保存缩略图
-            String thumUrl = ImageUtil.thumbnail(file, sbUrl.toString(), fileName);
-            if (StringUtils.isBlank(vo.getTaskId())) {
-                //为空时代表拍照人员主动上传照片,添加任务信息
+            for(int i=0;i<file.length;i++){
+                String fileName = DateUtils.format(new Date(), "yyyyMMddHHmmsss") + ".jpg";
+                FileUtil.uploadFile(file[i].getBytes(), sbUrl.toString(), fileName);
+                //保存缩略图
+                String thumUrl = ImageUtil.thumbnail(file[i], sbUrl.toString(), fileName);
                 OrderDO orderDO = new OrderDO();
                 orderDO.setTrainNo(vo.getTrainNo());
                 orderDO.setCreateTime(new Date());
-                orderDO.setPersonIds(vo.getPersonId());
-                orderDO.setContinueShot(Long.valueOf(Constant.Number.ZERO.getCode()));
-                orderService.save(orderDO);
-                vo.setTaskId(String.valueOf(orderDO.getId()));
+                if (StringUtils.isBlank(vo.getTaskId())) {
+                    //查询
+                    OrderDO o = orderService.getOrder(orderDO);
+                    if(o != null){
+                        vo.setTaskId(String.valueOf(o.getId()));
+                    }else {
+                        //为空时代表拍照人员主动上传照片,添加任务信息
+                        orderDO.setPersonIds(vo.getPersonId());
+                        orderDO.setContinueShot(Long.valueOf(Constant.Number.ZERO.getCode()));
+                        orderService.save(orderDO);
+                        vo.setTaskId(String.valueOf(orderDO.getId()));
+                    }
+                }
+
+                //添加图片信息
+                PictureDO pictureDO = new PictureDO();
+                pictureDO.setOrderId(Long.valueOf(vo.getTaskId()));
+                pictureDO.setPersonId(Long.valueOf(vo.getPersonId()));
+                pictureDO.setTrainNo(vo.getTrainNo());
+                pictureDO.setThumUrl(thumUrl);
+                pictureDO.setUrl(sbUrl + fileName);
+                pictureDO.setDelState(0);
+                pictureDO.setCreateTime(new Date());
+                pictureDO.setCreateUser(vo.getPersonId());
+                pictureService.save(pictureDO);
             }
-            //添加图片信息
-            PictureDO pictureDO = new PictureDO();
-            pictureDO.setOrderId(Long.valueOf(vo.getTaskId()));
-            pictureDO.setPersonId(Long.valueOf(vo.getPersonId()));
-            pictureDO.setTrainNo(vo.getTrainNo());
-            pictureDO.setThumUrl(thumUrl);
-            pictureDO.setUrl(sbUrl + fileName);
-            pictureDO.setDelState(0);
-            pictureDO.setCreateTime(new Date());
-            pictureDO.setCreateUser(vo.getPersonId());
-            boolean fag = pictureService.save(pictureDO);
-            if (fag) {
-                return R.ok();
-            }
+            return R.ok();
         } catch (Exception e) {
             e.printStackTrace();
             return R.error(Constant.ErrorInfo.IMAGE_UPLOAD_FAIL.getCode(), e.getMessage());
         }
-        return R.error(Constant.ErrorInfo.IMAGE_UPLOAD_FAIL.getCode(), Constant.ErrorInfo.IMAGE_UPLOAD_FAIL.getMsg());
+//        return R.error(Constant.ErrorInfo.IMAGE_UPLOAD_FAIL.getCode(), Constant.ErrorInfo.IMAGE_UPLOAD_FAIL.getMsg());
     }
 
     @Override

@@ -33,7 +33,7 @@ public interface ApiService {
      * @Return: R
      * @Date: 2019/3/10 11:45
      **/
-    R uploadImg(UploadImgVo vo, MultipartFile file);
+    R uploadImg(UploadImgVo vo, MultipartFile[] file);
 
 
     /**

@@ -194,7 +194,7 @@
 		<where>
 			<if test="id != null and id != ''"> and id = #{id} </if>
 			<if test="trainNo != null and trainNo != ''"> and train_no = #{trainNo} </if>
-			<if test="createTime != null and createTime != ''"> and DATE_FORMAT(create_time,'%Y-%m-%d') = DATE_FORMAT(#{createTime},'%Y-%m-%d')</if>
+			<if test="createTime != null"> and DATE_FORMAT(create_time,'%Y-%m-%d') = DATE_FORMAT(#{createTime},'%Y-%m-%d')</if>
 		</where>
 	</select>
 

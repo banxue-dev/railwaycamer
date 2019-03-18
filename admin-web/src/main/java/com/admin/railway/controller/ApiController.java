@@ -46,14 +46,14 @@ public class ApiController {
     @Log("APP拍照上传")
     @ApiOperation(value="拍照上传接口", notes="")
     @PostMapping("uploadImg")
-    public R uploadImg(UploadImgVo vo,@RequestParam("file") MultipartFile file) {
+    public R uploadImg(UploadImgVo vo,@RequestParam("file") MultipartFile[] file,HttpServletRequest request) {
         if(StringUtils.isEmpty(vo.getPersonId())){
             return R.error(Constant.ErrorInfo.PERSION_ID_NULL.getCode(),Constant.ErrorInfo.PERSION_ID_NULL.getMsg());
         }
         if(StringUtils.isEmpty(vo.getTrainNo())){
             return R.error(Constant.ErrorInfo.TRANIN_NO_NULL.getCode(),Constant.ErrorInfo.TRANIN_NO_NULL.getMsg());
         }
-        if(file.getSize() == 0){
+        if(file.length == 0){
             return R.error(Constant.ErrorInfo.IMAGE_NULL.getCode(),Constant.ErrorInfo.IMAGE_NULL.getMsg());
         }
         return apiService.uploadImg(vo,file);
