@@ -19,15 +19,8 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">录账号：</label>
 								<div class="col-sm-8">
-									<input id="loginName" name="loginName" class="form-control"
-										   type="text" th:value="${person.loginName}">
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-3 control-label">账号密码：</label>
-								<div class="col-sm-8">
-									<input id="password" name="password" class="form-control"
-										   type="password">
+									<input id="loginName" class="form-control"
+										   type="text" th:value="${person.loginName}" readonly="readonly">
 								</div>
 							</div>
 							<div class="form-group">

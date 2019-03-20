@@ -138,3 +138,36 @@ function edit(id) {
 		content : prefix + '/edit/' + id // iframe的url
 	});
 }
+
+//重置用户密码
+function reset(id) {
+	layer.prompt({
+		title : '输入密码，并确认',
+		formType : 1,
+		value : '123456'
+	}, function(pass, index) {
+		layer.close(index);
+		var data = {
+			id : id,
+			password : pass
+		};
+		$.ajax({
+			cache : true,
+			type : "POST",
+			url : "/railway/person/update",
+			data : data,
+			async : false,
+			error : function(request) {
+				alert("Connection error");
+			},
+			success : function(r) {
+				if (r.code == 0) {
+					layer.msg('重置密码成功');
+				} else {
+					layer.msg(r.msg);
+				}
+			}
+		});
+
+	});
+}
