@@ -107,7 +107,7 @@ public class ApiServiceImpl implements ApiService {
         //车厢
         sbUrl.append(vo.getTrainNo() + "/");
         try {
-            for(int i=0;i<files.length;i++){
+            for (int i = 0; i < files.length; i++) {
                 String fileName = UuidUtil.get16UUID() + ".jpg";
                 FileUtil.uploadFile(files[i].getBytes(), sbUrl.toString(), fileName);
                 //保存缩略图
@@ -118,9 +118,9 @@ public class ApiServiceImpl implements ApiService {
                 if (StringUtils.isBlank(vo.getTaskId())) {
                     //查询
                     OrderDO o = orderService.getOrder(orderDO);
-                    if(o != null){
+                    if (o != null) {
                         vo.setTaskId(String.valueOf(o.getId()));
-                    }else {
+                    } else {
                         //为空时代表拍照人员主动上传照片,添加任务信息
                         orderDO.setPersonIds(vo.getPersonId());
                         orderDO.setContinueShot(Long.valueOf(Constant.Number.ZERO.getCode()));
@@ -183,7 +183,7 @@ public class ApiServiceImpl implements ApiService {
     public boolean updatePassword(PasswordVo vo) {
         PersonDO person = new PersonDO();
         person.setLoginName(vo.getLoginName());
-        String password = MD5Utils.encrypt(vo.getLoginName(),vo.getPassword());
+        String password = MD5Utils.encrypt(vo.getLoginName(), vo.getPassword());
         person.setPassword(password);
         return personService.update(person);
     }
