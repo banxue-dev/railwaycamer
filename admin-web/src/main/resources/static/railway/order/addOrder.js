@@ -168,10 +168,10 @@ function validateRule() {
 					return str == null || str.replace(/(^\s*)|(\s*$)/g, "").length == 0;
 				}
 			},
-			liOption : {
+			selectPersonIds : {
 				required : function(e) {
-					console.log(e);
-					return true;
+					var b = ! $("#liOption").val();
+					return b;
 				}
 			}
 		},
@@ -203,8 +203,8 @@ function validateRule() {
 			loadingLine : {
 				required : icon + "请输入装车路线不能为空"
 			},
-			liOption : {
-				required : icon + "请输入装车路线不能为空"
+			selectPersonIds : {
+				required : icon + "请选择拍照人员"
 			}
 		}
 	});
