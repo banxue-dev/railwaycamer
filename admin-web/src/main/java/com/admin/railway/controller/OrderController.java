@@ -61,7 +61,7 @@ public class OrderController extends BaseController {
 	 * @return
 	 */
 	@RequiresPermissions("railway:order:list")
-	@PostMapping("/list")
+	@GetMapping("/listData")
 	@ResponseBody
 	public R list(@RequestParam Map<String, Object> params) {
 		QueryParam query = new QueryParam(params);

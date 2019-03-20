@@ -39,8 +39,8 @@ function load() {
         //方法级渲染
         table.render({
             elem: '#list'
-            , url: '/railway/order/list'
-            , method: 'POST'
+            , url: '/railway/order/listData'
+            , method: 'get'
             , cols: [[
             	{field: '', title: '序号', align: 'center', type: 'numbers'},
                 {field: 'trainNo', title: '车号', align: 'center'},
