@@ -78,7 +78,8 @@ function validateRule() {
 		},
 		messages : {
 			loginName : {
-				required : icon + "请输入照片上报账号"
+				required : icon + "请输入照片上报账号",
+				remote : icon + "登录账号已经存在"
 			},
 			password : {
 				required : icon + "请输入密码"
