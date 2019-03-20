@@ -26,7 +26,7 @@ body {
 /*图片列表*/
 .piclist{ margin: 0 auto;background-color: #fff;border: 1px solid #bcbcbc;}
 .listul{margin-left: 0; overflow:hidden;padding: 5px 20px;border-bottom: 1px solid #bcbcbc;}
-.listul li{float: left;width: 265px;height: 240px;position: relative;}
+.listul li{float: left;width: 265px;height: 240px;position: relative;padding-left: 20px}
 .listul li span{position: absolute;bottom: 30px;width: 240px;text-align: center;background: rgba(0,0,0,0.6);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000,endColorstr=#99000000); color: #fff;font-size: 15px;padding: 3px 0;}
 
 /*分页样式*/
