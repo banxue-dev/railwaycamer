@@ -108,7 +108,7 @@ public class ApiServiceImpl implements ApiService {
         sbUrl.append(vo.getTrainNo() + "/");
         try {
             for(int i=0;i<files.length;i++){
-                String fileName = DateUtils.format(new Date(), "yyyyMMddHHmmsss") + ".jpg";
+                String fileName = UuidUtil.get16UUID() + ".jpg";
                 FileUtil.uploadFile(files[i].getBytes(), sbUrl.toString(), fileName);
                 //保存缩略图
                 String thumUrl = ImageUtil.thumbnail(files[i], sbUrl.toString(), fileName);
@@ -128,7 +128,6 @@ public class ApiServiceImpl implements ApiService {
                         vo.setTaskId(String.valueOf(orderDO.getId()));
                     }
                 }
-
                 //添加图片信息
                 PictureDO pictureDO = new PictureDO();
                 pictureDO.setOrderId(Long.valueOf(vo.getTaskId()));
