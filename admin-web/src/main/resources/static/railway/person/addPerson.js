@@ -72,7 +72,10 @@ function validateRule() {
 					console.log($('#loginName').val());
 				}
 			},
-			password : {
+			name : {
+				required : true
+			},
+			stationName : {
 				required : true
 			}
 		},
@@ -81,8 +84,11 @@ function validateRule() {
 				required: icon + "登录账号必填",
                 remote: icon + "登录账号已存在"
 			},
-			password : {
-				required : icon + "请输入密码"
+			name : {
+				required : icon + "姓名必填"
+			},
+			stationName : {
+				required : icon + "请选择站点"
 			}
 		}
 	});
