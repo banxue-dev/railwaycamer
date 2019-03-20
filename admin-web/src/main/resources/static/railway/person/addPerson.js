@@ -27,6 +27,14 @@ $.validator.setDefaults({
 		save();
 	}
 });
+
+//手机号码验证  
+jQuery.validator.addMethod("isMobile", function(value, element) {  
+	 var length = value.length;  
+	 var mobile = /^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})$/;  
+	 return this.optional(element) || (length == 11 && mobile.test(value));  
+}, "请正确填写手机号码");
+
 function save() {
 	var data = $('#signupForm').serialize();
 	$.ajax({
@@ -77,18 +85,28 @@ function validateRule() {
 			},
 			stationName : {
 				required : true
+			},
+			phone : {
+				required : true,
+				minlength : 11, 
+	            isMobile : true
 			}
 		},
 		messages : {
 			loginName : {
-				required: icon + "登录账号必填",
+				required: icon + "请输入登录账号",
                 remote: icon + "登录账号已存在"
 			},
 			name : {
-				required : icon + "姓名必填"
+				required : icon + "请输入姓名"
 			},
 			stationName : {
 				required : icon + "请选择站点"
+			},
+			phone : {
+				required : icon + "请输入手机号",
+				minlength : "不能小于11个字符",  
+			    isMobile : "请正确填写手机号码" 
 			}
 		}
 	});

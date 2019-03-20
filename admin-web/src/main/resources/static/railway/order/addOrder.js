@@ -4,6 +4,7 @@ $(function() {
 	validateRule();
 });
 $.validator.setDefaults({
+	ignore:":hidden:not(select)",
 	// 提交表单时做校验
 	onsubmit: true,
 	// 焦点自动定位到第一个无效元素
@@ -113,13 +114,97 @@ function validateRule() {
 	var icon = "<i class='fa fa-times-circle'></i> ";
 	$("#signupForm").validate({
 		rules : {
-			roleName : {
-				required : true
+			trainNo : {
+				required : function(e){
+					var str = $(e).val();
+					return str == null || str.replace(/(^\s*)|(\s*$)/g, "").length == 0;
+				}
+			},
+			startStationName : {
+				required : function(e){
+					var str = $(e).val();
+					return str == null || str.replace(/(^\s*)|(\s*$)/g, "").length == 0;
+				}
+			},
+			endStationName : {
+				required : function(e){
+					var str = $(e).val();
+					return str == null || str.replace(/(^\s*)|(\s*$)/g, "").length == 0;
+				}
+			},
+			consignor : {
+				required : function(e){
+					var str = $(e).val();
+					return str == null || str.replace(/(^\s*)|(\s*$)/g, "").length == 0;
+				}
+			},
+			consignee : {
+				required : function(e){
+					var str = $(e).val();
+					return str == null || str.replace(/(^\s*)|(\s*$)/g, "").length == 0;
+				}
+			},
+			productName : {
+				required : function(e){
+					var str = $(e).val();
+					return str == null || str.replace(/(^\s*)|(\s*$)/g, "").length == 0;
+				}
+			},
+			trainType : {
+				required : function(e){
+					var str = $(e).val();
+					return str == null || str.replace(/(^\s*)|(\s*$)/g, "").length == 0;
+				}
+			},
+			projectNo : {
+				required : function(e){
+					var str = $(e).val();
+					return str == null || str.replace(/(^\s*)|(\s*$)/g, "").length == 0;
+				}
+			},
+			loadingLine : {
+				required : function(e){
+					var str = $(e).val();
+					return str == null || str.replace(/(^\s*)|(\s*$)/g, "").length == 0;
+				}
+			},
+			liOption : {
+				required : function(e) {
+					console.log(e);
+					return true;
+				}
 			}
 		},
 		messages : {
-			roleName : {
-				required : icon + "请输入角色名"
+			trainNo : {
+				required : icon + "请输入车厢号不能为空"
+			},
+			startStationName : {
+				required : icon + "请选择发站点"
+			},
+			endStationName : {
+				required : icon + "请选择到站点"
+			},
+			consignor : {
+				required : icon + "请输入托货人不能为空"
+			},
+			consignee : {
+				required : icon + "请输入收货人不能为空"
+			},
+			productName : {
+				required : icon + "请输品名不能为空"
+			},
+			trainType : {
+				required : icon + "请输入车型不能为空"
+			},
+			projectNo : {
+				required : icon + "请输入方案编号不能为空"
+			},
+			loadingLine : {
+				required : icon + "请输入装车路线不能为空"
+			},
+			liOption : {
+				required : icon + "请输入装车路线不能为空"
 			}
 		}
 	});
