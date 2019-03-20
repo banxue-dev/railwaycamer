@@ -1,5 +1,5 @@
 admin: 
-  uploadPath: D:/railwaycamera/
+  uploadPath: C:/railwaycamera/
 logging: 
   level: 
     root: info
