@@ -191,15 +191,6 @@
         where id = #{id}
     </update>
 
-	 <select id="gettimelist" resultType="com.admin.railway.domain.OrderDO">
-        select
-        `id`,`train_no`,`start_station_id`,`start_station_name`,`end_station_id`,`end_station_name`,`consignor`,`consignee`,`product_name`,`train_type`,`project_no`,`loading_line`,`description`,`person_ids`,`person_names`,`continue_shot`,`order_start_time`,`order_end_time`,`order_state`,`del_state`,`create_time`,`create_user`,`modify_time`,`modify_user`
-        from tbl_order
-        GROUP BY substr(create_time,1,10)
-        <if test="offset != null and limit != null">
-            limit #{offset}, #{limit}
-        </if>
-    </select>
     <delete id="remove">
 		delete from tbl_order where id = #{value}
 	</delete>
