@@ -1,7 +1,24 @@
 
+
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
+-- ----------------------------
+-- Table structure for login_user_token
+-- ----------------------------
+DROP TABLE IF EXISTS `login_user_token`;
+CREATE TABLE `login_user_token`  (
+  `user_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '用户ID',
+  `token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'token',
+  `time_out` int(10) NOT NULL COMMENT '失效时间 秒',
+  `time` bigint(30) NULL DEFAULT NULL COMMENT '登录时间',
+  PRIMARY KEY (`user_id`, `token`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '拍照人登录token' ROW_FORMAT = Dynamic;
+
+
+-- ----------------------------
+-- Table structure for oa_notify
+-- ----------------------------
 DROP TABLE IF EXISTS `oa_notify`;
 CREATE TABLE `oa_notify`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
@@ -20,7 +37,9 @@ CREATE TABLE `oa_notify`  (
   INDEX `oa_notify_del_flag`(`del_flag`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 47 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '通知通告' ROW_FORMAT = Dynamic;
 
-
+-- ----------------------------
+-- Table structure for oa_notify_record
+-- ----------------------------
 DROP TABLE IF EXISTS `oa_notify_record`;
 CREATE TABLE `oa_notify_record`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
@@ -34,7 +53,9 @@ CREATE TABLE `oa_notify_record`  (
   INDEX `oa_notify_record_read_flag`(`is_read`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '通知通告发送记录' ROW_FORMAT = Dynamic;
 
-
+-- ----------------------------
+-- Table structure for sys_dept
+-- ----------------------------
 DROP TABLE IF EXISTS `sys_dept`;
 CREATE TABLE `sys_dept`  (
   `dept_id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -45,10 +66,14 @@ CREATE TABLE `sys_dept`  (
   PRIMARY KEY (`dept_id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '部门管理' ROW_FORMAT = Dynamic;
 
-
+-- ----------------------------
+-- Records of sys_dept
+-- ----------------------------
 INSERT INTO `sys_dept` VALUES (1, 0, '中国铁路中心', 1, 1);
 
-
+-- ----------------------------
+-- Table structure for sys_dict
+-- ----------------------------
 DROP TABLE IF EXISTS `sys_dict`;
 CREATE TABLE `sys_dict`  (
   `id` bigint(64) NOT NULL AUTO_INCREMENT COMMENT '编号',
@@ -68,9 +93,11 @@ CREATE TABLE `sys_dict`  (
   INDEX `sys_dict_value`(`value`) USING BTREE,
   INDEX `sys_dict_label`(`name`) USING BTREE,
   INDEX `sys_dict_del_flag`(`del_flag`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 123 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '字典表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '字典表' ROW_FORMAT = Dynamic;
 
-
+-- ----------------------------
+-- Table structure for sys_file
+-- ----------------------------
 DROP TABLE IF EXISTS `sys_file`;
 CREATE TABLE `sys_file`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -80,7 +107,9 @@ CREATE TABLE `sys_file`  (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '文件上传' ROW_FORMAT = Dynamic;
 
-
+-- ----------------------------
+-- Table structure for sys_log
+-- ----------------------------
 DROP TABLE IF EXISTS `sys_log`;
 CREATE TABLE `sys_log`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -93,8 +122,12 @@ CREATE TABLE `sys_log`  (
   `ip` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'IP地址',
   `gmt_create` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1153 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统日志' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 176 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统日志' ROW_FORMAT = Dynamic;
 
+
+-- ----------------------------
+-- Table structure for sys_menu
+-- ----------------------------
 DROP TABLE IF EXISTS `sys_menu`;
 CREATE TABLE `sys_menu`  (
   `menu_id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -110,7 +143,9 @@ CREATE TABLE `sys_menu`  (
   PRIMARY KEY (`menu_id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 126 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '菜单管理' ROW_FORMAT = Dynamic;
 
-
+-- ----------------------------
+-- Records of sys_menu
+-- ----------------------------
 INSERT INTO `sys_menu` VALUES (1, 0, '基础管理', '', '', 0, 'fa fa-bars', 0, '2017-08-09 22:49:47', NULL);
 INSERT INTO `sys_menu` VALUES (2, 3, '系统菜单', 'sys/menu/', 'sys:menu:menu', 1, 'fa fa-th-list', 2, '2017-08-09 22:55:15', NULL);
 INSERT INTO `sys_menu` VALUES (3, 0, '系统管理', NULL, NULL, 0, 'fa fa-desktop', 5, '2017-08-09 23:06:55', '2017-08-14 14:13:43');
@@ -167,8 +202,11 @@ INSERT INTO `sys_menu` VALUES (122, 107, '删除', '/railway/person/remove', 'ra
 INSERT INTO `sys_menu` VALUES (123, 108, '查看照片', '/railway/photomanage/viewPhoto', 'railway:photomanage:viewPhoto', 2, '', 1, NULL, NULL);
 INSERT INTO `sys_menu` VALUES (124, 108, '查询', '/railway/photomanage/list', 'railway:photomanage:select', 2, '', 2, NULL, NULL);
 INSERT INTO `sys_menu` VALUES (125, 108, '重置', '/railway/photomanage/list', 'railway:photomanage:reset', 2, '', 3, NULL, NULL);
+INSERT INTO `sys_menu` VALUES (126, 108, '编辑', '/railway/photomanage/edit', 'railway:photomanage:edit', 2, '', 4, NULL, NULL);
 
-
+-- ----------------------------
+-- Table structure for sys_role
+-- ----------------------------
 DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE `sys_role`  (
   `role_id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -181,67 +219,129 @@ CREATE TABLE `sys_role`  (
   PRIMARY KEY (`role_id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 62 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色' ROW_FORMAT = Dynamic;
 
-
+-- ----------------------------
+-- Records of sys_role
+-- ----------------------------
 INSERT INTO `sys_role` VALUES (1, '超级用户角色', 'admin', '拥有最高权限', 2, '2017-08-12 00:43:52', '2017-08-12 19:14:59');
 INSERT INTO `sys_role` VALUES (60, '管理员', NULL, '进行管理', NULL, NULL, NULL);
 INSERT INTO `sys_role` VALUES (61, '领导', NULL, '主要由领导进行查询', NULL, NULL, NULL);
 
-
+-- ----------------------------
+-- Table structure for sys_role_menu
+-- ----------------------------
 DROP TABLE IF EXISTS `sys_role_menu`;
 CREATE TABLE `sys_role_menu`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `role_id` bigint(20) NULL DEFAULT NULL COMMENT '角色ID',
   `menu_id` bigint(20) NULL DEFAULT NULL COMMENT '菜单ID',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4440 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色与菜单对应关系' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4617 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色与菜单对应关系' ROW_FORMAT = Dynamic;
 
-
+-- ----------------------------
+-- Records of sys_role_menu
+-- ----------------------------
 INSERT INTO `sys_role_menu` VALUES (3359, 61, 105);
 INSERT INTO `sys_role_menu` VALUES (3360, 61, -1);
-INSERT INTO `sys_role_menu` VALUES (4479, 60, 125);
-INSERT INTO `sys_role_menu` VALUES (4480, 60, 124);
-INSERT INTO `sys_role_menu` VALUES (4481, 60, 123);
-INSERT INTO `sys_role_menu` VALUES (4482, 60, 122);
-INSERT INTO `sys_role_menu` VALUES (4483, 60, 121);
-INSERT INTO `sys_role_menu` VALUES (4484, 60, 120);
-INSERT INTO `sys_role_menu` VALUES (4485, 60, 119);
-INSERT INTO `sys_role_menu` VALUES (4486, 60, 118);
-INSERT INTO `sys_role_menu` VALUES (4487, 60, 117);
-INSERT INTO `sys_role_menu` VALUES (4488, 60, 116);
-INSERT INTO `sys_role_menu` VALUES (4489, 60, 115);
-INSERT INTO `sys_role_menu` VALUES (4490, 60, 114);
-INSERT INTO `sys_role_menu` VALUES (4491, 60, 105);
-INSERT INTO `sys_role_menu` VALUES (4492, 60, 112);
-INSERT INTO `sys_role_menu` VALUES (4493, 60, 111);
-INSERT INTO `sys_role_menu` VALUES (4494, 60, 110);
-INSERT INTO `sys_role_menu` VALUES (4495, 60, 62);
-INSERT INTO `sys_role_menu` VALUES (4496, 60, 56);
-INSERT INTO `sys_role_menu` VALUES (4497, 60, 55);
-INSERT INTO `sys_role_menu` VALUES (4498, 60, 15);
-INSERT INTO `sys_role_menu` VALUES (4499, 60, 26);
-INSERT INTO `sys_role_menu` VALUES (4500, 60, 25);
-INSERT INTO `sys_role_menu` VALUES (4501, 60, 24);
-INSERT INTO `sys_role_menu` VALUES (4502, 60, 14);
-INSERT INTO `sys_role_menu` VALUES (4503, 60, 13);
-INSERT INTO `sys_role_menu` VALUES (4504, 60, 12);
-INSERT INTO `sys_role_menu` VALUES (4505, 60, 61);
-INSERT INTO `sys_role_menu` VALUES (4506, 60, 22);
-INSERT INTO `sys_role_menu` VALUES (4507, 60, 21);
-INSERT INTO `sys_role_menu` VALUES (4508, 60, 20);
-INSERT INTO `sys_role_menu` VALUES (4509, 60, 108);
-INSERT INTO `sys_role_menu` VALUES (4510, 60, 107);
-INSERT INTO `sys_role_menu` VALUES (4511, 60, 106);
-INSERT INTO `sys_role_menu` VALUES (4512, 60, 109);
-INSERT INTO `sys_role_menu` VALUES (4513, 60, 7);
-INSERT INTO `sys_role_menu` VALUES (4514, 60, 6);
-INSERT INTO `sys_role_menu` VALUES (4515, 60, 2);
-INSERT INTO `sys_role_menu` VALUES (4516, 60, 73);
-INSERT INTO `sys_role_menu` VALUES (4517, 60, 76);
-INSERT INTO `sys_role_menu` VALUES (4518, 60, 75);
-INSERT INTO `sys_role_menu` VALUES (4519, 60, 74);
-INSERT INTO `sys_role_menu` VALUES (4520, 60, 3);
-INSERT INTO `sys_role_menu` VALUES (4521, 60, -1);
+INSERT INTO `sys_role_menu` VALUES (4522, 1, -1);
+INSERT INTO `sys_role_menu` VALUES (4523, 1, 125);
+INSERT INTO `sys_role_menu` VALUES (4524, 1, 124);
+INSERT INTO `sys_role_menu` VALUES (4525, 1, 123);
+INSERT INTO `sys_role_menu` VALUES (4526, 1, 122);
+INSERT INTO `sys_role_menu` VALUES (4527, 1, 121);
+INSERT INTO `sys_role_menu` VALUES (4528, 1, 120);
+INSERT INTO `sys_role_menu` VALUES (4529, 1, 119);
+INSERT INTO `sys_role_menu` VALUES (4530, 1, 118);
+INSERT INTO `sys_role_menu` VALUES (4531, 1, 117);
+INSERT INTO `sys_role_menu` VALUES (4532, 1, 116);
+INSERT INTO `sys_role_menu` VALUES (4533, 1, 115);
+INSERT INTO `sys_role_menu` VALUES (4534, 1, 114);
+INSERT INTO `sys_role_menu` VALUES (4535, 1, 30);
+INSERT INTO `sys_role_menu` VALUES (4536, 1, 29);
+INSERT INTO `sys_role_menu` VALUES (4537, 1, 28);
+INSERT INTO `sys_role_menu` VALUES (4538, 1, 92);
+INSERT INTO `sys_role_menu` VALUES (4539, 1, 57);
+INSERT INTO `sys_role_menu` VALUES (4540, 1, 27);
+INSERT INTO `sys_role_menu` VALUES (4541, 1, 112);
+INSERT INTO `sys_role_menu` VALUES (4542, 1, 111);
+INSERT INTO `sys_role_menu` VALUES (4543, 1, 110);
+INSERT INTO `sys_role_menu` VALUES (4544, 1, 76);
+INSERT INTO `sys_role_menu` VALUES (4545, 1, 75);
+INSERT INTO `sys_role_menu` VALUES (4546, 1, 74);
+INSERT INTO `sys_role_menu` VALUES (4547, 1, 62);
+INSERT INTO `sys_role_menu` VALUES (4548, 1, 56);
+INSERT INTO `sys_role_menu` VALUES (4549, 1, 55);
+INSERT INTO `sys_role_menu` VALUES (4550, 1, 15);
+INSERT INTO `sys_role_menu` VALUES (4551, 1, 26);
+INSERT INTO `sys_role_menu` VALUES (4552, 1, 25);
+INSERT INTO `sys_role_menu` VALUES (4553, 1, 24);
+INSERT INTO `sys_role_menu` VALUES (4554, 1, 14);
+INSERT INTO `sys_role_menu` VALUES (4555, 1, 13);
+INSERT INTO `sys_role_menu` VALUES (4556, 1, 12);
+INSERT INTO `sys_role_menu` VALUES (4557, 1, 61);
+INSERT INTO `sys_role_menu` VALUES (4558, 1, 22);
+INSERT INTO `sys_role_menu` VALUES (4559, 1, 21);
+INSERT INTO `sys_role_menu` VALUES (4560, 1, 20);
+INSERT INTO `sys_role_menu` VALUES (4561, 1, 109);
+INSERT INTO `sys_role_menu` VALUES (4562, 1, 73);
+INSERT INTO `sys_role_menu` VALUES (4563, 1, 7);
+INSERT INTO `sys_role_menu` VALUES (4564, 1, 6);
+INSERT INTO `sys_role_menu` VALUES (4565, 1, 2);
+INSERT INTO `sys_role_menu` VALUES (4566, 1, 83);
+INSERT INTO `sys_role_menu` VALUES (4567, 1, 81);
+INSERT INTO `sys_role_menu` VALUES (4568, 1, 80);
+INSERT INTO `sys_role_menu` VALUES (4569, 1, 79);
+INSERT INTO `sys_role_menu` VALUES (4570, 1, 78);
+INSERT INTO `sys_role_menu` VALUES (4571, 1, 71);
+INSERT INTO `sys_role_menu` VALUES (4572, 1, 108);
+INSERT INTO `sys_role_menu` VALUES (4573, 1, 107);
+INSERT INTO `sys_role_menu` VALUES (4574, 1, 106);
+INSERT INTO `sys_role_menu` VALUES (4575, 1, 105);
+INSERT INTO `sys_role_menu` VALUES (4576, 1, 91);
+INSERT INTO `sys_role_menu` VALUES (4577, 1, 3);
+INSERT INTO `sys_role_menu` VALUES (4578, 1, 1);
+INSERT INTO `sys_role_menu` VALUES (4617, 60, 125);
+INSERT INTO `sys_role_menu` VALUES (4618, 60, 124);
+INSERT INTO `sys_role_menu` VALUES (4619, 60, 123);
+INSERT INTO `sys_role_menu` VALUES (4620, 60, 122);
+INSERT INTO `sys_role_menu` VALUES (4621, 60, 121);
+INSERT INTO `sys_role_menu` VALUES (4622, 60, 120);
+INSERT INTO `sys_role_menu` VALUES (4623, 60, 119);
+INSERT INTO `sys_role_menu` VALUES (4624, 60, 118);
+INSERT INTO `sys_role_menu` VALUES (4625, 60, 117);
+INSERT INTO `sys_role_menu` VALUES (4626, 60, 116);
+INSERT INTO `sys_role_menu` VALUES (4627, 60, 115);
+INSERT INTO `sys_role_menu` VALUES (4628, 60, 114);
+INSERT INTO `sys_role_menu` VALUES (4629, 60, 105);
+INSERT INTO `sys_role_menu` VALUES (4630, 60, 112);
+INSERT INTO `sys_role_menu` VALUES (4631, 60, 111);
+INSERT INTO `sys_role_menu` VALUES (4632, 60, 110);
+INSERT INTO `sys_role_menu` VALUES (4633, 60, 76);
+INSERT INTO `sys_role_menu` VALUES (4634, 60, 75);
+INSERT INTO `sys_role_menu` VALUES (4635, 60, 74);
+INSERT INTO `sys_role_menu` VALUES (4636, 60, 62);
+INSERT INTO `sys_role_menu` VALUES (4637, 60, 56);
+INSERT INTO `sys_role_menu` VALUES (4638, 60, 55);
+INSERT INTO `sys_role_menu` VALUES (4639, 60, 15);
+INSERT INTO `sys_role_menu` VALUES (4640, 60, 26);
+INSERT INTO `sys_role_menu` VALUES (4641, 60, 25);
+INSERT INTO `sys_role_menu` VALUES (4642, 60, 24);
+INSERT INTO `sys_role_menu` VALUES (4643, 60, 14);
+INSERT INTO `sys_role_menu` VALUES (4644, 60, 13);
+INSERT INTO `sys_role_menu` VALUES (4645, 60, 12);
+INSERT INTO `sys_role_menu` VALUES (4646, 60, 107);
+INSERT INTO `sys_role_menu` VALUES (4647, 60, 106);
+INSERT INTO `sys_role_menu` VALUES (4648, 60, 109);
+INSERT INTO `sys_role_menu` VALUES (4649, 60, 73);
+INSERT INTO `sys_role_menu` VALUES (4650, 60, 7);
+INSERT INTO `sys_role_menu` VALUES (4651, 60, 6);
+INSERT INTO `sys_role_menu` VALUES (4652, 60, 126);
+INSERT INTO `sys_role_menu` VALUES (4653, 60, 108);
+INSERT INTO `sys_role_menu` VALUES (4654, 60, -1);
+INSERT INTO `sys_role_menu` VALUES (4655, 60, 3);
 
+-- ----------------------------
+-- Table structure for sys_task
+-- ----------------------------
 DROP TABLE IF EXISTS `sys_task`;
 CREATE TABLE `sys_task`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -262,6 +362,9 @@ CREATE TABLE `sys_task`  (
 ) ENGINE = MyISAM AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 
+-- ----------------------------
+-- Table structure for sys_user
+-- ----------------------------
 DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user`  (
   `user_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID',
@@ -284,23 +387,30 @@ CREATE TABLE `sys_user`  (
   `city` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '所在城市',
   `district` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '所在地区',
   PRIMARY KEY (`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 141 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 142 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
-
-INSERT INTO `sys_user` VALUES (1, 'admin', '超级管理员', 'c1cee993ece039aa8b0efbe6f2754082', 1, 'lg932740579@163.com', '18108258001', 0, 1, '2017-08-15 21:40:39', '2017-08-15 21:41:00', 96, '2017-12-14 00:00:00', 138, 'ccc', '122;121;', '北京市', '北京市市辖区', '东城区');
+-- ----------------------------
+-- Records of sys_user
+-- ----------------------------
+INSERT INTO `sys_user` VALUES (1, 'admin', '超级管理员', 'c1cee993ece039aa8b0efbe6f2754082', 1, 'lg932740579@163.com', '18108258001', 1, 1, '2017-08-15 21:40:39', '2017-08-15 21:41:00', 96, '2017-12-14 00:00:00', 138, 'ccc', '122;121;', '北京市', '北京市市辖区', '东城区');
 INSERT INTO `sys_user` VALUES (137, 'system', '管理员', '4299804831a9b29cc327e3b5290b0bb3', 1, 'fengchaseyou@163.com', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `sys_user` VALUES (140, 'lingdao', '我是领导', 'fdd4a0f3955e79e4cfa3744a158e991d', 1, 'fengchaseyou@163.com', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `sys_user` VALUES (140, 'lingdao', '领导', 'fdd4a0f3955e79e4cfa3744a158e991d', 1, 'fengchaseyou@163.com', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `sys_user` VALUES (141, 'Reviewer', '照片查看者', 'e6dab84e1edd411151d97cd34ca07f82', 1, 'abc@hotmail.com', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
-
+-- ----------------------------
+-- Table structure for sys_user_role
+-- ----------------------------
 DROP TABLE IF EXISTS `sys_user_role`;
 CREATE TABLE `sys_user_role`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) NULL DEFAULT NULL COMMENT '用户ID',
   `role_id` bigint(20) NULL DEFAULT NULL COMMENT '角色ID',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 143 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户与角色对应关系' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 146 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户与角色对应关系' ROW_FORMAT = Dynamic;
 
-
+-- ----------------------------
+-- Records of sys_user_role
+-- ----------------------------
 INSERT INTO `sys_user_role` VALUES (73, 30, 48);
 INSERT INTO `sys_user_role` VALUES (74, 30, 49);
 INSERT INTO `sys_user_role` VALUES (75, 30, 50);
@@ -331,10 +441,13 @@ INSERT INTO `sys_user_role` VALUES (126, 132, 49);
 INSERT INTO `sys_user_role` VALUES (127, 123, 48);
 INSERT INTO `sys_user_role` VALUES (132, 36, 48);
 INSERT INTO `sys_user_role` VALUES (139, 137, 60);
-INSERT INTO `sys_user_role` VALUES (141, 140, 61);
-INSERT INTO `sys_user_role` VALUES (142, 1, 1);
+INSERT INTO `sys_user_role` VALUES (143, 140, 61);
+INSERT INTO `sys_user_role` VALUES (144, 141, 61);
+INSERT INTO `sys_user_role` VALUES (145, 1, 1);
 
-
+-- ----------------------------
+-- Table structure for tbl_order
+-- ----------------------------
 DROP TABLE IF EXISTS `tbl_order`;
 CREATE TABLE `tbl_order`  (
   `id` bigint(32) NOT NULL AUTO_INCREMENT COMMENT '自增长id',
@@ -353,18 +466,22 @@ CREATE TABLE `tbl_order`  (
   `person_ids` varchar(512) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '拍摄人员id集合,逗号分隔',
   `person_names` varchar(512) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '拍摄人员name集合,逗号分隔',
   `continue_shot` bigint(32) NULL DEFAULT 0 COMMENT '为0时不是续拍，不为0时为续拍，存放上次任务ID',
-  `start_time` datetime(0) NULL DEFAULT NULL COMMENT '开始时间',
-  `end_time` datetime(0) NULL DEFAULT NULL COMMENT '结束时间',
+  `order_start_time` datetime(0) NULL DEFAULT NULL COMMENT '开始时间',
+  `order_end_time` datetime(0) NULL DEFAULT NULL COMMENT '结束时间',
   `order_state` int(4) NULL DEFAULT 1 COMMENT '任务状态:0已拍照，1未拍照，',
   `del_state` int(2) NULL DEFAULT 0 COMMENT '是否删除',
   `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `create_user` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '创建用户',
   `modify_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
   `modify_user` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '修改用户',
+  `upload_way` int(2) NULL DEFAULT 0 COMMENT '0:新建任务上传，1:拍照人员主动上传',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 38 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '任务表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '任务表' ROW_FORMAT = Dynamic;
 
 
+-- ----------------------------
+-- Table structure for tbl_person
+-- ----------------------------
 DROP TABLE IF EXISTS `tbl_person`;
 CREATE TABLE `tbl_person`  (
   `id` bigint(32) NOT NULL AUTO_INCREMENT COMMENT '自增长id',
@@ -381,9 +498,12 @@ CREATE TABLE `tbl_person`  (
   `modify_user` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '修改用户',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `登录名不能重复`(`login_name`) USING BTREE COMMENT '登录名唯一'
-) ENGINE = InnoDB AUTO_INCREMENT = 38 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '拍照人员表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '拍照人员表' ROW_FORMAT = Dynamic;
 
 
+-- ----------------------------
+-- Table structure for tbl_picture
+-- ----------------------------
 DROP TABLE IF EXISTS `tbl_picture`;
 CREATE TABLE `tbl_picture`  (
   `id` bigint(32) NOT NULL AUTO_INCREMENT COMMENT '自增长id',
@@ -398,9 +518,12 @@ CREATE TABLE `tbl_picture`  (
   `modify_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
   `modify_user` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '修改用户',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '照片表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '照片表' ROW_FORMAT = Dynamic;
 
 
+-- ----------------------------
+-- Table structure for tbl_station
+-- ----------------------------
 DROP TABLE IF EXISTS `tbl_station`;
 CREATE TABLE `tbl_station`  (
   `id` bigint(32) NOT NULL AUTO_INCREMENT COMMENT '自增长id',
@@ -412,15 +535,7 @@ CREATE TABLE `tbl_station`  (
   `modify_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
   `modify_user` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '修改用户',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '站点表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '站点表' ROW_FORMAT = Dynamic;
 
-DROP TABLE IF EXISTS `login_user_token`;
-CREATE TABLE `login_user_token`  (
-  `user_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '用户ID',
-  `token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'token',
-  `time_out` int(10) NOT NULL COMMENT '失效时间 秒',
-  `time` bigint(30) NULL DEFAULT NULL COMMENT '登录时间',
-  PRIMARY KEY (`user_id`, `token`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '拍照人登录token' ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;
