@@ -66,6 +66,8 @@ public class OrderDO implements Serializable {
 	private Date modifyTime;
 	//修改用户
 	private String modifyUser;
+	//上传方式 0:新建任务上传，1:拍照人员主动上传 默认0
+	private Integer uploadWay;
 
 	public final static String DEL_STATE = "delState";
 

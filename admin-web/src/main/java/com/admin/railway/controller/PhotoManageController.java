@@ -4,12 +4,15 @@ import com.admin.common.annotation.Log;
 import com.admin.common.config.Constant;
 import com.admin.common.utils.GenUtils;
 import com.admin.common.utils.R;
+import com.admin.common.utils.ShiroUtils;
 import com.admin.railway.domain.OrderDO;
+import com.admin.railway.domain.PersonDO;
 import com.admin.railway.domain.PictureDO;
-import com.admin.railway.service.OrderService;
-import com.admin.railway.service.PhotoManageService;
-import com.admin.railway.service.PictureService;
+import com.admin.railway.domain.StationDO;
+import com.admin.railway.service.*;
+import com.admin.system.domain.UserDO;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,8 +24,11 @@ import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -38,6 +44,12 @@ public class PhotoManageController {
 
     @Autowired
     private PhotoManageService photoManageService;
+    @Autowired
+    private OrderService orderService;
+    @Autowired
+    private PersonService personService;
+    @Autowired
+    private StationService stationService;
 
     @RequiresPermissions("railway:photomanage:list")
     @GetMapping()
@@ -91,5 +103,50 @@ public class PhotoManageController {
     @GetMapping("/exportPic/{id}")
     public void exportPic(@PathVariable("id") Long id,HttpServletResponse response) {
         photoManageService.exportPic(id,response);
+    }
+
+    @RequiresPermissions("railway:photomanage:edit")
+    @GetMapping("/edit/{id}")
+    public String editUI(@PathVariable("id") Long orderId, Model model) {
+        OrderDO order = orderService.get(orderId);
+        model.addAttribute("order", order);
+        return "railway/photoManage/edit";
+    }
+
+    /**
+     * 修改
+     * @return
+     */
+    @Log("修改调度任务")
+    @RequiresPermissions("railway:photomanage:edit")
+    @PostMapping("/update")
+    @ResponseBody
+    public R update(OrderDO order) {
+        UserDO user = ShiroUtils.getUser();
+        // 根据前端传的 personIds 查找用户名
+        String personIds = order.getPersonIds();
+        if(StringUtils.isNoneBlank(personIds)){
+            List<Long> ids = Arrays.stream(personIds.split(","))
+                    .map(s -> Long.parseLong(s.trim()))
+                    .collect(Collectors.toList());
+            List<PersonDO> personList = personService.getByIds(ids);
+            String personNames = personList.stream().map(PersonDO::getName).collect(Collectors.joining(","));
+            order.setPersonNames(personNames);
+        }
+        // 设置stationName
+        StationDO station = null;
+        if (order.getStartStationId() != null) {
+            station = stationService.get(order.getStartStationId());
+            order.setStartStationName(station.getName());
+        }
+        if (order.getEndStationId() != null) {
+            station = stationService.get(order.getEndStationId());
+            order.setEndStationName(station.getName());
+        }
+        order.setModifyTime(new Date());
+        order.setModifyUser(user.getName());
+        order.setUploadWay(Constant.Number.ZERO.getCode());
+        orderService.update(order);
+        return R.ok();
     }
 }

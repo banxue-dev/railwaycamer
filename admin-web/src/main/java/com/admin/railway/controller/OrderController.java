@@ -154,7 +154,6 @@ public class OrderController extends BaseController {
 	@ResponseBody
 	public R update(OrderDO order) {
 		UserDO user = ShiroUtils.getUser();
-		
 		// 根据前端传的 personIds 查找用户名
 		String personIds = order.getPersonIds();
 		if(StringUtils.isNoneBlank(personIds)){
@@ -177,10 +176,8 @@ public class OrderController extends BaseController {
 			station = stationService.get(order.getEndStationId());
 			order.setEndStationName(station.getName());
 		}
-
 		order.setModifyTime(new Date());
 		order.setModifyUser(user.getName());
-		
 		orderService.update(order);
 		return R.ok();
 	}

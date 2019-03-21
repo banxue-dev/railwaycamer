@@ -1,5 +1,5 @@
 var prefix = '/railway/photomanage'; // 路径前缀
-var active,activeReset;
+var active;
 $(function () {
     load();
 });
@@ -54,7 +54,8 @@ function load() {
                 {
                     field: '', title: '操作', align: 'center', templet: function (item) {
                         var a = '<a class="layui-btn layui-btn-primary layui-btn-xs ' + s_view_h + '" target="iframeCamera" onclick="viewPhoto(' + item.id + ')">查看照片</a>';
-                        return a;
+                        var b = '<a class="layui-btn layui-btn-primary layui-btn-xs ' + s_edit_h + '" onclick="edit(' + item.id + ')">编辑</a>';
+                        return a + b;
                     }
                 }
             ]],
@@ -78,6 +79,9 @@ function load() {
                         },
                         endTime: function () {
                             return $('#endTime').val();
+                        },
+                        trainNo:function () {
+                            return $('#trainNo').val();
                         }
                     }
                 });
@@ -111,4 +115,16 @@ function reLoad() {
 
 function viewPhoto(id) {
     window.location.href = "/railway/photomanage/viewPhoto/" + id
+}
+
+// 打开编辑面
+function edit(id) {
+    layer.open({
+        type : 2,
+        title : '编辑',
+        maxmin : true,
+        shadeClose : true, // 点击遮罩关闭层
+        area : [ '800px', '520px' ],
+        content : prefix + '/edit/' + id // iframe的url
+    });
 }
