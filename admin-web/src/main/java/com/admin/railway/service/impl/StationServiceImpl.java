@@ -10,6 +10,7 @@ import com.admin.common.config.Constant;
 import com.admin.common.domain.Tree;
 import com.admin.common.exception.BDException;
 import com.admin.common.utils.BuildTree;
+import com.admin.common.utils.DateUtils;
 import com.admin.system.domain.UserDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -150,52 +151,71 @@ public class StationServiceImpl implements StationService {
 		Integer nowsize= (Integer) map.get("nowsize");//从1开始，表示第几页
 		Integer pagesize= (Integer) map.get("pagesize");//从每次多少，相当于每页多少条
 		Date now=new Date();
-		for(int i=nowsize;i<pagesize+nowsize;i++) {
-			String date=TargetTime.getBeforeOrAfterDateReString(now , 1-i);
-			String sdate=date+" 00:00:00";
-			String edate=date+" 23:59:59";
-			Map<String, Object> maporder=new HashMap<String, Object>();
-			maporder.put("beginTime", sdate);
-			maporder.put("endTime", edate);
-			maporder.put("startStationId", stationId);
-			Tree<String> tree = new Tree<String>();
-			tree.setId(date);
-			tree.setParentId("0");
-			tree.setText(date);
-			Map<String, Object> attributes = new HashMap<>(16);
-			attributes.put("trinno", "");
-			tree.setAttributes(attributes);
-			trees.add(tree);
-			List<OrderDO>  orders=orderDao.list(maporder);
-			if(orders==null || orders.size()<1) {
-				Tree<String> tree2 = new Tree<String>();
-				tree2.setId(i+"");
-				tree2.setParentId(date);
-				tree2.setText("暂无数据");
-				Map<String, Object> attributes2 = new HashMap<>(16);
-				attributes2.put("orderid", "0");
-				attributes2.put("trinno", "暂无数据");
-				tree2.setAttributes(attributes2);
-				trees.add(tree2);
-			}else {
-				for(OrderDO temp:orders) {
-					Tree<String> tree1 = new Tree<String>();
-					tree1.setId(temp.getId()+"");
-					tree1.setParentId(date);
-					tree1.setText("车号："+temp.getTrainNo());
-					Map<String, Object> attributes1 = new HashMap<>(16);
-					attributes1.put("orderid", temp.getId().toString());
-					attributes1.put("trinno", temp.getTrainNo());
-					attributes1.put("ptime", date);
-					attributes1.put("productName", temp.getProductName());
-					attributes1.put("trainType", temp.getTrainType());
-					attributes1.put("loadingLine", temp.getLoadingLine());
-					tree1.setAttributes(attributes1);
-					trees.add(tree1);
+		Map<String, Object> timeMap=new HashMap<String, Object>();
+		timeMap.put("offset", nowsize);//从0开始
+		timeMap.put("limit", pagesize);
+		timeMap.put("startStationId", stationId);
+		/**
+		 * 用来查询指定站点下有那些时间的车
+		 */
+		List<OrderDO>  timeorders=orderDao.gettimelist(timeMap);
+		if(timeorders==null || timeorders.size()<1) {
+			return null;
+		}else {
+			for(int i=0;i<timeorders.size();i++) {
+				OrderDO order=timeorders.get(i);
+				String date=DateUtils.format(order.getCreateTime(), DateUtils.DATE_PATTERN);
+				/**
+				 * 时间的顶节点
+				 */
+				Tree<String> tree = new Tree<String>();
+				tree.setId(date);
+				tree.setParentId("0");
+				tree.setText(date);
+				Map<String, Object> attributes = new HashMap<>(16);
+				attributes.put("orderid", order.getId());
+				tree.setAttributes(attributes);
+				trees.add(tree);
+				
+				String sdate=date +" 00:00:00";
+				String edate=date +" 23:59:59";
+				Map<String, Object> maporder=new HashMap<String, Object>();
+				maporder.put("beginTime", sdate);
+				maporder.put("endTime", edate);
+				maporder.put("startStationId", stationId);
+				
+				List<OrderDO>  orders=orderDao.list(maporder);
+				if(orders==null || orders.size()<1) {
+					Tree<String> tree2 = new Tree<String>();
+					tree2.setId(i+"");
+					tree2.setParentId(date);
+					tree2.setText("暂无数据");
+					Map<String, Object> attributes2 = new HashMap<>(16);
+					attributes2.put("orderid", "0");
+					attributes2.put("trinno", "暂无数据");
+					tree2.setAttributes(attributes2);
+					trees.add(tree2);
+				}else {
+					for(OrderDO temp:orders) {
+						Tree<String> tree1 = new Tree<String>();
+						tree1.setId(temp.getId()+"");
+						tree1.setParentId(date);
+						tree1.setText("车号："+temp.getTrainNo());
+						Map<String, Object> attributes1 = new HashMap<>(16);
+						attributes1.put("orderid", temp.getId().toString());
+						attributes1.put("trinno", temp.getTrainNo());
+						attributes1.put("ptime", date);
+						attributes1.put("productName", temp.getProductName());
+						attributes1.put("trainType", temp.getTrainType());
+						attributes1.put("loadingLine", temp.getLoadingLine());
+						tree1.setAttributes(attributes1);
+						trees.add(tree1);
+					}
 				}
+				
 			}
-			
 		}
+		
 		// 默认顶级菜单为０，根据数据库实际情况调整
 		List<Tree<String>> list = BuildTree.buildList(trees, "0");
 		return list;

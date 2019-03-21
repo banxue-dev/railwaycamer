@@ -23,6 +23,15 @@ public interface OrderDao {
 	
 	int remove(Long orderId);
 	
+	/**
+	 * 获取根据时间分组，有最近有多少时间段内的数据
+	 * 参数：分页数据limit,pagenow：从第几条开始,pagesize:每页大小
+	 * @return
+	 * 2019年3月21日
+	 * 作者：fengchase
+	 */
+	List<OrderDO> gettimelist(Map<String, Object> map);
+	
 	int batchRemove(Long[] orderIds);
 	/**
 	 * @Author: luojing

@@ -94,49 +94,67 @@ function diytree(){
 					$.ajax({
 						url:'/railway/station/listTimeTree',
 						type:'post',
-						data:{stationId:id,nowsize:1,pagesize:5},
+						data:{stationId:id,nowsize:0,pagesize:1},
 						success:function(data){
 							if(data.code==0){
-								var html='';
-								html+='<ul parent-id="'+id+'" class="child newchild">';
-								html+=listree.looptimehtml(data.data);
-								html+='<li><a class="loadmore" href="javascript:;"  >加载更多...</a></li>';
-								html+='</ul>';
-								thistdom.after(html);
-								listree.initcss({min:10,dz:15});
-								$('.newchild').slideUp('slow','easeOutQuad');
-								thistdom.siblings('ul').slideDown('slow','easeOutQuad');
-								listree.simpleevent();
-								/*
-								* 子节点点击事件
-								*/
-								$('.child>li>.loadmore').click(function(){
-									//nowsize=现在这个兄弟有多少条
-									var _this=this;
-									var loadmore=$(_this);
-									var nowsize=loadmore.parent().siblings('li').length;
-									nowsize=nowsize<1?1:nowsize;
-									nowsize=nowsize>1?nowsize+1:nowsize;
-									$.ajax({
-										url:'/railway/station/listTimeTree',
-										type:'post',
-										data:{stationId:id,nowsize:nowsize,pagesize:5},
-										success:function(data){
-											if(data.code==0){
-												var html='';
-												html+=listree.looptimehtml(data.data);
-												loadmore.parent().before(html);
-												listree.initcss({min:10,dz:15});
-												listree.simpleevent();
-											}
-										}
-									})
+								if(data.data==null || data.data.length<1){
+									var html='';
+									html+='<li><a  class="bottom_"  href="javascript:;" >没有更多了</a></li>';
+									thistdom.after(html);
 									
-								});
-								var sb=thistdom.siblings('ul').children('li').children('label')
-								//var sb=$('.loadmore').parent('li').siblings('li').children('label');
-								thistdom.siblings('ul').children('li').children('.loadmore').css('color',sb.css('color')).css('background-color',sb.css('background-color'));
-								
+								}else{
+									var html='';
+									html+='<ul parent-id="'+id+'" class="child newchild">';
+									html+=listree.looptimehtml(data.data);
+									html+='<li><a class="loadmore" href="javascript:;"  >加载更多...</a></li>';
+									html+='</ul>';
+									thistdom.after(html);
+									$('.newchild').slideUp('slow','easeOutQuad');
+									thistdom.siblings('ul').slideDown('slow','easeOutQuad');
+									/*
+									* 子节点点击事件
+									*/
+									$('.child>li>.loadmore').click(function(){
+										//nowsize=现在这个兄弟有多少条
+										var _this=this;
+										var loadmore=$(_this);
+										var nowsize=loadmore.parent().siblings('li').length;
+										var psize=5;
+										$.ajax({
+											url:'/railway/station/listTimeTree',
+											type:'post',
+											data:{stationId:id,nowsize:nowsize,pagesize:psize},
+											success:function(data){
+												if(data.code==0){
+													if(data.data==null || data.data.length<1){
+														var html='';
+														html+='<li><a data-id="-1"  class="bottom_" href="javascript:;" >没有更多了</a></li>';
+														loadmore.parent().after(html);
+														loadmore.remove();
+													}else{
+														var html='';
+														html+=listree.looptimehtml(data.data);
+														loadmore.parent().before(html);
+														
+														if(data.data.length<psize){
+															var html1='';
+															html1+='<li><a data-id="-1"  class="bottom_" href="javascript:;" >没有更多了</a></li>';
+															loadmore.parent().after(html1);
+															loadmore.remove();
+														}
+													}
+													listree.initcss({min:10,dz:15});
+													listree.simpleevent();
+												}
+											}
+										})
+										
+									});
+									var sb=thistdom.siblings('ul').children('li').children('label')
+									thistdom.siblings('ul').children('li').children('.loadmore').css('color',sb.css('color')).css('background-color',sb.css('background-color'));
+								}
+								listree.initcss({min:10,dz:15});
+								listree.simpleevent();
 							}
 						}
 					})
@@ -243,9 +261,10 @@ function diytree(){
 							parents.children('label').css('padding-left',min);
 							parents.children('label').css('color',colors[index].color);
 							parents.children('label').css('background-color',colors[index].backend);
-							parents.children('li>a').css('padding-left',min);
-							parents.children('li>a').css('color',colors[index].color);
-							parents.children('li>a').css('background-color',colors[index].backend);
+							child.children('li').children('a').css('padding-left',min);
+							child.children('li').children('a').css('color',colors[index].color);
+							child.children('li').children('a').css('background-color',colors[index].backend);
+							
 							parents.each(function(){
 								setPadding(this,min,index);
 							})
@@ -253,8 +272,11 @@ function diytree(){
 					}
 					$('.child').each(function(i){
 						var _this=this;
-						var par=$(_this).siblings('label').css('padding-left').replace(/px/,'')*1;
+						var pardom=$(_this).siblings('label');
+						var par=pardom.css('padding-left').replace(/px/,'')*1;
+						var childlabeldom=pardom.children('li').children('label');
 						$(_this).children('li').children('a').css('padding-left',par+=dz);
+						//.css('color',childlabeldom.css('color')).css('background-color',childlabeldom.css('background-color'))
 					})
 				},
 				initevent:function(treedom,params){
