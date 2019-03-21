@@ -105,7 +105,8 @@ public class Constant {
      * @Date: 2019/3/13 12:57
      **/
     public enum Number {
-        ZERO(0);
+        ZERO(0),
+        ONE(1);
         private Integer code;
 
         Number(Integer code) {

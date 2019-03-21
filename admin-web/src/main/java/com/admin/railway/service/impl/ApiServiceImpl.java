@@ -124,6 +124,7 @@ public class ApiServiceImpl implements ApiService {
                         //为空时代表拍照人员主动上传照片,添加任务信息
                         orderDO.setPersonIds(vo.getPersonId());
                         orderDO.setContinueShot(Long.valueOf(Constant.Number.ZERO.getCode()));
+                        orderDO.setUploadWay(Constant.Number.ONE.getCode());
                         orderService.save(orderDO);
                         vo.setTaskId(String.valueOf(orderDO.getId()));
                     }

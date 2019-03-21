@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include::header"></head>
+<style>
+	label,ol,ul{
+		margin: 0;
+	}
+</style>
+<body >
+	<div class="wrapper wrapper-content animated fadeInRight">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-content">
+						<form class="form-horizontal m-t" id="signupForm">
+							<input id="id" name="id" type="hidden" th:value="${order.id}">
+							<div class="form-group">
+								<label class="col-sm-3 control-label">车厢号：</label>
+								<div class="col-sm-8">
+									<input id="trainNo" name="trainNo" class="form-control"
+										type="text" th:value="${order.trainNo}">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">发站：</label>
+								<div class="col-sm-8">
+									<input type="text" style="display: none;" id="startStationId" name="startStationId" class="layui-input" th:value="${order.startStationId}">
+                    				<input type="text" id="tree" class="form-control" readonly="readonly" placeholder="请选择发站点" th:value="${order.startStationName}">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">到站：</label>
+								<div class="col-sm-8">
+									<input type="text" style="display: none;" id="endStationId" name="endStationId" class="layui-input" th:value="${order.endStationId}">
+                    				<input type="text" id="tree1" class="form-control" readonly="readonly" placeholder="请选择到站点" th:value="${order.endStationName}">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">托货人：</label>
+								<div class="col-sm-8">
+									<input id="consignor" name="consignor" class="form-control"
+										type="text" th:value="${order.consignor}">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">收货人：</label>
+								<div class="col-sm-8">
+									<input id="consignee" name="consignee" class="form-control"
+										type="text" th:value="${order.consignee}">
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label class="col-sm-3 control-label">品名：</label>
+								<div class="col-sm-8">
+									<input id="productName" name="productName" class="form-control"
+										type="text" th:value="${order.productName}">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">车型：</label>
+								<div class="col-sm-8">
+									<input id="trainType" name="trainType" class="form-control"
+										type="text" th:value="${order.trainType}">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">方案编号：</label>
+								<div class="col-sm-8">
+									<input id="projectNo" name="projectNo" class="form-control"
+										type="text" th:value="${order.projectNo}">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">装车路线：</label>
+								<div class="col-sm-8">
+									<input id="loadingLine" name="loadingLine" class="form-control"
+										type="text" th:value="${order.loadingLine}">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">任务描述：</label>
+								<div class="col-sm-8">
+									<input id="description" name="description" class="form-control"
+										type="text" th:value="${order.description}">
+								</div>
+							</div>
+							<!-- <div class="form-group">
+								<label class="col-sm-3 control-label">
+									<input th:if="${order.continueShot} == 0" id="continueShot" name="continueShot" type="checkbox" value=1>
+									<input th:if="${order.continueShot} == 1" id="continueShot" name="continueShot" type="checkbox" checked="checked" value=1>
+									 续拍：
+								</label>
+								<div class="col-sm-8">
+									<span class="form-control">当同一车号车厢需要在站点停靠多日持续装货物时，勾选此项.</span>
+								</div>
+							</div> -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">拍摄人员：</label>
+								<div class="col-sm-8">
+									<input id="personIds" name="personIds" class="form-control" type="text" style="display: none;" th:value="${order.personIds}">
+									<select name="liOption" id='liOption' multiple='multiple' size='8' class="form-control" >
+								    </select>
+								    <input id="selectPersonIds" name="selectPersonIds" class="form-control" type="text" 
+								    	style="width: 1px; height: 0.1px; border: 0px;">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-8 col-sm-offset-3">
+									<button type="submit" class="btn btn-primary">提交</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="treebox"></div>
+	<div th:include="include::footer"></div>
+	<script src="/railway/photoManage/edit.js"></script>
+</body>
+
+</html>
