@@ -56,6 +56,16 @@ public class OrderController extends BaseController {
 	}
 	
 	/**
+	 * 返回继续任务列表页面
+	 * @return
+	 */
+	@RequiresPermissions("railway:order:list")
+	@GetMapping("/continue")
+	public String continueUI() {
+		return "railway/order/continue";
+	}
+	
+	/**
 	 * 返回任务调度界面列表数据
 	 * @param stationId
 	 * @return
@@ -128,6 +138,7 @@ public class OrderController extends BaseController {
 		order.setCreateTime(new Date());
 		order.setCreateUser(user.getName());
 		order.setContinueShot(Long.valueOf(Constant.Number.ZERO.getCode()));
+		order.setUploadWay(Constant.Number.ZERO.getCode());
 		orderService.save(order);
 		return R.ok();
 	}
@@ -180,6 +191,18 @@ public class OrderController extends BaseController {
 		order.setModifyUser(user.getName());
 		orderService.update(order);
 		return R.ok();
+	}
+	
+	/**
+	 * 修改页面
+	 * @return
+	 */
+	@RequiresPermissions("railway:order:edit")
+	@GetMapping("/copy/{id}")
+	public String copyUI(@PathVariable("id") Long orderId, Map<String, Object> map) {
+		OrderDO order = orderService.get(orderId);
+		map.put("order", order);
+		return "railway/order/copy";
 	}
 	
 	/**

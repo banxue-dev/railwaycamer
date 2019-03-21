@@ -1,5 +1,6 @@
 var prefix = '/railway/order'; // 路径前缀
 var active;
+var checkedOrderId; // 选中的任务id
 
 $(function() {
 	load();
@@ -42,24 +43,32 @@ function load() {
             , url: '/railway/order/listData'
             , method: 'get'
             , cols: [[
-            	{field: '', title: '序号', align: 'center', type: 'numbers'},
+            	{field: '', title: '选择', align: 'center'
+            		,templet: function(d){
+            			//console.log(d.id);
+            	        return '<input type="radio" name="sex" value='+d.id+' title=" " lay-skin=" ">'
+            	      }	
+            	},
+            	{field: 'id', title: 'ID', align: 'center', hide: true},
                 {field: 'trainNo', title: '车号', align: 'center'},
-                {field: 'createTime', title: '日期', align: 'center',width:180},
                 {field: 'endStationName', title: '到站', align: 'center'},
                 {field: 'consignor', title: '托货人', align: 'center'},
                 {field: 'consignee', title: '收货人', align: 'center'},
                 {field: 'productName', title: '品名', align: 'center'},
                 {field: 'trainType', title: '车型', align: 'center'},
-                {field: 'projectNo', title: '方案编号', align: 'center'},
-                {field: 'loadingLine', title: '装车线路', align: 'center'},
-                {field: 'personNames', title: '拍照人员', align: 'center'},
-                {field: 'continueShot', title: '续拍', align: 'center', templet: function(order){
-                        return order.continueShot == 0 ? '否' : '是';
-                }},
-                {field: '', title: '操作', align: 'center', toolbar: '#toolbar'}
+                {field: 'loadingLine', title: '装车线路', align: 'center'}
             ]]
             , id: 'testReload'
-            , page: true
+            , page: false
+            , done: function() {
+            	// 表格初始完成
+            	$('[name=sex]:input').each(function(){
+            		$(this).next().children('i').on('click',function(){
+            			checkedOrderId = $(this).parent().prev().val();
+            			console.log(checkedOrderId);
+            			})
+            	});
+			}
         });
 
         var $ = layui.$;
@@ -173,7 +182,19 @@ function continueOrder() {
 		title : '继续任务',
 		maxmin : true,
 		shadeClose : true, // 点击遮罩关闭层
-		area : [ '820px', '550px' ],
-		content : prefix + '/continue' // iframe的url
+		area : [ '800px', '520px' ],
+		content : prefix + '/edit/' + 1 // iframe的url
+	});
+}
+
+// 下一步
+function next() {
+	layer.open({
+		type : 2,
+		title : '复制',
+		maxmin : true,
+		shadeClose : true, // 点击遮罩关闭层
+		area : [ '800px', '520px' ],
+		content : prefix + '/copy/' + checkedOrderId // iframe的url
 	});
 }
