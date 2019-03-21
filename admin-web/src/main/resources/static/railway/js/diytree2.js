@@ -99,7 +99,7 @@ function diytree(){
 							if(data.code==0){
 								if(data.data==null || data.data.length<1){
 									var html='';
-									html+='<li><a  class="bottom_"  href="javascript:;" >没有更多了</a></li>';
+									html+='<li><a   href="javascript:;" >没有更多了</a></li>';
 									thistdom.after(html);
 									
 								}else{
@@ -128,7 +128,7 @@ function diytree(){
 												if(data.code==0){
 													if(data.data==null || data.data.length<1){
 														var html='';
-														html+='<li><a data-id="-1"  class="bottom_" href="javascript:;" >没有更多了</a></li>';
+														html+='<li><a data-id="-1"   href="javascript:;" >没有更多了</a></li>';
 														loadmore.parent().after(html);
 														loadmore.remove();
 													}else{
@@ -138,7 +138,7 @@ function diytree(){
 														
 														if(data.data.length<psize){
 															var html1='';
-															html1+='<li><a data-id="-1"  class="bottom_" href="javascript:;" >没有更多了</a></li>';
+															html1+='<li><a data-id="-1"   href="javascript:;" >没有更多了</a></li>';
 															loadmore.parent().after(html1);
 															loadmore.remove();
 														}
