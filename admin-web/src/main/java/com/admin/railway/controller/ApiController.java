@@ -32,8 +32,10 @@ public class ApiController {
 
     @Log("APP登录")
     @ApiOperation(value="App登录接口", notes="")
-    @PostMapping("login")
+    @PostMapping(value="login",produces="application/json;charset=utf-8")
     public R login(LoginVo vo, HttpServletRequest request){
+    	String na=request.getParameter("loginName");
+    	System.out.println(na+"--"+);
         if(StringUtils.isEmpty(vo.getLoginName())){
             return R.error(Constant.ErrorInfo.LOGIN_NAME_NULL.getCode(),Constant.ErrorInfo.LOGIN_NAME_NULL.getMsg());
         }
