@@ -35,7 +35,7 @@ public class ApiController {
     @PostMapping(value="login",produces="application/json;charset=utf-8")
     public R login(LoginVo vo, HttpServletRequest request){
     	String na=request.getParameter("loginName");
-    	System.out.println(na+"--"+);
+    	System.out.println(na+"--");
         if(StringUtils.isEmpty(vo.getLoginName())){
             return R.error(Constant.ErrorInfo.LOGIN_NAME_NULL.getCode(),Constant.ErrorInfo.LOGIN_NAME_NULL.getMsg());
         }
