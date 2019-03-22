@@ -16,7 +16,23 @@ function load() {
     		            month: date.month - 1,
     		            date: date.date
     		        }
-    		    }
+    		    },
+		    	//计算表头时间+1天
+    			getNextDay: function(d){
+		    	        d = new Date(d);
+		    	        d = +d + 1000*60*60*24;
+		    	        d = new Date(d);
+		    	        //格式化
+		    	        return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
+		    	    },
+		    	//计算表头时间-1天
+    		    getPreDay: function(d){
+		    	        d = new Date(d);
+		    	        d = +d - 1000*60*60*24;
+		    	        d = new Date(d);
+		    	        //格式化
+		    	        return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
+		    	    }
     		}
         var table = layui.table,
             $ = layui.jquery,
@@ -41,6 +57,14 @@ function load() {
         table.render({
             elem: '#list'
             , url: '/railway/order/listData'
+            , where: {
+            	beginTime: function(){
+                	return utils.getPreDay(new Date().getTime()) + ' 00:00:00';
+                },
+                endTime: function(){
+                	return utils.getPreDay(new Date().getTime()) + ' 23:59:59';
+                }
+            }
             , method: 'get'
             , cols: [[
             	{field: '', title: '选择', align: 'center'
@@ -189,9 +213,13 @@ function continueOrder() {
 
 // 下一步
 function next() {
-	layer.open({
+	// 关闭继续任务窗口
+	var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
+	parent.layer.close(index);
+	
+	parent.layer.open({
 		type : 2,
-		title : '复制',
+		title : '继续任务',
 		maxmin : true,
 		shadeClose : true, // 点击遮罩关闭层
 		area : [ '800px', '520px' ],

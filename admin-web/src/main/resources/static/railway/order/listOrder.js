@@ -146,7 +146,7 @@ function copy(id) {
 	
 	layer.open({
 		type : 2,
-		title : '复制',
+		title : '继续任务',
 		maxmin : true,
 		shadeClose : true, // 点击遮罩关闭层
 		area : [ '800px', '520px' ],
