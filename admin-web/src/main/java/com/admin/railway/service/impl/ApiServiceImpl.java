@@ -15,6 +15,8 @@ import com.admin.railway.service.ApiService;
 import com.admin.railway.service.OrderService;
 import com.admin.railway.service.PersonService;
 import com.admin.railway.service.PictureService;
+import com.alibaba.fastjson.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
@@ -188,5 +190,46 @@ public class ApiServiceImpl implements ApiService {
         person.setPassword(password);
         return personService.update(person);
     }
+
+	@Override
+	public R login(JSONObject vo, HttpServletRequest request) {
+		// TODO 此处为方法主题
+		//验证
+        Map<String, Object> map = new HashMap<>();
+        map.put("loginName", vo.getString("loginName"));
+        Map<String, Object> personMap = personService.login(map);
+        if (personMap.isEmpty()) {
+            return R.error(Constant.ErrorInfo.USER_NOT_EXIST.getCode(), Constant.ErrorInfo.USER_NOT_EXIST.getMsg());
+        }
+        //验证密码
+        String password = MD5Utils.encrypt(vo.getString("loginName"), vo.getString("password"));
+        String personPwd = personMap.get("password").toString();
+        if (!password.equals(personPwd)) {
+            return R.error(Constant.ErrorInfo.PASSWORD_ERROR.getCode(), Constant.ErrorInfo.PASSWORD_ERROR.getMsg());
+        }
+        R r = new R();
+        r.put(Constant.PERSION, personMap);
+        //生成token
+        String tokenStr = MD5Utils.encrypt(vo.getString("loginName"), String.valueOf(System.currentTimeMillis()));
+        String userId = personMap.get("id").toString();
+        Map<String, Object> tokenMap = new HashMap<>();
+        tokenMap.put("usreId", userId);
+        LoginUserToken token = loginUserTokenDo.getUserToken(tokenMap);
+        if (token == null) {
+            token = new LoginUserToken();
+            token.setUserId(userId);
+            token.setToken(tokenStr);
+            token.setTimeOut(Constant.TOKEN_TIME_OUT);
+            token.setTime(System.currentTimeMillis());
+            loginUserTokenDo.save(token);
+        } else {
+            token.setToken(tokenStr);
+            token.setTimeOut(Constant.TOKEN_TIME_OUT);
+            token.setTime(System.currentTimeMillis());
+            loginUserTokenDo.update(token);
+        }
+        r.put(Constant.TOKEN, tokenStr);
+        return r;
+	}
 }
 

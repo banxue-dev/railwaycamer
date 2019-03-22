@@ -4,6 +4,8 @@ import com.admin.common.utils.R;
 import com.admin.railway.domain.vo.LoginVo;
 import com.admin.railway.domain.vo.PasswordVo;
 import com.admin.railway.domain.vo.UploadImgVo;
+import com.alibaba.fastjson.JSONObject;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +27,7 @@ public interface ApiService {
      * @Date: 2019/3/10 14:05
      **/
     R login(LoginVo vo, HttpServletRequest request);
+    R login1(JSONObject vo, HttpServletRequest request);
 
     /**
      * @Author: luojing
