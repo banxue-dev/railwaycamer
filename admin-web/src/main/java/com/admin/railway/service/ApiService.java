@@ -27,7 +27,6 @@ public interface ApiService {
      * @Date: 2019/3/10 14:05
      **/
     R login(LoginVo vo, HttpServletRequest request);
-    R login1(JSONObject vo, HttpServletRequest request);
 
     /**
      * @Author: luojing

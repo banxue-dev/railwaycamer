@@ -8,8 +8,6 @@ import com.admin.railway.domain.vo.LoginVo;
 import com.admin.railway.domain.vo.PasswordVo;
 import com.admin.railway.domain.vo.UploadImgVo;
 import com.admin.railway.service.ApiService;
-import com.alibaba.fastjson.JSONObject;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,16 +33,16 @@ public class ApiController {
     @Log("APP登录")
     @ApiOperation(value="App登录接口", notes="")
     @PostMapping(value="login",produces="application/json;charset=utf-8")
-    public R login(JSONObject vo, HttpServletRequest request){
+    public R login(LoginVo vo, HttpServletRequest request){
     	String na=request.getParameter("loginName");
     	System.out.println(na+"--");
-        if(StringUtils.isEmpty(vo.getString("loginName"))){
+        if(StringUtils.isEmpty(vo.getLoginName())){
             return R.error(Constant.ErrorInfo.LOGIN_NAME_NULL.getCode(),Constant.ErrorInfo.LOGIN_NAME_NULL.getMsg());
         }
-        if(StringUtils.isEmpty(vo.getString("password"))){
+        if(StringUtils.isEmpty(vo.getPassword())){
             return R.error(Constant.ErrorInfo.PASSWORD_NULL.getCode(),Constant.ErrorInfo.PASSWORD_NULL.getMsg());
         }
-        return apiService.login1(vo, request);
+        return apiService.login(vo,request);
     }
 
     @Log("APP拍照上传")
