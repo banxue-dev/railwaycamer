@@ -13,7 +13,7 @@
 <div class="railway-div">
     <form class="layui-form" action="" id="tableQueryForm" style="padding-top: 20px">
         <div class="layui-form-pane">
-            <div class="layui-form-item">
+            <div class="layui-form-item" style="margin-bottom: 0;">
                 <div class="layui-inline">
                     <div class="layui-input-inline">
                         <input type="text" style="display: none;" id="stationId" name="stationId" class="layui-input">
@@ -34,7 +34,12 @@
         </div>
     </form>
     <div id="treebox"></div>
-    <table class="layui-table" id="list"></table>
+    <div class="layui-input-inline" style="float: right; margin-right: 20px;">
+        <button shiro:hasPermission="railway:person:add" class="layui-btn layui-btn-normal"
+                onclick="add(); return false;"> 添 加
+        </button>
+    </div>
+    <table class="layui-table" id="list" style="margin: 0;"></table>
 
     <div type="text/html" style="display: none;" id="toolbar">
         <a shiro:hasPermission="railway:person:edit" class="layui-btn layui-btn-primary layui-btn-xs"
