@@ -213,6 +213,13 @@ function continueOrder() {
 
 // 下一步
 function next() {
+	
+	// 检查是否选择了行
+	if(!checkedOrderId){
+		layer.msg('请选择一个车号继续任务');
+		return;
+	}
+	
 	// 关闭继续任务窗口
 	var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
 	parent.layer.close(index);
