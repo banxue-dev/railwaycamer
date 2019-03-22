@@ -83,7 +83,7 @@ function load() {
                 {field: 'loadingLine', title: '装车线路', align: 'center'}
             ]]
             , id: 'testReload'
-            , page: false
+            , page: true
             , done: function() {
             	// 表格初始完成
             	$('[name=sex]:input').each(function(){
