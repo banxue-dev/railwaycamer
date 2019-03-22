@@ -48,7 +48,7 @@ public class ApiController {
     @Log("APP拍照上传")
     @ApiOperation(value="拍照上传接口", notes="")
     @PostMapping("uploadImg")
-    public R uploadImg(UploadImgVo vo,@RequestParam("files") MultipartFile[] files) {
+    public R uploadImg(@RequestBody UploadImgVo vo,@RequestParam("files") MultipartFile[] files) {
         if(StringUtils.isEmpty(vo.getPersonId())){
             return R.error(Constant.ErrorInfo.PERSION_ID_NULL.getCode(),Constant.ErrorInfo.PERSION_ID_NULL.getMsg());
         }
@@ -71,7 +71,7 @@ public class ApiController {
     @Log("APP修改密码")
     @ApiOperation(value="获取拍照任务", notes="")
     @GetMapping("updatePassword")
-    public R updatePassword(PasswordVo vo){
+    public R updatePassword(@RequestBody PasswordVo vo){
         boolean fag = apiService.updatePassword(vo);
         if(fag){
             return R.ok(Constant.SuccessInfo.UPDATE_SUCCESS.getMsg());
