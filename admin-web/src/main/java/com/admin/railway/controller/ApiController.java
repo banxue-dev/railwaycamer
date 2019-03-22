@@ -44,7 +44,7 @@ public class ApiController {
         if(StringUtils.isEmpty(vo.getString("password"))){
             return R.error(Constant.ErrorInfo.PASSWORD_NULL.getCode(),Constant.ErrorInfo.PASSWORD_NULL.getMsg());
         }
-        return apiService.login1(vo,request);
+        return apiService.login1(vo, request);
     }
 
     @Log("APP拍照上传")
