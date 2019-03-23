@@ -31,52 +31,50 @@ public class ApiController {
     private ApiService apiService;
 
     @Log("APP登录")
-    @ApiOperation(value="App登录接口", notes="")
-    @PostMapping(value="login",produces="application/json;charset=utf-8")
-    public R login(@RequestBody LoginVo vo, HttpServletRequest request){
-    	String na=request.getParameter("loginName");
-    	System.out.println(na+"--");
-        if(StringUtils.isEmpty(vo.getLoginName())){
-            return R.error(Constant.ErrorInfo.LOGIN_NAME_NULL.getCode(),Constant.ErrorInfo.LOGIN_NAME_NULL.getMsg());
+    @ApiOperation(value = "App登录接口", notes = "")
+    @PostMapping(value = "login", produces = "application/json;charset=utf-8")
+    public R login(@RequestBody LoginVo vo) {
+        if (StringUtils.isEmpty(vo.getLoginName())) {
+            return R.error(Constant.ErrorInfo.LOGIN_NAME_NULL.getCode(), Constant.ErrorInfo.LOGIN_NAME_NULL.getMsg());
         }
-        if(StringUtils.isEmpty(vo.getPassword())){
-            return R.error(Constant.ErrorInfo.PASSWORD_NULL.getCode(),Constant.ErrorInfo.PASSWORD_NULL.getMsg());
+        if (StringUtils.isEmpty(vo.getPassword())) {
+            return R.error(Constant.ErrorInfo.PASSWORD_NULL.getCode(), Constant.ErrorInfo.PASSWORD_NULL.getMsg());
         }
-        return apiService.login(vo,request);
+        return apiService.login(vo);
     }
 
     @Log("APP拍照上传")
-    @ApiOperation(value="拍照上传接口", notes="")
+    @ApiOperation(value = "拍照上传接口", notes = "")
     @PostMapping("uploadImg")
-    public R uploadImg(@RequestBody UploadImgVo vo,@RequestParam("files") MultipartFile[] files) {
-        if(StringUtils.isEmpty(vo.getPersonId())){
-            return R.error(Constant.ErrorInfo.PERSION_ID_NULL.getCode(),Constant.ErrorInfo.PERSION_ID_NULL.getMsg());
+    public R uploadImg(@RequestBody UploadImgVo vo, @RequestParam("files") MultipartFile[] files) {
+        if (StringUtils.isEmpty(vo.getPersonId())) {
+            return R.error(Constant.ErrorInfo.PERSION_ID_NULL.getCode(), Constant.ErrorInfo.PERSION_ID_NULL.getMsg());
         }
-        if(StringUtils.isEmpty(vo.getTrainNo())){
-            return R.error(Constant.ErrorInfo.TRANIN_NO_NULL.getCode(),Constant.ErrorInfo.TRANIN_NO_NULL.getMsg());
+        if (StringUtils.isEmpty(vo.getTrainNo())) {
+            return R.error(Constant.ErrorInfo.TRANIN_NO_NULL.getCode(), Constant.ErrorInfo.TRANIN_NO_NULL.getMsg());
         }
-        if(files.length == 0){
-            return R.error(Constant.ErrorInfo.IMAGE_NULL.getCode(),Constant.ErrorInfo.IMAGE_NULL.getMsg());
+        if (files.length == 0) {
+            return R.error(Constant.ErrorInfo.IMAGE_NULL.getCode(), Constant.ErrorInfo.IMAGE_NULL.getMsg());
         }
-        return apiService.uploadImg(vo,files);
+        return apiService.uploadImg(vo, files);
     }
 
     @Log("APP获取拍照任务")
-    @ApiOperation(value="获取拍照任务", notes="")
+    @ApiOperation(value = "获取拍照任务", notes = "")
     @GetMapping("listTask/{personId}")
-    public R listTask(@PathVariable("personId") String personId){
+    public R listTask(@PathVariable("personId") String personId) {
         return apiService.listTask(personId);
     }
 
     @Log("APP修改密码")
-    @ApiOperation(value="获取拍照任务", notes="")
-    @PostMapping("updatePassword")
-    public R updatePassword(@RequestBody PasswordVo vo){
+    @ApiOperation(value = "获取拍照任务", notes = "")
+    @PostMapping(value = "updatePassword", produces = "application/json;charset=utf-8")
+    public R updatePassword(@RequestBody PasswordVo vo) {
         boolean fag = apiService.updatePassword(vo);
-        if(fag){
+        if (fag) {
             return R.ok(Constant.SuccessInfo.UPDATE_SUCCESS.getMsg());
-        }else {
-            return R.error(Constant.ErrorInfo.UPDATE_FAIL.getCode(),Constant.ErrorInfo.UPDATE_FAIL.getMsg());
+        } else {
+            return R.error(Constant.ErrorInfo.UPDATE_FAIL.getCode(), Constant.ErrorInfo.UPDATE_FAIL.getMsg());
         }
     }
 

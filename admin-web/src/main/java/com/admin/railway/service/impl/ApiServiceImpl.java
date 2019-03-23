@@ -51,7 +51,7 @@ public class ApiServiceImpl implements ApiService {
     private LoginUserTokenDo loginUserTokenDo;
 
     @Override
-    public R login(LoginVo vo, HttpServletRequest request) {
+    public R login(LoginVo vo) {
         //验证
         Map<String, Object> map = new HashMap<>();
         map.put("loginName", vo.getLoginName());

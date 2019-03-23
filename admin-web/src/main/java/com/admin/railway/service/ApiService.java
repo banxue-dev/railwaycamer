@@ -26,7 +26,7 @@ public interface ApiService {
      * @Return: com.admin.common.utils.R
      * @Date: 2019/3/10 14:05
      **/
-    R login(LoginVo vo, HttpServletRequest request);
+    R login(LoginVo vo);
 
     /**
      * @Author: luojing
