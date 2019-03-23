@@ -70,7 +70,7 @@ public class ApiController {
 
     @Log("APP修改密码")
     @ApiOperation(value="获取拍照任务", notes="")
-    @GetMapping("updatePassword")
+    @PostMapping("updatePassword")
     public R updatePassword(@RequestBody PasswordVo vo){
         boolean fag = apiService.updatePassword(vo);
         if(fag){
