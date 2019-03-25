@@ -1,5 +1,6 @@
 package com.admin.railway.service.impl;
 
+import com.admin.common.aspect.WebLogAspect;
 import com.admin.common.config.AdminConfig;
 import com.admin.common.config.Constant;
 import com.admin.common.utils.*;
@@ -17,6 +18,8 @@ import com.admin.railway.service.PersonService;
 import com.admin.railway.service.PictureService;
 import com.alibaba.fastjson.JSONObject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
@@ -49,7 +52,7 @@ public class ApiServiceImpl implements ApiService {
     private PictureService pictureService;
     @Autowired
     private LoginUserTokenDo loginUserTokenDo;
-
+    private static final Logger logger = LoggerFactory.getLogger(ApiServiceImpl.class);
     @Override
     public R login(LoginVo vo) {
         //验证
@@ -94,6 +97,8 @@ public class ApiServiceImpl implements ApiService {
     @Transactional
     public R uploadImg(UploadImgVo vo, MultipartFile[] files) {
         //查询拍照人信息
+    	logger.debug("开始获取用户数据。");
+    	logger.debug("getPersonId:"+vo.getPersonId());
         PersonDO personDO = personService.get(Long.valueOf(vo.getPersonId()));
         if (personDO == null) {
             return R.error(Constant.ErrorInfo.PERSION_NULL.getCode(), Constant.ErrorInfo.PERSION_NULL.getMsg());
@@ -145,7 +150,7 @@ public class ApiServiceImpl implements ApiService {
             }
             return R.ok();
         } catch (Exception e) {
-            e.printStackTrace();
+        	logger.error("上传异常，原因"+e);
             return R.error(Constant.ErrorInfo.IMAGE_UPLOAD_FAIL.getCode(), e.getMessage());
         }
 //        return R.error(Constant.ErrorInfo.IMAGE_UPLOAD_FAIL.getCode(), Constant.ErrorInfo.IMAGE_UPLOAD_FAIL.getMsg());
