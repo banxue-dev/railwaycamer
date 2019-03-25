@@ -84,7 +84,7 @@ function load() {
                         },
                         endTime: function(){
                         	var endTime = $('#endTime').val();
-                        	if(){
+                        	if(endTime){
                         		endTime += ' 23:59:59';
                         	}
                         	return endTime;
