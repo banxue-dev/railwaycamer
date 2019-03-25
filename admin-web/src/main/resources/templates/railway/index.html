@@ -23,7 +23,6 @@
     <ul class="layui-nav layui-layout-right">
       <li class="layui-nav-item">
         <a href="javascript:;">
-          <img th:src="${picUrl}" class="layui-nav-img">
           <label th:text="${name}"></label>
         </a>
         <dl class="layui-nav-child">
@@ -38,15 +37,15 @@
   </div>
   
   <div class="layui-footer">
-    © L
+    Copyright © 2019-<span id="endTime"></span> 四川半雪网络科技有限公司
   </div>
 </div>
 <script src="/js/layui.js"></script>
 <script>
 //JavaScript代码区域
 layui.use('element', function(){
-  var element = layui.element;
-  
+  var element = layui.element,$ = layui.$;
+  $("#endTime").html(new Date().getFullYear());
 });
 </script>
 </body>

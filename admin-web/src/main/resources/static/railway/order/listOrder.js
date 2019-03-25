@@ -45,6 +45,7 @@ function load() {
             	{field: '', title: '序号', align: 'center', type: 'numbers'},
                 {field: 'trainNo', title: '车号', align: 'center'},
                 {field: 'createTime', title: '日期', align: 'center',width:180},
+				{field: 'startStationName', title: '发站', align: 'center'},
                 {field: 'endStationName', title: '到站', align: 'center'},
                 {field: 'consignor', title: '托货人', align: 'center'},
                 {field: 'consignee', title: '收货人', align: 'center'},
@@ -72,7 +73,7 @@ function load() {
                         curr: 1 //重新从第 1 页开始
                     }
                     , where: {
-                    	endStationId: function(){
+                    	startStationId: function(){
                         	return $('#stationId').val();
                         },
                         beginTime: function(){
