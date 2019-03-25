@@ -76,10 +76,18 @@ function load() {
                         	return $('#stationId').val();
                         },
                         beginTime: function(){
-                        	return $('#beginTime').val();
+                        	var beginTime = $('#beginTime').val();
+                        	if(beginTime){
+                        		beginTime += ' 00:00:00';
+                        	}
+                        	return beginTime;
                         },
                         endTime: function(){
-                        	return $('#endTime').val();
+                        	var endTime = $('#endTime').val();
+                        	if(){
+                        		endTime += ' 23:59:59';
+                        	}
+                        	return endTime;
                         },
                     }
                 });
