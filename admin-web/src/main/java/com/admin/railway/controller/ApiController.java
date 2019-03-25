@@ -8,8 +8,13 @@ import com.admin.railway.domain.vo.LoginVo;
 import com.admin.railway.domain.vo.PasswordVo;
 import com.admin.railway.domain.vo.UploadImgVo;
 import com.admin.railway.service.ApiService;
+import com.admin.railway.service.impl.ApiServiceImpl;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,6 +35,7 @@ public class ApiController {
     @Autowired
     private ApiService apiService;
 
+    private static final Logger logger = LoggerFactory.getLogger(ApiController.class);
     @Log("APP登录")
     @ApiOperation(value = "App登录接口", notes = "")
     @PostMapping(value = "login", produces = "application/json;charset=utf-8")
@@ -46,7 +52,9 @@ public class ApiController {
     @Log("APP拍照上传")
     @ApiOperation(value = "拍照上传接口", notes = "")
     @PostMapping("uploadImg")
-    public R uploadImg(@RequestBody UploadImgVo vo, @RequestParam("files") MultipartFile[] files) {
+    public R uploadImg( UploadImgVo vo, @RequestParam("files") MultipartFile[] files) {
+    	logger.debug("开始调用controller上传。");
+    	logger.debug("vo.getPersonId()："+vo.getPersonId());
         if (StringUtils.isEmpty(vo.getPersonId())) {
             return R.error(Constant.ErrorInfo.PERSION_ID_NULL.getCode(), Constant.ErrorInfo.PERSION_ID_NULL.getMsg());
         }
