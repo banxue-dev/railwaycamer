@@ -23,12 +23,12 @@
         </layout>
     </appender>
 
-    <logger name="com.admin" additivity="false">
+    <logger name="com.admin" additivity="true">
         <appender-ref ref="console"/>
         <appender-ref ref="logFile" />
     </logger>
 
-    <root level="error">
+    <root level="INFO">
         <appender-ref ref="console"/>
         <appender-ref ref="logFile" />
     </root>
