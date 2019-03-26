@@ -76,7 +76,7 @@ public class OrderController extends BaseController {
 	public R list(@RequestParam Map<String, Object> params) {
 		QueryParam query = new QueryParam(params);
 		query.put("delState", Constants.NO); // 查询未删除
-		
+		query.put("uploadWay",Constant.Number.ZERO.getCode());
 		List<OrderDO> list = new ArrayList<>();
 		int count = orderService.count(query);
 		if (count > 0) {

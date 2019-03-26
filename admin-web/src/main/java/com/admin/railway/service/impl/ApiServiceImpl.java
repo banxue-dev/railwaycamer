@@ -102,12 +102,8 @@ public class ApiServiceImpl implements ApiService {
         }
         //上传地址路径
         StringBuffer sbUrl = new StringBuffer(adminConfig.getUploadPath());
-        //站点
-        sbUrl.append(personDO.getStationId() + "/");
-        //人
-        sbUrl.append(vo.getPersonId() + "/");
         //时间
-        sbUrl.append(DateUtils.format(new Date(), "yyyyMMdd") + "/");
+        sbUrl.append(DateUtils.format(new Date(), DateUtils.DATE_PATTERN) + "/");
         //车厢
         sbUrl.append(vo.getTrainNo() + "/");
         try {
@@ -149,6 +145,7 @@ public class ApiServiceImpl implements ApiService {
             }
             return R.ok();
         } catch (Exception e) {
+            e.printStackTrace();
             return R.error(Constant.ErrorInfo.IMAGE_UPLOAD_FAIL.getCode(), e.getMessage());
         }
     }

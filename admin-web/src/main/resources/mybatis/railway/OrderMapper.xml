@@ -15,7 +15,13 @@
     <select id="list" resultType="com.admin.railway.domain.OrderDO">
         select
         `id`,`train_no`,`start_station_id`,`start_station_name`,`end_station_id`,`end_station_name`,`consignor`,`consignee`,`product_name`,`train_type`,`project_no`,`loading_line`,`description`,`person_ids`,`person_names`,`continue_shot`,`order_start_time`,`order_end_time`,`order_state`,`del_state`,`create_time`,`create_user`,`modify_time`,`modify_user`
-        from tbl_order where upload_way = 0
+        from tbl_order
+        <where>
+            <choose>
+                <when test="uploadWay != null">
+                    upload_way = #{uploadWay}
+                </when>
+            </choose>
             <if test="id != null and id != ''">and id = #{id}</if>
             <if test="trainNo != null and trainNo != ''">and train_no = #{trainNo}</if>
             <if test="startStationId != null and startStationId != ''">and start_station_id = #{startStationId}</if>
@@ -45,14 +51,15 @@
             <!-- 前端查询根据时间查询 -->
             <if test="beginTime != null and beginTime != ''">and create_time &gt;= #{beginTime}</if>
             <if test="endTime != null and endTime != ''">and create_time &lt;= #{endTime}</if>
-        <choose>
-            <when test="sort != null and sort.trim() != ''">
-                order by ${sort} ${order}
-            </when>
-            <otherwise>
-                order by create_time desc
-            </otherwise>
-        </choose>
+            <choose>
+                <when test="sort != null and sort.trim() != ''">
+                    order by ${sort} ${order}
+                </when>
+                <otherwise>
+                    order by create_time desc
+                </otherwise>
+            </choose>
+        </where>
         <if test="offset != null and limit != null">
             limit #{offset}, #{limit}
         </if>
@@ -60,10 +67,16 @@
     <select id="gettimelist" resultType="com.admin.railway.domain.OrderDO">
         select
         `id`,`train_no`,`start_station_id`,`start_station_name`,`end_station_id`,`end_station_name`,`consignor`,`consignee`,`product_name`,`train_type`,`project_no`,`loading_line`,`description`,`person_ids`,`person_names`,`continue_shot`,`order_start_time`,`order_end_time`,`order_state`,`del_state`,`create_time`,`create_user`,`modify_time`,`modify_user`
-        from tbl_order where upload_way = 0
-        
-       <if test="startStationId != null and startStationId != ''">and start_station_id = #{startStationId} </if>
-        GROUP BY substr(create_time,1,10) order by create_time desc 
+        from tbl_order
+        <where>
+            <choose>
+                <when test="uploadWay != null">
+                    upload_way = #{uploadWay}
+                </when>
+            </choose>
+            <if test="startStationId != null and startStationId != ''">and start_station_id = #{startStationId}</if>
+        </where>
+        GROUP BY substr(create_time,1,10) order by create_time desc
         <if test="offset != null and limit != null">
             limit #{offset}, #{limit}
         </if>
@@ -71,36 +84,36 @@
 
     <select id="count" resultType="int">
         select count(*) from tbl_order where upload_way = 0
-            <if test="id != null and id != ''">and id = #{id}</if>
-            <if test="trainNo != null and trainNo != ''">and train_no = #{trainNo}</if>
-            <if test="startStationId != null and startStationId != ''">and start_station_id = #{startStationId}</if>
-            <if test="startStationName != null and startStationName != ''">and start_station_name =
-                #{startStationName}
-            </if>
-            <if test="endStationId != null and endStationId != ''">and end_station_id = #{endStationId}</if>
-            <if test="endStationName != null and endStationName != ''">and end_station_name = #{endStationName}</if>
-            <if test="consignor != null and consignor != ''">and consignor = #{consignor}</if>
-            <if test="consignee != null and consignee != ''">and consignee = #{consignee}</if>
-            <if test="productName != null and productName != ''">and product_name = #{productName}</if>
-            <if test="trainType != null and trainType != ''">and train_type = #{trainType}</if>
-            <if test="projectNo != null and projectNo != ''">and project_no = #{projectNo}</if>
-            <if test="loadingLine != null and loadingLine != ''">and loading_line = #{loadingLine}</if>
-            <if test="description != null and description != ''">and description = #{description}</if>
-            <if test="personIds != null and personIds != ''">and person_ids = #{personIds}</if>
-            <if test="personNames != null and personNames != ''">and person_names = #{personNames}</if>
-            <if test="continueShot != null and continueShot != ''">and continue_shot = #{continueShot}</if>
-            <if test="orderStartTime != null and orderStartTime != ''">and order_start_time = #{orderStartTime}</if>
-            <if test="orderEndTime != null and orderEndTime != ''">and order_end_time = #{orderEndTime}</if>
-            <if test="orderState != null and orderState != ''">and order_state = #{orderState}</if>
-            <if test="delState != null and delState != ''">and del_state = #{delState}</if>
-            <if test="createTime != null and createTime != ''">and create_time = #{createTime}</if>
-            <if test="createUser != null and createUser != ''">and create_user = #{createUser}</if>
-            <if test="modifyTime != null and modifyTime != ''">and modify_time = #{modifyTime}</if>
-            <if test="modifyUser != null and modifyUser != ''">and modify_user = #{modifyUser}</if>
+        <if test="id != null and id != ''">and id = #{id}</if>
+        <if test="trainNo != null and trainNo != ''">and train_no = #{trainNo}</if>
+        <if test="startStationId != null and startStationId != ''">and start_station_id = #{startStationId}</if>
+        <if test="startStationName != null and startStationName != ''">and start_station_name =
+            #{startStationName}
+        </if>
+        <if test="endStationId != null and endStationId != ''">and end_station_id = #{endStationId}</if>
+        <if test="endStationName != null and endStationName != ''">and end_station_name = #{endStationName}</if>
+        <if test="consignor != null and consignor != ''">and consignor = #{consignor}</if>
+        <if test="consignee != null and consignee != ''">and consignee = #{consignee}</if>
+        <if test="productName != null and productName != ''">and product_name = #{productName}</if>
+        <if test="trainType != null and trainType != ''">and train_type = #{trainType}</if>
+        <if test="projectNo != null and projectNo != ''">and project_no = #{projectNo}</if>
+        <if test="loadingLine != null and loadingLine != ''">and loading_line = #{loadingLine}</if>
+        <if test="description != null and description != ''">and description = #{description}</if>
+        <if test="personIds != null and personIds != ''">and person_ids = #{personIds}</if>
+        <if test="personNames != null and personNames != ''">and person_names = #{personNames}</if>
+        <if test="continueShot != null and continueShot != ''">and continue_shot = #{continueShot}</if>
+        <if test="orderStartTime != null and orderStartTime != ''">and order_start_time = #{orderStartTime}</if>
+        <if test="orderEndTime != null and orderEndTime != ''">and order_end_time = #{orderEndTime}</if>
+        <if test="orderState != null and orderState != ''">and order_state = #{orderState}</if>
+        <if test="delState != null and delState != ''">and del_state = #{delState}</if>
+        <if test="createTime != null and createTime != ''">and create_time = #{createTime}</if>
+        <if test="createUser != null and createUser != ''">and create_user = #{createUser}</if>
+        <if test="modifyTime != null and modifyTime != ''">and modify_time = #{modifyTime}</if>
+        <if test="modifyUser != null and modifyUser != ''">and modify_user = #{modifyUser}</if>
 
-            <!-- 前端查询根据时间查询 -->
-            <if test="beginTime != null and beginTime != ''">and create_time &gt;= #{beginTime}</if>
-            <if test="endTime != null and endTime != ''">and create_time &lt;= #{endTime}</if>
+        <!-- 前端查询根据时间查询 -->
+        <if test="beginTime != null and beginTime != ''">and create_time &gt;= #{beginTime}</if>
+        <if test="endTime != null and endTime != ''">and create_time &lt;= #{endTime}</if>
     </select>
 
     <insert id="save" parameterType="com.admin.railway.domain.OrderDO" useGeneratedKeys="true" keyProperty="id">

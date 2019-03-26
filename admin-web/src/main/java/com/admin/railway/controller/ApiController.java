@@ -51,7 +51,7 @@ public class ApiController {
     @Log("APP拍照上传")
     @ApiOperation(value = "拍照上传接口", notes = "")
     @PostMapping("uploadImg")
-    public R uploadImg( UploadImgVo vo, @RequestParam("files") MultipartFile[] files) {
+    public R uploadImg(UploadImgVo vo, @RequestParam("files") MultipartFile[] files) {
         if (StringUtils.isEmpty(vo.getPersonId())) {
             return R.error(Constant.ErrorInfo.PERSION_ID_NULL.getCode(), Constant.ErrorInfo.PERSION_ID_NULL.getMsg());
         }
