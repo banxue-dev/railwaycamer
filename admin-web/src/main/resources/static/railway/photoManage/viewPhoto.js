@@ -76,7 +76,7 @@ function initShowBig() {
     $('.showbig').Magnify({
         Toolbar: ['prev', 'next', 'rotateLeft', 'rotateRight', 'zoomIn', 'zoomOut', 'actualSize'],
         keyboard: true,
-        draggable: false,
+        draggable: true,
         movable: true,
         modalSize: [width, height],
         beforeOpen: function (obj, data) {
