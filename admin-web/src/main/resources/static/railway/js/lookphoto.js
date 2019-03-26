@@ -791,6 +791,7 @@
         },
         draggable: function (modal, dragHandle, dragCancel) {
         	modal='.magnify-image';
+        	Console.log("要拖动的层："+modal)
             var isDragging = false;
             var startX = 0, startY = 0, left = 0, top = 0;
             var dragStart = function (e) {
@@ -804,7 +805,7 @@
                 startY = e.clientY;
                 left = $(modal).offset().left;
                 top = $(modal).offset().top;
-                $D.on(EVENTS.MOUSEMOVE + EVENTS.EVENT_NS, dragMove).on(EVENTS.MOUSEEND + EVENTS.EVENT_NS, dragEnd);
+                $(modal).on(EVENTS.MOUSEMOVE + EVENTS.EVENT_NS, dragMove).on(EVENTS.MOUSEEND + EVENTS.EVENT_NS, dragEnd);
             };
             var dragMove = function (e) {
                 stopPre(e);
@@ -820,7 +821,7 @@
                 }
             };
             var dragEnd = function () {
-                $D.off(EVENTS.MOUSEMOVE + EVENTS.EVENT_NS, dragMove).off(EVENTS.MOUSEEND + EVENTS.EVENT_NS, dragEnd);
+            	$(modal).off(EVENTS.MOUSEMOVE + EVENTS.EVENT_NS, dragMove).off(EVENTS.MOUSEEND + EVENTS.EVENT_NS, dragEnd);
                 isDragging = false;
             };
             $(dragHandle).on(EVENTS.MOUSESTART + EVENTS.EVENT_NS, dragStart);
