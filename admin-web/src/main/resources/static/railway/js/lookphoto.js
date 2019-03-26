@@ -791,7 +791,7 @@
         },
         draggable: function (modal, dragHandle, dragCancel) {
         	modal='.magnify-image';
-        	Console.log("要拖动的层："+modal)
+        	console.log("要拖动的层："+modal)
             var isDragging = false;
             var startX = 0, startY = 0, left = 0, top = 0;
             var dragStart = function (e) {
