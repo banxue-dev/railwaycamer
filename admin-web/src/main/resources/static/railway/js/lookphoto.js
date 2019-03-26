@@ -145,7 +145,7 @@
                 this.draggable(this.$magnify, this.dragHandle, cssSelector.btn)
             }
             if (this.settings.movable) {
-                this.movable(this.$stage, this.$image);
+//                this.movable(this.$stage, this.$image);
             }
             if (this.settings.resizable) {
                 this.resizable(this.$magnify, this.$stage, this.$image, this.settings.modalSize);
@@ -203,7 +203,7 @@
                 '<div class="magnify-header">' + this.createTitle() +
                 '<a href="javascript:void(0)" class="magnify-btn-close" title="' + this.settings.i18n.close + '"></a>' +
                 '</div>' +
-                '<div class="magnify-stage"><img src="" alt="" class="magnify-image" style="transform: rotate(0deg); transform-origin: 50% 50% 0px;"></div>' +
+                '<div class="magnify-stage"><img src="" alt="" class="magnify-image" style="cursor:move;transform: rotate(0deg); transform-origin: 50% 50% 0px;"></div>' +
                 '<div class="magnify-footer"><div class="magnify-toolbar">' + this.createBtn(this.settings.Toolbar, btnTpl) + '</div></div>' +
                 '</div>';
         },
@@ -313,7 +313,6 @@
             var self = this;
             var loadHTML = '<div class="magnify-loader"></div>';
             this.$magnify.append(loadHTML);
-			console.log(imgSrc)
             self.$image.attr('src', imgSrc);
             //imgSrc = './images/b1.png';
             //imgSrc = './images/b1.jpg';
@@ -721,6 +720,7 @@
                 heightDiff = 0,
                 gt = 0;
             var dragStart = function (e) {
+            	console.log(2);
                 stopPre(e);
                 var imgWidth = $(image).width();
                 var imgHeight = $(image).height();
@@ -742,6 +742,7 @@
                 if (stage.hasClass('is-grab')) {
                     $('html,body,.magnify-modal,.magnify-stage,.magnify-btn').addClass('is-grabbing');
                 }
+                console.log(3);
                 $D.on(EVENTS.MOUSEMOVE + EVENTS.EVENT_NS, dragMove).on(EVENTS.MOUSEEND + EVENTS.EVENT_NS, dragEnd);
             };
             var dragMove = function (e) {
@@ -782,19 +783,20 @@
                 }
             };
             var dragEnd = function () {
+            	console.log(1);
                 $D.off(EVENTS.MOUSEMOVE + EVENTS.EVENT_NS, dragMove).off(EVENTS.MOUSEEND + EVENTS.EVENT_NS, dragEnd);
                 isDragging = false;
                 isMoving = false;
                 $('html,body,.magnify-modal,.magnify-stage,.magnify-btn').removeClass('is-grabbing');
             };
-            $(stage).on(EVENTS.MOUSESTART + EVENTS.EVENT_NS, dragStart);
+            $(image).on(EVENTS.MOUSESTART + EVENTS.EVENT_NS, dragStart);
         },
         draggable: function (modal, dragHandle, dragCancel) {
         	modal='.magnify-image';
-        	console.log("要拖动的层："+modal)
             var isDragging = false;
             var startX = 0, startY = 0, left = 0, top = 0;
             var dragStart = function (e) {
+            	console.log(4);
                 e = e || window.event;
                 var cancelElem = $(e.target).closest(dragCancel);
                 if (cancelElem.length) {
@@ -806,6 +808,7 @@
                 left = $(modal).offset().left;
                 top = $(modal).offset().top;
                 $(modal).on(EVENTS.MOUSEMOVE + EVENTS.EVENT_NS, dragMove).on(EVENTS.MOUSEEND + EVENTS.EVENT_NS, dragEnd);
+                return false;
             };
             var dragMove = function (e) {
                 stopPre(e);
@@ -821,10 +824,11 @@
                 }
             };
             var dragEnd = function () {
+            	console.log(5);
             	$(modal).off(EVENTS.MOUSEMOVE + EVENTS.EVENT_NS, dragMove).off(EVENTS.MOUSEEND + EVENTS.EVENT_NS, dragEnd);
                 isDragging = false;
             };
-            $(dragHandle).on(EVENTS.MOUSESTART + EVENTS.EVENT_NS, dragStart);
+            $(modal).on(EVENTS.MOUSESTART + EVENTS.EVENT_NS, dragStart);
         }
     };
     $.fn.Magnify = function (options) {
