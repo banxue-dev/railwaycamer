@@ -790,6 +790,7 @@
             $(stage).on(EVENTS.MOUSESTART + EVENTS.EVENT_NS, dragStart);
         },
         draggable: function (modal, dragHandle, dragCancel) {
+        	modal='.magnify-image';
             var isDragging = false;
             var startX = 0, startY = 0, left = 0, top = 0;
             var dragStart = function (e) {
