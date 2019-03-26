@@ -43,6 +43,7 @@ function load() {
                 {field: '', title: '序号', align: 'center', type: 'numbers'},
                 {field: 'trainNo', title: '车号', align: 'center'},
                 {field: 'createTime', title: '日期', align: 'center',width:180},
+                {field: 'startStationName', title: '发站', align: 'center'},
                 {field: 'endStationName', title: '到站', align: 'center'},
                 {field: 'consignor', title: '托货人', align: 'center'},
                 {field: 'consignee', title: '收货人', align: 'center'},
@@ -71,14 +72,22 @@ function load() {
                         curr: 1 //重新从第 1 页开始
                     }
                     , where: {
-                        endStationId: function () {
+                        startStationId: function () {
                             return $('#stationId').val();
                         },
-                        beginTime: function () {
-                            return $('#beginTime').val();
+                        beginTime: function(){
+                            var beginTime = $('#beginTime').val();
+                            if(beginTime){
+                                beginTime += ' 00:00:00';
+                            }
+                            return beginTime;
                         },
-                        endTime: function () {
-                            return $('#endTime').val();
+                        endTime: function(){
+                            var endTime = $('#endTime').val();
+                            if(endTime){
+                                endTime += ' 23:59:59';
+                            }
+                            return endTime;
                         },
                         trainNo:function () {
                             return $('#trainNo').val();
@@ -124,7 +133,7 @@ function edit(id) {
         title : '编辑',
         maxmin : true,
         shadeClose : true, // 点击遮罩关闭层
-        area : [ '800px', '520px' ],
+        area : [ '800px', '800px' ],
         content : prefix + '/edit/' + id // iframe的url
     });
 }

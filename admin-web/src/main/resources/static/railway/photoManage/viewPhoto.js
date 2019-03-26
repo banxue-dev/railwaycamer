@@ -76,7 +76,7 @@ function initShowBig() {
     $('.showbig').Magnify({
         Toolbar: ['prev', 'next', 'rotateLeft', 'rotateRight', 'zoomIn', 'zoomOut', 'actualSize'],
         keyboard: true,
-        draggable: true,
+        draggable: false,
         movable: true,
         modalSize: [width, height],
         beforeOpen: function (obj, data) {
@@ -109,6 +109,7 @@ function load() {
                 {
                     field: 'createTime', title: '日期', align: 'center',width:180
                 },
+                {field: 'startStationName', title: '发站', align: 'center'},
                 {field: 'endStationName', title: '到站', align: 'center'},
                 {field: 'consignor', title: '托货人', align: 'center'},
                 {field: 'consignee', title: '收货人', align: 'center'},

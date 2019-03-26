@@ -35,7 +35,6 @@ public class ApiController {
     @Autowired
     private ApiService apiService;
 
-    private static final Logger logger = LoggerFactory.getLogger(ApiController.class);
     @Log("APP登录")
     @ApiOperation(value = "App登录接口", notes = "")
     @PostMapping(value = "login", produces = "application/json;charset=utf-8")
@@ -53,8 +52,6 @@ public class ApiController {
     @ApiOperation(value = "拍照上传接口", notes = "")
     @PostMapping("uploadImg")
     public R uploadImg( UploadImgVo vo, @RequestParam("files") MultipartFile[] files) {
-    	logger.debug("开始调用controller上传。");
-    	logger.debug("vo.getPersonId()："+vo.getPersonId());
         if (StringUtils.isEmpty(vo.getPersonId())) {
             return R.error(Constant.ErrorInfo.PERSION_ID_NULL.getCode(), Constant.ErrorInfo.PERSION_ID_NULL.getMsg());
         }

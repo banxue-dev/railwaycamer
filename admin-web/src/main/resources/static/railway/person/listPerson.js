@@ -95,7 +95,7 @@ function add() {
 		title : '新建拍照人员',
 		maxmin : true,
 		shadeClose : false, // 点击遮罩关闭层
-		area : [ '800px', '520px' ],
+		area : [ '800px', '800px' ],
 		content : prefix + '/add' // iframe的url
 	});
 	return false;
@@ -134,7 +134,7 @@ function edit(id) {
 		title : '修改拍照人员',
 		maxmin : true,
 		shadeClose : true, // 点击遮罩关闭层
-		area : [ '800px', '520px' ],
+		area : [ '800px', '800px' ],
 		content : prefix + '/edit/' + id // iframe的url
 	});
 }
