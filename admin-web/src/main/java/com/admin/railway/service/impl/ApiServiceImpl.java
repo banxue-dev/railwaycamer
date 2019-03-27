@@ -149,7 +149,7 @@ public class ApiServiceImpl implements ApiService {
             }
             return R.ok();
         } catch (Exception e) {
-            return R.error(Constant.ErrorInfo.IMAGE_UPLOAD_FAIL.getCode(), e.getMessage());
+            return R.error(Constant.ErrorInfo.IMAGE_UPLOAD_FAIL.getCode(), Constant.ErrorInfo.IMAGE_UPLOAD_FAIL.getMsg());
         }
     }
 
