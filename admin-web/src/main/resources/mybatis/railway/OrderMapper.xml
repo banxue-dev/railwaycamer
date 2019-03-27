@@ -9,7 +9,9 @@
 
     <select id="listTask" parameterType="java.util.HashMap" resultType="java.util.HashMap">
 		SELECT id, train_no AS trainNo, start_station_id AS startStationId, start_station_name AS startStationName, end_station_id AS endStationId , end_station_name AS endStationName, consignor AS consignor, consignee AS consignee, product_name AS productName, train_type AS trainType , project_no AS projectNo, loading_line AS loadingLine, description AS description, person_ids AS personIds, person_names AS personNames , continue_shot AS continueShot
-		FROM tbl_order WHERE FIND_IN_SET(#{personId}, person_ids) AND order_state = 1
+		FROM tbl_order WHERE FIND_IN_SET(#{personId}, person_ids) 
+            <if test="beginTime != null and beginTime != ''">and create_time &gt;= #{beginTime}</if>
+            <if test="endTime != null and endTime != ''">and create_time &lt;= #{endTime}</if>
 	</select>
 
     <select id="list" resultType="com.admin.railway.domain.OrderDO">

@@ -151,7 +151,12 @@ public class ApiServiceImpl implements ApiService {
 
     @Override
     public R listTask(String personId) {
-        List<Map<String, Object>> map = orderService.listTask(personId);
+    	Map<String, Object> param=new HashMap<String,Object>();
+    	String model=DateUtils.format(new Date(), DateUtils.DATE_PATTERN);
+    	param.put("personId", personId);
+    	param.put("beginTime", model+" 00:00:00");
+    	param.put("endTime", model+" 23:59:59");
+        List<Map<String, Object>> map = orderService.listTask(param);
         R r = new R();
         r.put("taskList", map);
         return r;
