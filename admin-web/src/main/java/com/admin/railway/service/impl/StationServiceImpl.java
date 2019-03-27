@@ -183,7 +183,7 @@ public class StationServiceImpl implements StationService {
 				maporder.put("beginTime", sdate);
 				maporder.put("endTime", edate);
 				maporder.put("startStationId", stationId);
-				
+
 				List<OrderDO>  orders=orderDao.list(maporder);
 				if(orders==null || orders.size()<1) {
 					Tree<String> tree2 = new Tree<String>();

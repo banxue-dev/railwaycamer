@@ -144,7 +144,7 @@ function reset(id) {
 	layer.prompt({
 		title : '输入密码，并确认',
 		formType : 1,
-		value : '123456'
+		value : ''
 	}, function(pass, index) {
 		layer.close(index);
 		var data = {

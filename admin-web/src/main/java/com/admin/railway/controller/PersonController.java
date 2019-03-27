@@ -170,7 +170,8 @@ public class PersonController extends BaseController {
 		
 		if (StringUtils.isNotBlank(person.getPassword())) {
 			// 用户密码加密
-			person.setPassword(MD5Utils.encrypt(person.getLoginName(),person.getPassword()));
+			PersonDO personDO = personService.get(person.getId());
+			person.setPassword(MD5Utils.encrypt(personDO.getLoginName(),person.getPassword()));
 		}
 		
 		person.setModifyTime(new Date());
