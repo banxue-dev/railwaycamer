@@ -59,7 +59,7 @@ function initMultiselect() {
 				for (i=0; i< r.data.length; i++){
 					var person = r.data[i];
 					
-					options += '<option value="'+person.id+'">'+person.name+'</option>'
+					options += '<option value="'+person.id+'">'+person.name+'  '+(person.psersonNo==null?'':person.psersonNo)+'</option>'
 				}
 				
 				$('#liOption').html(options);

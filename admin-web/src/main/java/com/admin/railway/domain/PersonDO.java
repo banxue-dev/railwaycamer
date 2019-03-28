@@ -42,5 +42,6 @@ public class PersonDO implements Serializable {
 	private Date modifyTime;
 	//修改用户
 	private String modifyUser;
+	private String psersonNo;
 
 }

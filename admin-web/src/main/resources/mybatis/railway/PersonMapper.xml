@@ -4,11 +4,11 @@
 <mapper namespace="com.admin.railway.dao.PersonDao">
 
 	<select id="get" resultType="com.admin.railway.domain.PersonDO">
-		select id,login_name,password,name,phone,station_id,station_name,del_state,create_time,create_user,modify_time,modify_user from tbl_person where id = #{value}
+		select id,login_name,pserson_no as psersonNo,password,name,phone,station_id,station_name,del_state,create_time,create_user,modify_time,modify_user from tbl_person where id = #{value}
 	</select>
 
 	<select id="login" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-		select id,login_name as loginName,password,name,phone,station_id as stationId,station_name as stationName from tbl_person
+		select id,login_name as loginName,password,name,phone,station_id as stationId,station_name as stationName,pserson_no from tbl_person
 		<where>
 			<if test="id != null and id != ''"> and id = #{id} </if>
 			<if test="loginName != null and loginName != ''"> and login_name = #{loginName} </if>
@@ -17,7 +17,7 @@
 	</select>
 
 	<select id="list" resultType="com.admin.railway.domain.PersonDO">
-		select id,login_name,password,name,phone,station_id,station_name,del_state,create_time,create_user,modify_time,modify_user from tbl_person
+		select id,login_name,password,name,phone,station_id,station_name,del_state,create_time,create_user,modify_time,modify_user,pserson_no as psersonNo from tbl_person
         <where>
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
 		  		  <if test="loginName != null and loginName != ''"> and login_name = #{loginName} </if>
@@ -31,6 +31,7 @@
 		  		  <if test="createUser != null and createUser != ''"> and create_user = #{createUser} </if>
 		  		  <if test="modifyTime != null and modifyTime != ''"> and modify_time = #{modifyTime} </if>
 		  		  <if test="modifyUser != null and modifyUser != ''"> and modify_user = #{modifyUser} </if>
+		  		  <if test="psersonNo != null and psersonNo != ''"> and pserson_no = #{psersonNo} </if>
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">
@@ -60,6 +61,7 @@
 		  		  <if test="createUser != null and createUser != ''"> and create_user = #{createUser} </if>
 		  		  <if test="modifyTime != null and modifyTime != ''"> and modify_time = #{modifyTime} </if>
 		  		  <if test="modifyUser != null and modifyUser != ''"> and modify_user = #{modifyUser} </if>
+		  		  <if test="psersonNo != null and psersonNo != ''"> and pserson_no = #{psersonNo} </if>
 		  		</where>
 	</select>
 
@@ -77,7 +79,8 @@
 			create_time,
 			create_user,
 			modify_time,
-			modify_user
+			modify_user,
+			pserson_no
 		)
 		values
 		(
@@ -92,7 +95,8 @@
 			#{createTime},
 			#{createUser},
 			#{modifyTime},
-			#{modifyUser}
+			#{modifyUser},
+			#{psersonNo}
 		)
 	</insert>
 
@@ -109,7 +113,8 @@
 			<if test="createTime != null">create_time = #{createTime}, </if>
 			<if test="createUser != null">create_user = #{createUser}, </if>
 			<if test="modifyTime != null">modify_time = #{modifyTime}, </if>
-			<if test="modifyUser != null">modify_user = #{modifyUser}</if>
+			<if test="modifyUser != null">modify_user = #{modifyUser},</if>
+			<if test="psersonNo != null">pserson_no = #{psersonNo}</if>
 		</set>
 		<where>
 			<if test="id != null">
