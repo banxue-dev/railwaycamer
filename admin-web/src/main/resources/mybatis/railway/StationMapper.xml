@@ -18,6 +18,7 @@
 		  		  <if test="createUser != null and createUser != ''"> and create_user = #{createUser} </if>
 		  		  <if test="modifyTime != null and modifyTime != ''"> and modify_time = #{modifyTime} </if>
 		  		  <if test="modifyUser != null and modifyUser != ''"> and modify_user = #{modifyUser} </if>
+		  		   <if test="staPys != null and staPys != ''"> and sta_pys = #{staPys} </if>
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">
@@ -56,7 +57,9 @@
 			`create_time`, 
 			`create_user`, 
 			`modify_time`, 
-			`modify_user`
+			`modify_user`,
+			`sta_pys`
+			
 		)
 		values
 		(
@@ -67,7 +70,8 @@
 			#{createTime}, 
 			#{createUser}, 
 			#{modifyTime}, 
-			#{modifyUser}
+			#{modifyUser},
+			#{staPys}
 		)
 	</insert>
 	 

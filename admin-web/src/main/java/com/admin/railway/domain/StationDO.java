@@ -34,6 +34,7 @@ public class StationDO implements Serializable {
 	private Date modifyTime;
 	//修改用户
 	private String modifyUser;
+	private String staPys;
 
 	public final static String PARENT_ID = "parentId";
 

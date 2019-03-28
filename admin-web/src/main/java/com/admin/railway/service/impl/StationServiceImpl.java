@@ -134,6 +134,7 @@ public class StationServiceImpl implements StationService {
 			Map<String, Object> attributes = new HashMap<>(16);
 			attributes.put("name", sysStationDO.getName());
 			attributes.put("id", sysStationDO.getId());
+			attributes.put("pys", sysStationDO.getStaPys());
 			tree.setAttributes(attributes);
 			trees.add(tree);
 		}
