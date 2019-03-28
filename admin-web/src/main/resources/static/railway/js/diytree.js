@@ -238,7 +238,7 @@
 								var index = $.trim($(this).val().toString()); // 去掉两头空格
 								if(index == ''){ // 如果搜索框输入为空
 									//$('li').removeClass('on');
-									
+									$('.bottoma').css('border','');
 									return false;
 								}
 								listree.indexNum=0;
