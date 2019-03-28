@@ -133,14 +133,18 @@
 				
 				*/
 				lirecursion:function(dom){
-					console.log("1=="+$(dom).attr('class')+"--"+$(dom).html());
+					if($(dom).attr('class')==undefined || $(dom).attr('class')=='undefined' || !$(dom).attr('class')){
+						return;
+					}
 					var childul=$(dom).siblings('.child');
 					if(childul.css('display')=='none' || !childul.css('display')){
 						listree.lislide(dom);
 					}
 					var tmenu=$(dom).parent('.menu');
+					//tmenu不为undefinde，表示已经到底层了。
 					if(tmenu.attr('class')=='undefined' || tmenu.attr('class')==undefined   || !tmenu.attr('class') ){
 						var itop=$(dom).parent('.top');
+						//itop不为undefinde，表示
 							if(itop.attr('class')=='undefined' || !itop.attr('class')){
 								var ttle=$(dom).parent('li').parent('ul').siblings(".haschild");
 								listree.lirecursion(ttle);
@@ -231,7 +235,7 @@
 									listree.lirecursion(_par);
 									return false;
 								}
-								var index = $.trim($('#'+thistage).val().toString()); // 去掉两头空格
+								var index = $.trim($(this).val().toString()); // 去掉两头空格
 								if(index == ''){ // 如果搜索框输入为空
 									//$('li').removeClass('on');
 									

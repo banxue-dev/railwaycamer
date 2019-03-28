@@ -136,7 +136,7 @@ function edit(id) {
         title : '编辑',
         maxmin : true,
         shadeClose : true, // 点击遮罩关闭层
-        area : [ '800px', '800px' ],
+		area : [ '80%', '80%' ],
         content : prefix + '/edit/' + id // iframe的url
     });
 }
