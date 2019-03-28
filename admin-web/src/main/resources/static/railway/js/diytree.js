@@ -133,21 +133,24 @@
 				
 				*/
 				lirecursion:function(dom){
+					console.log("1=="+$(dom).attr('class')+"--"+$(dom).html());
 					var childul=$(dom).siblings('.child');
 					if(childul.css('display')=='none' || !childul.css('display')){
 						listree.lislide(dom);
 					}
-					
 					var tmenu=$(dom).parent('.menu');
-					if(tmenu.attr('class')!='undefined' ||tmenu.attr('class') ){
-						return;
-					}
-					var itop=$(dom).parent('.top');
-					if(itop.attr('class')!='undefined' || itop.attr('class')){
-						listree.lislide(dom);
+					if(tmenu.attr('class')=='undefined' || tmenu.attr('class')==undefined   || !tmenu.attr('class') ){
+						var itop=$(dom).parent('.top');
+							if(itop.attr('class')=='undefined' || !itop.attr('class')){
+								var ttle=$(dom).parent('li').parent('ul').siblings(".haschild");
+								listree.lirecursion(ttle);
+							}else{
+								
+								listree.lislide(dom);
+							}
 					}else{
-						var ttle=$(dom).parent('li').parent('ul').siblings(".haschild");
-						listree.lirecursion(ttle);
+						listree.lislide(dom);
+						return;
 					}
 				},
 				initevent:function(treedom,params){
@@ -243,15 +246,6 @@
 									qishi++;
 									
 								})
-								/*$('.bottoml:contains("'+index+'")').each(function(){
-									listree.indexDom[qishi]=this;
-									qishi++;
-									$(this).parent('.bottoma').css('border','1px dashed red');
-									console.log($(this).parent('.bottoma').parent('li').prev().children('.bottoma').css('border'));
-									$(this).parent('.bottoma').parent('li').prev().children('.bottoma').css('border','0px');
-									var _par=$(this).parent('.bottoma').parent('li').parent('ul').siblings(".haschild");
-									listree.lirecursion(_par);
-								})*/
 								var tdom=listree.indexDom[0];
 								$('.bottoma').css('border','');
 								$(tdom).siblings('.bottoma').css('border','1px dashed red');

@@ -82,6 +82,12 @@ function validateRule() {
 			name : {
 				required : true
 			},
+			psersonNo : {
+				required : function(e){
+					var str = $(e).val();
+					return str == null || str.replace(/(^\s*)|(\s*$)/g, "").length > 6;
+				}
+			},
 			stationName : {
 				required : true
 			},
@@ -98,6 +104,9 @@ function validateRule() {
 			},
 			name : {
 				required : icon + "姓名必填"
+			},
+			psersonNo : {
+				required : icon + "请输入工号且不得大于6位。"
 			},
 			stationName : {
 				required : icon + "请选择站点"

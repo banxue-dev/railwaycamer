@@ -36,11 +36,16 @@ function validateRule() {
         rules : {
             name : {
                 required : true
-            }
+            },
+            staPys : {
+		    	required : true
+		    }
         },
         messages : {
             name : {
                 required : icon + "请输入站点名称"
+            },staPys : {
+            	required : icon + "请输入站点的首字母拼音"
             }
         }
     })

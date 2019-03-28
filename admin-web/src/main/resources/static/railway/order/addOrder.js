@@ -59,7 +59,7 @@ function initMultiselect() {
 				for (i=0; i< r.data.length; i++){
 					var person = r.data[i];
 					
-					options += '<option value="'+person.id+'">'+person.name+'  '+(person.psersonNo==null?'':person.psersonNo)+'</option>'
+					options += '<option value="'+person.id+'">'+person.name+'</option>'
 				}
 				
 				$('#liOption').html(options);
@@ -120,7 +120,7 @@ function validateRule() {
 					return str == null || str.replace(/(^\s*)|(\s*$)/g, "").length == 0;
 				}
 			},
-			startStationName : {
+			/*startStationName : {
 				required : function(e){
 					var str = $(e).val();
 					return str == null || str.replace(/(^\s*)|(\s*$)/g, "").length == 0;
@@ -167,7 +167,7 @@ function validateRule() {
 					var str = $(e).val();
 					return str == null || str.replace(/(^\s*)|(\s*$)/g, "").length == 0;
 				}
-			},
+			},*/
 			selectPersonIds : {
 				required : function(e) {
 					var b = ! $("#liOption").val();

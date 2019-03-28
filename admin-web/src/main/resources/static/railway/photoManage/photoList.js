@@ -54,7 +54,10 @@ function load() {
                 {field: 'photoNumber', title: '照片数量', align: 'center'},
                 {
                     field: '', title: '操作', align: 'center', templet: function (item) {
-                        var a = '<a class="layui-btn layui-btn-primary layui-btn-xs ' + s_view_h + '" target="iframeCamera" onclick="viewPhoto(' + item.id + ')">查看照片</a>';
+                    	var a='';
+                    	if(item.photoNumber!=0){
+                    		 a = '<a class="layui-btn layui-btn-primary layui-btn-xs ' + s_view_h + '" target="iframeCamera" onclick="viewPhoto(' + item.id + ')">查看照片</a>';
+                    	}
                         var b = '<a class="layui-btn layui-btn-primary layui-btn-xs ' + s_edit_h + '" onclick="edit(' + item.id + ')">编辑</a>';
                         return a + b;
                     }

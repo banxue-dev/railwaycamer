@@ -20,10 +20,15 @@ function load() {
         var table = layui.table,
             $ = layui.jquery,
             laydate = layui.laydate;
-
+    	var date = new Date();
+		var nowYear = date.getFullYear();
+		var month = ("0" + (date.getMonth() + 1)).slice(-2); 
+		var day = ("0" + date.getDate()).slice(-2);
+		var today = nowYear+"-"+(month)+"-"+(day); 
         var beginTime = laydate.render({
             elem: '#beginTime',
             format: 'yyyy-MM-dd',
+            value:today,
             done: function (value, date) {
                 endTime.config.min = utils.doneTime(date);
             }
@@ -31,6 +36,7 @@ function load() {
         var endTime = laydate.render({
             elem: '#endTime',
             format: 'yyyy-MM-dd',
+            value:today,
             done: function (value, date) {
                 beginTime.config.max = utils.doneTime(date);
             }
@@ -109,6 +115,7 @@ function load() {
         		$('#stationId').val(stationId);
         	}
         });
+        active.reload();
         
     });
 	
