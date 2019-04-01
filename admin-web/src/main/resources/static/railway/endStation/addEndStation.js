@@ -17,18 +17,12 @@ $.validator.setDefaults({
 
 // 保存
 function save() {
-	// personIds 赋值
-	var personIds = $('#liOption').val();
-	if(personIds){
-		$('#personIds').val(personIds.join(','));
-	}
-	
 	var data = $('#signupForm').serialize();
 	
 	$.ajax({
 		cache : true,
 		type : "POST",
-		url : "/railway/order/add",
+		url : "/railway/station/save",
 		data : data, // 你的formid
 		async : false,
 		error : function(request) {

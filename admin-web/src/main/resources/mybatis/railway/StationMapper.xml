@@ -69,21 +69,21 @@
 			`create_time`, 
 			`create_user`, 
 			`modify_time`, 
-			`modify_user`,
-			`sta_pys`
-			
+			`modify_user`
 		)
 		values
 		(
 			#{id}, 
 			#{name}, 
+			#{type}, 
+			#{stationCode}, 
+			#{staPys},
 			#{parentId}, 
 			#{delState}, 
 			#{createTime}, 
 			#{createUser}, 
 			#{modifyTime}, 
-			#{modifyUser},
-			#{staPys}
+			#{modifyUser}
 		)
 	</insert>
 	 
