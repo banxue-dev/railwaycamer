@@ -31,6 +31,11 @@ var loadTable = function () {
                 valign: 'center'
             },
             {
+            	title: '站点编码',
+            	field: 'stationCode',
+            	valign: 'center'
+            },
+            {
                 title: '状态',
                 field: 'delState',
                 valign: 'center',
