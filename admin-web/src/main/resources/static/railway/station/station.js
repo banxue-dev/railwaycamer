@@ -10,7 +10,7 @@ var loadTable = function () {
         parentCode: 'parentId',
         type: "GET", // 请求数据的ajax类型
         url: prefix + '/list', // 请求数据的ajax的url
-        ajaxParams: {sort: 'id'}, // 请求数据的ajax的data属性
+        ajaxParams: {sort: 'id','type':'1'}, // 请求数据的ajax的data属性
         expandColumn: '1',// 在哪一列上面显示展开按钮
         striped: true, // 是否各行渐变色
         bordered: true, // 是否显示边框

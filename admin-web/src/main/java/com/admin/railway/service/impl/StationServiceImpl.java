@@ -124,6 +124,7 @@ public class StationServiceImpl implements StationService {
 		// TODO 此处为方法主题
 		map.put("sort", "id");
 		map.put("order", "asc");
+		map.put("type", "1");
 		List<Tree<StationDO>> trees = new ArrayList<Tree<StationDO>>();
 		List<StationDO> StationDOs = stationMapper.list(map);
 		for (StationDO sysStationDO : StationDOs) {

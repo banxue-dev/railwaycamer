@@ -85,7 +85,7 @@
     </select>
 
     <select id="count" resultType="int">
-        select count(*) from tbl_order where upload_way = 0
+        select count(*) from tbl_order where 
         <if test="id != null and id != ''">and id = #{id}</if>
         <if test="trainNo != null and trainNo != ''">and train_no = #{trainNo}</if>
         <if test="startStationId != null and startStationId != ''">and start_station_id = #{startStationId}</if>

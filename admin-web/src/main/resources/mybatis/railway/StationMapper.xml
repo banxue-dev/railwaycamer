@@ -4,11 +4,11 @@
 <mapper namespace="com.admin.railway.dao.StationDao">
 
 	<select id="get" resultType="com.admin.railway.domain.StationDO">
-		select `id`,`name`,`parent_id`,`del_state`,`create_time`,`create_user`,`modify_time`,`modify_user` from tbl_station where id = #{value}
+		select `id`,`name`,`type`,`parent_id`,`del_state`,`create_time`,`create_user`,`modify_time`,`modify_user` from tbl_station where id = #{value}
 	</select>
 
 	<select id="list" resultType="com.admin.railway.domain.StationDO">
-		select `id`,`name`,`parent_id`,`del_state`,`create_time`,`create_user`,`modify_time`,`modify_user`,`sta_pys` from tbl_station
+		select `id`,`name`,`parent_id`,`del_state`,`type`,`create_time`,`create_user`,`modify_time`,`modify_user`,`sta_pys` from tbl_station
         <where>  
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
 		  		  <if test="name != null and name != ''"> and name = #{name} </if>
@@ -18,6 +18,7 @@
 		  		  <if test="createUser != null and createUser != ''"> and create_user = #{createUser} </if>
 		  		  <if test="modifyTime != null and modifyTime != ''"> and modify_time = #{modifyTime} </if>
 		  		  <if test="modifyUser != null and modifyUser != ''"> and modify_user = #{modifyUser} </if>
+		  		  <if test="type != null and type != ''"> and type = #{type} </if>
 		  		   <if test="staPys != null and staPys != ''"> and sta_pys = #{staPys} </if>
 		  		</where>
         <choose>
@@ -58,6 +59,7 @@
 			`create_user`, 
 			`modify_time`, 
 			`modify_user`,
+			`type`,
 			`sta_pys`
 			
 		)
@@ -71,6 +73,7 @@
 			#{createUser}, 
 			#{modifyTime}, 
 			#{modifyUser},
+			#{type},
 			#{staPys}
 		)
 	</insert>
@@ -84,6 +87,7 @@
 			<if test="createTime != null">`create_time` = #{createTime}, </if>
 			<if test="createUser != null">`create_user` = #{createUser}, </if>
 			<if test="modifyTime != null">`modify_time` = #{modifyTime}, </if>
+			<if test="type != null">`type` = #{type}, </if>
 			<if test="modifyUser != null">`modify_user` = #{modifyUser},</if>
 			<if test="staPys != null">`sta_pys` = #{staPys}</if>
 		</set>
