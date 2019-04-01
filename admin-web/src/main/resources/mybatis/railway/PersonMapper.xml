@@ -8,7 +8,7 @@
 	</select>
 
 	<select id="login" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-		select id,login_name as loginName,password,name,phone,station_id as stationId,station_name as stationName,pserson_no from tbl_person
+		select id,login_name as loginName,pserson_no as namecode ,password,name,phone,station_id as stationId,station_name as stationName,pserson_no from tbl_person
 		<where>
 			<if test="id != null and id != ''"> and id = #{id} </if>
 			<if test="loginName != null and loginName != ''"> and login_name = #{loginName} </if>

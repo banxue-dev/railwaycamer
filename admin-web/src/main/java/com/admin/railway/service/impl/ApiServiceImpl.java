@@ -5,10 +5,12 @@ import com.admin.common.config.AdminConfig;
 import com.admin.common.config.Constant;
 import com.admin.common.utils.*;
 import com.admin.railway.dao.LoginUserTokenDo;
+import com.admin.railway.dao.StationDao;
 import com.admin.railway.domain.LoginUserToken;
 import com.admin.railway.domain.OrderDO;
 import com.admin.railway.domain.PersonDO;
 import com.admin.railway.domain.PictureDO;
+import com.admin.railway.domain.StationDO;
 import com.admin.railway.domain.vo.LoginVo;
 import com.admin.railway.domain.vo.PasswordVo;
 import com.admin.railway.domain.vo.UploadImgVo;
@@ -16,6 +18,7 @@ import com.admin.railway.service.ApiService;
 import com.admin.railway.service.OrderService;
 import com.admin.railway.service.PersonService;
 import com.admin.railway.service.PictureService;
+import com.admin.system.filter.XssFilter;
 import com.alibaba.fastjson.JSONObject;
 
 import org.slf4j.Logger;
@@ -52,6 +55,9 @@ public class ApiServiceImpl implements ApiService {
     private PictureService pictureService;
     @Autowired
     private LoginUserTokenDo loginUserTokenDo;
+    @Autowired
+    private StationDao stationDao;
+    private static Logger logger = LoggerFactory.getLogger(ApiServiceImpl.class);
     @Override
     public R login(LoginVo vo) {
         //验证
@@ -192,6 +198,40 @@ public class ApiServiceImpl implements ApiService {
         String password = MD5Utils.encrypt(vo.getLoginName(), vo.getPassword());
         person.setPassword(password);
         return personService.update(person);
+    }
+    @Override
+    public R getStationInfo(Long stationId) {
+    	try {
+        	StationDO sd=stationDao.get(stationId);
+        	return R.okdata(sd);
+    	}catch(Exception e) {
+    		logger.error("获取站点信息异常"+e);
+    		return R.error("获取异常。");
+    	}
+    }
+    @Override
+    public R getPersonsInfo(Long stationId) {
+    	try {
+    		Map<String,Object> map=new HashMap<String,Object>();
+    		map.put("stationId", stationId);
+    		List<PersonDO> sd=personService.list(map);
+    		return R.okdata(sd);
+    	}catch(Exception e) {
+    		logger.error("获取站点人员信息异常"+e);
+    		return R.error("获取站点人员信息异常。");
+    	}
+    }
+    @Override
+    public R getEndStationInfo() {
+    	try {
+    		Map<String,Object> map=new HashMap<String,Object>();
+    		map.put("type", 2);
+    		List<StationDO> sd=stationDao.list(map);
+    		return R.okdata(sd);
+    	}catch(Exception e) {
+    		logger.error("获取到站信息异常"+e);
+    		return R.error("获取到站人员信息异常。");
+    	}
     }
 
 	

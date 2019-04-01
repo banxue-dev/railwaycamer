@@ -1,6 +1,7 @@
 package com.admin.railway.service;
 
 import com.admin.common.utils.R;
+import com.admin.railway.domain.StationDO;
 import com.admin.railway.domain.vo.LoginVo;
 import com.admin.railway.domain.vo.PasswordVo;
 import com.admin.railway.domain.vo.UploadImgVo;
@@ -65,5 +66,11 @@ public interface ApiService {
      * @Date: 2019/3/15 18:33
      **/
     boolean updatePassword(PasswordVo vo);
+
+	R getStationInfo(Long stationId);
+
+	R getPersonsInfo(Long stationId);
+
+	R getEndStationInfo();
 
 }

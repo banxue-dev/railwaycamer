@@ -70,6 +70,24 @@ public class ApiController {
     public R listTask(@PathVariable("personId") String personId) {
         return apiService.listTask(personId);
     }
+    @Log("获取站点信息")
+    @ApiOperation(value = "获取站点信息", notes = "")
+    @GetMapping("getStation/{stationId}")
+    public R getStationInfo(@PathVariable("stationId") Long stationId) {
+    	return apiService.getStationInfo(stationId);
+    }
+    @Log("获取站点人员信息")
+    @ApiOperation(value = "获取站点人员信息", notes = "")
+    @GetMapping("getPersons/{stationId}")
+    public R getPersonsInfo(@PathVariable("stationId") Long stationId) {
+    	return apiService.getStationInfo(stationId);
+    }
+    @Log("获取大骗子jam站点信息")
+    @ApiOperation(value = "获取站点信息", notes = "")
+    @GetMapping("getEndStations")
+    public R getEndStationInfo() {
+    	return apiService.getEndStationInfo();
+    }
 
     @Log("APP修改密码")
     @ApiOperation(value = "获取拍照任务", notes = "")
