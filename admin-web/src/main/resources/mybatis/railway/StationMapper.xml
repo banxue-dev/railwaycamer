@@ -4,22 +4,25 @@
 <mapper namespace="com.admin.railway.dao.StationDao">
 
 	<select id="get" resultType="com.admin.railway.domain.StationDO">
-		select `id`,`name`,`type`,`parent_id`,`del_state`,`create_time`,`create_user`,`modify_time`,`modify_user` from tbl_station where id = #{value}
+		select `id`,`name`,`type`,`station_code`,`sta_pys`,`parent_id`,`del_state`,`create_time`,`create_user`,`modify_time`,`modify_user` from tbl_station where id = #{value}
 	</select>
 
 	<select id="list" resultType="com.admin.railway.domain.StationDO">
-		select `id`,`name`,`parent_id`,`del_state`,`type`,`create_time`,`create_user`,`modify_time`,`modify_user`,`sta_pys` from tbl_station
+		select `id`,`name`,`type`,`station_code`,`sta_pys`,`parent_id`,`del_state`,`create_time`,`create_user`,`modify_time`,`modify_user`,`sta_pys` from tbl_station
         <where>  
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
 		  		  <if test="name != null and name != ''"> and name = #{name} </if>
+		  		  <if test="type != null and type != ''"> and type = #{type} </if>
+		  		  <if test="stationCode != null and stationCode != ''"> and station_code = #{stationCode} </if>
+		  		  <if test="staPys != null and staPys != ''"> and sta_pys = #{staPys} </if>
 		  		  <if test="parentId != null and parentId != ''"> and parent_id = #{parentId} </if>
 		  		  <if test="delState != null and delState != ''"> and del_state = #{delState} </if>
 		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
 		  		  <if test="createUser != null and createUser != ''"> and create_user = #{createUser} </if>
 		  		  <if test="modifyTime != null and modifyTime != ''"> and modify_time = #{modifyTime} </if>
 		  		  <if test="modifyUser != null and modifyUser != ''"> and modify_user = #{modifyUser} </if>
-		  		  <if test="type != null and type != ''"> and type = #{type} </if>
-		  		   <if test="staPys != null and staPys != ''"> and sta_pys = #{staPys} </if>
+		  		  
+		  		  <if test="keyword != null and keyword != ''"> and (name like CONCAT('%',#{keyword},'%') or station_code like CONCAT('%',#{keyword},'%') or sta_pys like CONCAT('%',#{keyword},'%') )  </if>
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">
@@ -30,7 +33,7 @@
 			</otherwise>
         </choose>
 		<if test="offset != null and limit != null">
-			limit #{offset}, #{limit}
+			limit ${offset}, ${limit}
 		</if>
 	</select>
 	
@@ -39,12 +42,17 @@
 		 <where>  
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
 		  		  <if test="name != null and name != ''"> and name = #{name} </if>
+		  		  <if test="type != null and type != ''"> and type = #{type} </if>
+		  		  <if test="stationCode != null and stationCode != ''"> and station_code = #{stationCode} </if>
+		  		  <if test="staPys != null and staPys != ''"> and sta_pys = #{staPys} </if>
 		  		  <if test="parentId != null and parentId != ''"> and parent_id = #{parentId} </if>
 		  		  <if test="delState != null and delState != ''"> and del_state = #{delState} </if>
 		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
 		  		  <if test="createUser != null and createUser != ''"> and create_user = #{createUser} </if>
 		  		  <if test="modifyTime != null and modifyTime != ''"> and modify_time = #{modifyTime} </if>
 		  		  <if test="modifyUser != null and modifyUser != ''"> and modify_user = #{modifyUser} </if>
+		  		  
+		  		  <if test="keyword != null and keyword != ''"> and (name like CONCAT('%',#{keyword},'%') or station_code like CONCAT('%',#{keyword},'%') or sta_pys like CONCAT('%',#{keyword},'%') )  </if>
 		  		</where>
 	</select>
 	 
@@ -53,13 +61,15 @@
 		(
 			`id`, 
 			`name`, 
+			`type`,
+			`station_code`,
+			`sta_pys`,
 			`parent_id`, 
 			`del_state`, 
 			`create_time`, 
 			`create_user`, 
 			`modify_time`, 
 			`modify_user`,
-			`type`,
 			`sta_pys`
 			
 		)
@@ -73,7 +83,6 @@
 			#{createUser}, 
 			#{modifyTime}, 
 			#{modifyUser},
-			#{type},
 			#{staPys}
 		)
 	</insert>

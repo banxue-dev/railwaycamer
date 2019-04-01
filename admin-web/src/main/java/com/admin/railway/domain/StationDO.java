@@ -35,6 +35,11 @@ public class StationDO implements Serializable {
 	//修改用户
 	private String modifyUser;
 	private String staPys;
+	
+	//1:发站站点，2:到站站点
+	private Integer type;
+	//站点CODE唯一
+	private String stationCode;
 
 	public final static String PARENT_ID = "parentId";
 

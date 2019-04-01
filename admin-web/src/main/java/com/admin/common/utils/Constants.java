@@ -16,4 +16,9 @@ public class Constants {
 	public static final int ORDER_STATE_YJS3 = 3; // 已结束
 	public static final int ORDER_STATE_CS = 4; // 超时
 	public static final int ORDER_STATE_ZZ = 5; //终止
+	
+	// 站点类型
+	public static final int STATION_TYPE_START = 1; //发站站点
+	public static final int STATION_TYPE_END = 2; //到站站点
+	
 }

@@ -1,5 +1,6 @@
 package com.admin.railway.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +15,10 @@ import org.springframework.web.bind.annotation.*;
 
 import com.admin.common.controller.BaseController;
 import com.admin.common.domain.Tree;
+import com.admin.common.utils.Constants;
+import com.admin.common.utils.QueryParam;
 import com.admin.common.utils.R;
+import com.admin.railway.domain.OrderDO;
 import com.admin.railway.domain.StationDO;
 import com.admin.railway.service.StationService;
 
@@ -24,6 +28,37 @@ public class StationController extends BaseController {
 
 	@Autowired
 	private StationService stationService;
+	
+	@GetMapping("/endStation")
+	public String endStation(){
+		return "railway/endStation/list";
+	}
+	
+	@GetMapping("/endStation/selectList")
+	public String selectEndStationList(){
+		return "railway/endStation/selectList";
+	}
+	
+	@GetMapping("/endStation/listData")
+	@ResponseBody
+	public R endStationListData(@RequestParam Map<String, Object> params) {
+		QueryParam query = new QueryParam(params);
+		query.put("type", Constants.STATION_TYPE_END);
+		List<StationDO> list = new ArrayList<>();
+		int count = stationService.count(query);
+		if (count > 0) {
+			list = stationService.list(query);
+		}
+		Map<String, Object> result = new HashMap<>();
+		result.put("data", list);
+		result.put("count", count);
+		return R.ok(result);
+	}
+	
+	@GetMapping("/endStation/add")
+	public String endStationAdd(){
+		return "railway/endStation/add";
+	}
 
 	@RequiresPermissions("railway:station:station")
 	@GetMapping()
