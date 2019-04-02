@@ -82,11 +82,17 @@ public class ApiController {
     public R getPersonsInfo(@PathVariable("stationId") Long stationId) {
     	return apiService.getPersonsInfo(stationId);
     }
+    @Log("获取发站站点信息")
+    @ApiOperation(value = "获取发站点信息", notes = "")
+    @GetMapping("getStartStations")
+    public R getStartStations() {
+    	return apiService.getStartStations();
+    }
     @Log("获取到站站点信息")
     @ApiOperation(value = "获取站点信息", notes = "")
     @GetMapping("getEndStations")
-    public R getEndStationInfo() {
-    	return apiService.getEndStationInfo();
+    public R getEndStations() {
+    	return apiService.getEndStations();
     }
 
     @Log("APP修改密码")

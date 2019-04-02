@@ -222,7 +222,19 @@ public class ApiServiceImpl implements ApiService {
     	}
     }
     @Override
-    public R getEndStationInfo() {
+    public R getStartStations() {
+    	try {
+    		Map<String,Object> map=new HashMap<String,Object>();
+    		map.put("type", 1);
+    		List<StationDO> sd=stationDao.list(map);
+    		return R.okdata(sd);
+    	}catch(Exception e) {
+    		logger.error("获取发站信息异常"+e);
+    		return R.error("获取发站人员信息异常。");
+    	}
+    }
+    @Override
+    public R getEndStations() {
     	try {
     		Map<String,Object> map=new HashMap<String,Object>();
     		map.put("type", 2);

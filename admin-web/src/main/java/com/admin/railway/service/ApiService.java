@@ -71,6 +71,13 @@ public interface ApiService {
 
 	R getPersonsInfo(Long stationId);
 
-	R getEndStationInfo();
+	R getStartStations();
+	/**
+	 * 获取到站站点信息
+	 * @return
+	 * 2019年4月2日
+	 * 作者：fengchase
+	 */
+	R getEndStations();
 
 }
