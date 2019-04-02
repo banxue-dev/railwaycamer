@@ -80,9 +80,9 @@ public class ApiController {
     @ApiOperation(value = "获取站点人员信息", notes = "")
     @GetMapping("getPersons/{stationId}")
     public R getPersonsInfo(@PathVariable("stationId") Long stationId) {
-    	return apiService.getStationInfo(stationId);
+    	return apiService.getPersonsInfo(stationId);
     }
-    @Log("获取大骗子jam站点信息")
+    @Log("获取到站站点信息")
     @ApiOperation(value = "获取站点信息", notes = "")
     @GetMapping("getEndStations")
     public R getEndStationInfo() {
