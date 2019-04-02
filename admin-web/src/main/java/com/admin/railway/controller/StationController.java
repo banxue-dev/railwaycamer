@@ -34,11 +34,13 @@ public class StationController extends BaseController {
 		return "railway/endStation/list";
 	}
 	
+	@RequiresPermissions("railway:station:station")
 	@GetMapping("/endStation/selectList")
 	public String selectEndStationList(){
 		return "railway/endStation/selectList";
 	}
 	
+	@RequiresPermissions("railway:station:station")
 	@GetMapping("/endStation/listData")
 	@ResponseBody
 	public R endStationListData(@RequestParam Map<String, Object> params) {
@@ -55,11 +57,13 @@ public class StationController extends BaseController {
 		return R.ok(result);
 	}
 	
+	@RequiresPermissions("railway:station:add")
 	@GetMapping("/endStation/add")
 	public String endStationAdd(){
 		return "railway/endStation/add";
 	}
 	
+	@RequiresPermissions("railway:station:edit")
 	@GetMapping("/endStation/edit/{id}")
 	public String endStationEdit(@PathVariable("id") Long id, Model model){
 		StationDO station = stationService.get(id);
