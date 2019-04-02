@@ -91,14 +91,15 @@
 		update tbl_station 
 		<set>
 			<if test="name != null">`name` = #{name}, </if>
+			<if test="type != null">`type` = #{type}, </if>
+			<if test="stationCode != null">`station_code` = #{stationCode}, </if>
+			<if test="staPys != null">`sta_pys` = #{staPys},</if>
 			<if test="parentId != null">`parent_id` = #{parentId}, </if>
 			<if test="delState != null">`del_state` = #{delState}, </if>
 			<if test="createTime != null">`create_time` = #{createTime}, </if>
 			<if test="createUser != null">`create_user` = #{createUser}, </if>
 			<if test="modifyTime != null">`modify_time` = #{modifyTime}, </if>
-			<if test="type != null">`type` = #{type}, </if>
 			<if test="modifyUser != null">`modify_user` = #{modifyUser},</if>
-			<if test="staPys != null">`sta_pys` = #{staPys}</if>
 		</set>
 		where id = #{id}
 	</update>

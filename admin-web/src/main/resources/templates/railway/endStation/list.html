@@ -40,6 +40,8 @@
     <div type="text/html" style="display: none;" id="toolbar">
         <a shiro:hasPermission="railway:order:edit" class="layui-btn layui-btn-primary layui-btn-xs"
            onclick="edit({{d.id}})">修改</a>
+        <a shiro:hasPermission="railway:order:edit" class="layui-btn layui-btn-primary layui-btn-xs"
+           onclick="del({{d.id}})">删除</a>
     </div>
 
     <script src="/railway/js/jquery1.8.3.min.js"></script>

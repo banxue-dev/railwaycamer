@@ -59,6 +59,13 @@ public class StationController extends BaseController {
 	public String endStationAdd(){
 		return "railway/endStation/add";
 	}
+	
+	@GetMapping("/endStation/edit/{id}")
+	public String endStationEdit(@PathVariable("id") Long id, Model model){
+		StationDO station = stationService.get(id);
+		model.addAttribute("station",station);
+		return "railway/endStation/edit";
+	}
 
 	@RequiresPermissions("railway:station:station")
 	@GetMapping()

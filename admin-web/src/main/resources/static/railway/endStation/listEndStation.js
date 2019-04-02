@@ -100,3 +100,26 @@ function edit(id) {
 	});
 }
 
+function del(id){
+	layer.confirm('确定要删除选中的记录？', {
+		btn : [ '确定', '取消' ]
+	}, function() {
+		$.ajax({
+			url : "/railway/station/remove",
+			type : "post",
+			data : {
+				'id' : id
+			},
+			success : function(r) {
+				if (r.code === 0) {
+					layer.msg("删除成功");
+					reLoad();
+				} else {
+					layer.msg(r.msg);
+				}
+			}
+		});
+	})
+	
+}
+
