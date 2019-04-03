@@ -10,8 +10,8 @@
     <select id="listTask" parameterType="java.util.HashMap" resultType="java.util.HashMap">
 		SELECT  t.station_code as startStationCode,e.station_code AS endStationCode,o.id, o.train_no AS trainNo, o.create_time as date,  o.start_station_id AS startStationId,  o.start_station_name AS startStationName,  o.end_station_id AS endStationId ,  o.end_station_name AS endStationName,  o.consignor AS consignor,  o.consignee AS consignee,  o.product_name AS productName,  o.train_type AS trainType ,  o.project_no AS projectNo,  o.loading_line AS loadingLine,  o.description AS description,  o.person_ids AS personIds,  o.person_names AS personNames ,  o.continue_shot AS continueShot
 		FROM tbl_order o,tbl_station t,tbl_station e where o.start_station_id=t.id and o.end_station_id=e.id and FIND_IN_SET(#{personId}, person_ids) 
-            <if test="beginTime != null and beginTime != ''">and create_time &gt;= #{beginTime}</if>
-            <if test="endTime != null and endTime != ''">and create_time &lt;= #{endTime}</if>
+            <if test="beginTime != null and beginTime != ''">and o.create_time &gt;= #{beginTime}</if>
+            <if test="endTime != null and endTime != ''">and o.create_time &lt;= #{endTime}</if>
 	</select>
 
     <select id="list" resultType="com.admin.railway.domain.OrderDO">
