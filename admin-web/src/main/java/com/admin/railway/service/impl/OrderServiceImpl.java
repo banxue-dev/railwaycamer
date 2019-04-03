@@ -1,5 +1,6 @@
 package com.admin.railway.service.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -61,6 +62,7 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public OrderDO getOrder(OrderDO order) {
+		order.setCreateTime(new Date());
 		return orderMapper.getOrder(order);
 	}
 
