@@ -26,6 +26,8 @@ public class PersonDO implements Serializable {
 	private String password;
 	//姓名
 	private String name;
+	//姓名
+	private String type;
 	//电话
 	private String phone;
 	//站点id

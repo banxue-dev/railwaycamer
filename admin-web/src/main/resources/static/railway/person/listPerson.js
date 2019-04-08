@@ -47,6 +47,9 @@ function load() {
                 {field: 'name', title: '姓名', align: 'center'},
                 {field: 'psersonNo', title: '工号', align: 'center'},
                 {field: 'stationName', title: '站点', align: 'center'},
+                {field: 'type', title: '类型', align: 'center', templet: function(order){
+                        return order.type == 0 ? '拍照人员' : '管理人员';
+                }},
                 {field: '', title: '操作', align: 'center', toolbar: '#toolbar'}
             ]]
             , id: 'testReload'
