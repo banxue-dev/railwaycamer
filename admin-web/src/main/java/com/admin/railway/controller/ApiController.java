@@ -2,6 +2,7 @@ package com.admin.railway.controller;
 
 import com.admin.common.annotation.Log;
 import com.admin.common.config.Constant;
+import com.admin.common.utils.PageUtils;
 import com.admin.common.utils.R;
 import com.admin.common.utils.StringUtils;
 import com.admin.railway.domain.vo.LoginVo;
@@ -18,6 +19,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -91,8 +95,13 @@ public class ApiController {
     @Log("获取到站站点信息")
     @ApiOperation(value = "获取站点信息", notes = "")
     @GetMapping("getEndStations")
-    public R getEndStations() {
-    	return apiService.getEndStations();
+    public R getEndStations(Integer offset,Integer limit) {
+
+		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("type", 2);
+		map.put("offset", offset);
+		map.put("limit", limit);
+    	return apiService.getEndStations(map);
     }
 
     @Log("APP修改密码")

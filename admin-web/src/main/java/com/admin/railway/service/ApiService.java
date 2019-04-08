@@ -9,6 +9,8 @@ import com.alibaba.fastjson.JSONObject;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 
@@ -78,6 +80,6 @@ public interface ApiService {
 	 * 2019年4月2日
 	 * 作者：fengchase
 	 */
-	R getEndStations();
+	R getEndStations(Map<String, Object> map);
 
 }

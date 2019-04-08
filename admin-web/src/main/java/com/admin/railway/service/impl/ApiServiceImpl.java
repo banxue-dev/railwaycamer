@@ -234,12 +234,12 @@ public class ApiServiceImpl implements ApiService {
     	}
     }
     @Override
-    public R getEndStations() {
+    public R getEndStations(Map<String,Object> map) {
     	try {
-    		Map<String,Object> map=new HashMap<String,Object>();
-    		map.put("type", 2);
     		List<StationDO> sd=stationDao.list(map);
-    		return R.okdata(sd);
+    		int count=stationDao.count(map);
+    		PageUtils pu=new PageUtils(sd, count);
+    		return R.okdata(pu);
     	}catch(Exception e) {
     		logger.error("获取到站信息异常"+e);
     		return R.error("获取到站人员信息异常。");
