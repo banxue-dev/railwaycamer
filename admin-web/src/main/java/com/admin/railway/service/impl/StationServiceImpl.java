@@ -152,7 +152,6 @@ public class StationServiceImpl implements StationService {
 		Long stationId=(Long) map.get("stationId");
 		Integer nowsize= (Integer) map.get("nowsize");//从1开始，表示第几页
 		Integer pagesize= (Integer) map.get("pagesize");//从每次多少，相当于每页多少条
-		Date now=new Date();
 		Map<String, Object> timeMap=new HashMap<String, Object>();
 		timeMap.put("offset", nowsize);//从0开始
 		timeMap.put("limit", pagesize);

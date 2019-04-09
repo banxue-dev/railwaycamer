@@ -115,7 +115,7 @@ function remove(id) {
             success: function (data) {
                 if (data.code == 0) {
                     layer.msg(data.msg);
-                    reLoad();
+                    load();
                 } else {
                     layer.msg(data.msg);
                 }
