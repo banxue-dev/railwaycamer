@@ -149,6 +149,7 @@ public class StationServiceImpl implements StationService {
 	@Override
 	public List<Tree<String>> getStationTimeByTree(Map<String, Object> map) {
 		List<Tree<String>> trees = new ArrayList<Tree<String>>();
+		
 		Long stationId=(Long) map.get("stationId");
 		Integer nowsize= (Integer) map.get("nowsize");//从1开始，表示第几页
 		Integer pagesize= (Integer) map.get("pagesize");//从每次多少，相当于每页多少条
@@ -156,6 +157,14 @@ public class StationServiceImpl implements StationService {
 		timeMap.put("offset", nowsize);//从0开始
 		timeMap.put("limit", pagesize);
 		timeMap.put("startStationId", stationId);
+		if(nowsize==0) {
+			/*
+			 * =0表示是第一次，只获取当天数据
+			 */
+			String first=DateUtils.format(new Date(), DateUtils.DATE_PATTERN);
+			timeMap.put("beginTime", first+" 00:00:00");
+			timeMap.put("endTime", first+" 23:59:59");
+		}
 		/**
 		 * 用来查询指定站点下有那些时间的车
 		 */

@@ -68,17 +68,19 @@
     </select>
     <select id="gettimelist" resultType="com.admin.railway.domain.OrderDO">
         select
-        `id`,`train_no`,`start_station_id`,`start_station_name`,`end_station_id`,`end_station_name`,`consignor`,`consignee`,`product_name`,`train_type`,`project_no`,`loading_line`,`description`,`person_ids`,`person_names`,`continue_shot`,`order_start_time`,`order_end_time`,`order_state`,`del_state`,`create_time`,`create_user`,`modify_time`,`modify_user`
-        from tbl_order
+       o.`id`,o.`train_no`,o.`start_station_id`,o.`start_station_name`,o.`end_station_id`,o.`end_station_name`,o.`consignor`,o.`consignee`,o.`product_name`,o.`train_type`,o.`project_no`,o.`loading_line`,o.`description`,o.`person_ids`,o.`person_names`,o.`continue_shot`,o.`order_start_time`,o.`order_end_time`,o.`order_state`,o.`del_state`,o.`create_time`,o.`create_user`,o.`modify_time`,o.`modify_user`
+        from tbl_order o,tbl_picture p where p.order_id=o.id and p.order_id is not null 
         <where>
             <choose>
                 <when test="uploadWay != null">
-                    upload_way = #{uploadWay}
+                   o.upload_way = #{uploadWay}
                 </when>
             </choose>
-            <if test="startStationId != null and startStationId != ''">and start_station_id = #{startStationId}</if>
         </where>
-        GROUP BY substr(create_time,1,10) order by create_time desc
+        <if test="uploadWay != null and uploadWay != ''">and o.upload_way = #{uploadWay} </if>
+        <if test="startStationId != null and startStationId != ''">and o.start_station_id = #{startStationId} </if>
+        <if test="beginTime != null and beginTime != ''">and o.create_time &gt; #{beginTime} and o.create_time &lt; #{endTime} </if>
+        GROUP BY substr(o.create_time,1,10) order by o.create_time desc
         <if test="offset != null and limit != null">
             limit #{offset}, #{limit}
         </if>

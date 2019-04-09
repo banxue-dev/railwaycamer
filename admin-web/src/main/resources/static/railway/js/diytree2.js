@@ -99,9 +99,10 @@ function diytree(){
 							if(data.code==0){
 								if(data.data==null || data.data.length<1){
 									var html='';
-									html+='<li><a   href="javascript:;" >没有更多了</a></li>';
+									html+='<ul parent-id="'+id+'" class="child newchild">';
+									html+='<li><a class="loadmore" href="javascript:;"  >加载更多...</a></li>';
+									html+='</ul>';
 									thistdom.after(html);
-									
 								}else{
 									var html='';
 									html+='<ul parent-id="'+id+'" class="child newchild">';
@@ -109,50 +110,52 @@ function diytree(){
 									html+='<li><a class="loadmore" href="javascript:;"  >加载更多...</a></li>';
 									html+='</ul>';
 									thistdom.after(html);
-									$('.newchild').slideUp('slow','easeOutQuad');
-									thistdom.siblings('ul').slideDown('slow','easeOutQuad');
-									/*
-									* 子节点点击事件
-									*/
-									$('.child>li>.loadmore').click(function(){
-										//nowsize=现在这个兄弟有多少条
-										var _this=this;
-										var loadmore=$(_this);
-										var nowsize=loadmore.parent().siblings('li').length;
-										var psize=5;
-										$.ajax({
-											url:'/railway/station/listTimeTree',
-											type:'post',
-											data:{stationId:id,nowsize:nowsize,pagesize:psize},
-											success:function(data){
-												if(data.code==0){
-													if(data.data==null || data.data.length<1){
-														var html='';
-														html+='<li><a data-id="-1"   href="javascript:;" >没有更多了</a></li>';
-														loadmore.parent().after(html);
-														loadmore.remove();
-													}else{
-														var html='';
-														html+=listree.looptimehtml(data.data);
-														loadmore.parent().before(html);
-														
-														if(data.data.length<psize){
-															var html1='';
-															html1+='<li><a data-id="-1"   href="javascript:;" >没有更多了</a></li>';
-															loadmore.parent().after(html1);
-															loadmore.remove();
-														}
-													}
-													listree.initcss({min:10,dz:15});
-													listree.simpleevent();
-												}
-											}
-										})
-										
-									});
-									var sb=thistdom.siblings('ul').children('li').children('label')
-									thistdom.siblings('ul').children('li').children('.loadmore').css('color',sb.css('color')).css('background-color',sb.css('background-color'));
 								}
+								/*
+								* 子节点点击事件
+								*/
+								$('.child>li>.loadmore').click(function(){
+									//nowsize=现在这个兄弟有多少条
+									var _this=this;
+									var loadmore=$(_this);
+									var nowsize=loadmore.parent().siblings('li').length;
+									var psize=5;
+									$.ajax({
+										url:'/railway/station/listTimeTree',
+										type:'post',
+										data:{stationId:id,nowsize:nowsize,pagesize:psize},
+										success:function(data){
+											if(data.code==0){
+												if(data.data==null || data.data.length<1){
+													var html='';
+													html+='<li><a data-id="-1"   href="javascript:;" >没有更多了</a></li>';
+													loadmore.parent().after(html);
+													loadmore.remove();
+												}else{
+													var html='';
+													html+=listree.looptimehtml(data.data);
+													loadmore.parent().before(html);
+													
+													if(data.data.length<psize){
+														var html1='';
+														html1+='<li><a data-id="-1"   href="javascript:;" >没有更多了</a></li>';
+														loadmore.parent().after(html1);
+														loadmore.remove();
+													}
+												}
+												listree.initcss({min:10,dz:15});
+												listree.simpleevent();
+											}
+										}
+									})
+									
+								});
+
+								$('.newchild').slideUp('slow','easeOutQuad');
+								thistdom.siblings('ul').slideDown('slow','easeOutQuad');
+								var sb=thistdom.siblings('ul').children('li').children('label')
+								thistdom.siblings('ul').children('li').children('.loadmore').css('color',sb.css('color')).css('background-color',sb.css('background-color'));
+								
 								listree.initcss({min:10,dz:15});
 								listree.simpleevent();
 							}

@@ -26,6 +26,8 @@ public class StationDO implements Serializable {
 	private Long parentId;
 	//是否删除
 	private Integer delState;
+	//是否删除
+	private Integer isBottom;
 	//创建时间
 	private Date createTime;
 	//创建用户
