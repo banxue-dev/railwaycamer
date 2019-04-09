@@ -131,6 +131,50 @@ public class ApiServiceImpl implements ApiService {
                         vo.setTaskId(String.valueOf(orderDO.getId()));
                     }
                 }
+                /*
+                 * 更新订单其他信息
+                 */
+                if(StringUtils.isNullString(vo.getEndStationCode()) && StringUtils.isNullString(vo.getStartStationCode()) && StringUtils.isNullString(vo.getProductName())) {
+                	/*
+                	 * 都是空的话，就不去添加了
+                	 */
+                }else {
+                	 OrderDO temp=orderService.get(Long.valueOf(vo.getTaskId()));
+                     temp.setStartStationName(vo.getStartStationName());
+                     if(!StringUtils.isNullString(vo.getEndStationCode()) ) {
+                     	/**
+                     	 * 不是空，就根据名称和code去表里获取
+                     	 */
+                     	Map<String,Object> map=new HashMap<String,Object>();
+                     	map.put("name", vo.getEndStationName());
+                     	map.put("stationCode", vo.getEndStationCode());
+                     	map.put("type", Constants.STATION_TYPE_END);
+                    	List<StationDO> ends=stationDao.list(map);
+                    	if(ends!=null && ends.size()>0) {
+                    		temp.setEndStationName(vo.getEndStationName());
+                    		temp.setEndStationId(ends.get(0).getId());
+                    	}
+                     }
+                     if(!StringUtils.isNullString(vo.getStartStationCode()) ) {
+                      	/**
+                      	 * 不是空，就根据名称和code去表里获取
+                      	 */
+                      	Map<String,Object> map=new HashMap<String,Object>();
+                      	map.put("name", vo.getStartStationName());
+                      	map.put("stationCode", vo.getStartStationCode());
+                      	map.put("type", Constants.STATION_TYPE_START);
+                      	List<StationDO> starts=stationDao.list(map);
+                      	if(starts!=null && starts.size()>0) {
+                      		temp.setStartStationId(starts.get(0).getId());
+                      		temp.setStartStationName(vo.getStartStationName());
+                      	}
+                      }
+                     if(!StringUtils.isNullString(vo.getProductName())) {
+                    	 temp.setProductName(vo.getProductName());
+                     }
+                     orderService.update(temp);
+                }
+               
                 //添加图片信息
                 PictureDO pictureDO = new PictureDO();
                 pictureDO.setOrderId(Long.valueOf(vo.getTaskId()));

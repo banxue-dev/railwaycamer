@@ -27,6 +27,7 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public void update(OrderDO order) {
+		order.setModifyTime(new Date());
 		orderMapper.update(order);
 	}
 

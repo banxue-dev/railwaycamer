@@ -24,4 +24,14 @@ public class UploadImgVo {
 
     @ApiModelProperty(value = "调度任务ID,为空时代表拍照人员主动上传照片", dataType = "string", required = false)
     private String taskId;
+    @ApiModelProperty(value = "始发站名称", dataType = "string", required = false)
+    private String startStationName;
+    @ApiModelProperty(value = "始发站编码", dataType = "string", required = false)
+    private String startStationCode;
+    @ApiModelProperty(value = "导致名称", dataType = "string", required = false)
+    private String endStationName;
+    @ApiModelProperty(value = "到站编码", dataType = "string", required = false)
+    private String endStationCode;
+    @ApiModelProperty(value = "产品名称", dataType = "string", required = false)
+    private String productName;
 }
