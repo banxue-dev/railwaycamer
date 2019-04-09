@@ -22,10 +22,10 @@
                             <label class="col-sm-3 control-label">站点类型：</label>
                             <div class="col-sm-8">
                                 <label class="radio-inline">
-                                    <input type="radio" name="isBottom" value="0" checked="checked"/>管理部门
+                                    <input type="radio" th:field="*{station.isBottom}" name="isBottom" value="0" checked="checked"/>管理部门
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" id="showCheckList" name="isBottom" value="1"/>货运站点
+                                    <input type="radio" th:field="*{station.isBottom}" id="showCheckList" name="isBottom" value="1"/>货运站点
                                 </label>
                             </div>
                         </div>
