@@ -33,5 +33,5 @@ public class UploadImgVo {
     @ApiModelProperty(value = "到站编码", dataType = "string", required = false)
     private String endStationCode;
     @ApiModelProperty(value = "产品名称", dataType = "string", required = false)
-    private String productName;
+    private String cargoType;
 }

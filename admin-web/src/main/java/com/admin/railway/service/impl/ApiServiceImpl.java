@@ -134,7 +134,7 @@ public class ApiServiceImpl implements ApiService {
                 /*
                  * 更新订单其他信息
                  */
-                if(StringUtils.isNullString(vo.getEndStationCode()) && StringUtils.isNullString(vo.getStartStationCode()) && StringUtils.isNullString(vo.getProductName())) {
+                if(StringUtils.isNullString(vo.getEndStationCode()) && StringUtils.isNullString(vo.getStartStationCode()) && StringUtils.isNullString(vo.getCargoType())) {
                 	/*
                 	 * 都是空的话，就不去添加了
                 	 */
@@ -169,8 +169,8 @@ public class ApiServiceImpl implements ApiService {
                       		temp.setStartStationName(vo.getStartStationName());
                       	}
                       }
-                     if(!StringUtils.isNullString(vo.getProductName())) {
-                    	 temp.setProductName(vo.getProductName());
+                     if(!StringUtils.isNullString(vo.getCargoType())) {
+                    	 temp.setProductName(vo.getCargoType());
                      }
                      orderService.update(temp);
                 }

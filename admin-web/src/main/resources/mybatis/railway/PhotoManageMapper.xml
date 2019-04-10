@@ -9,7 +9,7 @@
         consignor AS consignor,consignee AS consignee,
         product_name AS productName,train_type AS trainType,project_no AS projectNo,loading_line AS loadingLine,
         description AS description,person_ids AS personIds,person_names AS personNames,
-        continue_shot AS continueShot,(select count(1) from tbl_picture p where p.train_no = a.train_no) as photoNumber,
+        continue_shot AS continueShot,(select count(1) from tbl_picture p where p.order_id = a.id) as photoNumber,
         create_time as createTime
         FROM tbl_order a
         <where>

@@ -109,7 +109,7 @@ function reLoad() {
 	active.reload();
 }
 // 删除数据
-function remove(id) {
+function removePerson(id) {
 	layer.confirm('确定要删除选中的记录？', {
 		btn : [ '确定', '取消' ]
 	}, function() {

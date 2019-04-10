@@ -57,7 +57,7 @@ var loadTable = function () {
                 formatter: function (item, index) {
                     var e = '<a class="btn btn-primary btn-sm '
                         + s_edit_h
-                        + '" href="#" mce_href="#" title="编辑站点" onclick="edit(\''
+                        + '" href="javascript:;" mce_href="javascript:;" title="编辑站点" onclick="edit(\''
                         + item.id
                         + '\')"><i class="fa fa-edit"></i></a> ';
                     /*
@@ -67,13 +67,13 @@ var loadTable = function () {
                     if(item.isBottom!=1){
                     	p = '<a class="btn btn-primary btn-sm '
                     		+ s_add_h
-                    		+ '" href="#" mce_href="#" title="添加下级站点" onclick="add(\''
+                    		+ '" href="javascript:;" mce_href="javascript:;" title="添加下级站点" onclick="add(\''
                     		+ item.id
                     		+ '\')"><i class="fa fa-plus"></i></a> ';
                     }
                     var d = '<a class="btn btn-warning btn-sm '
                         + s_remove_h
-                        + '" href="#" title="删除站点"  mce_href="#" onclick="remove(\''
+                        + '" href="javascript:;" title="删除站点"   onclick="removeStation(\''
                         + item.id
                         + '\')"><i class="fa fa-remove"></i></a> ';
                     return p + d + e;
@@ -108,24 +108,25 @@ function edit(id) {
     });
 }
 
-function remove(id) {
+function removeStation(id) {
+	
     layer.confirm('确定要删除选中的站点？', {
         btn: ['确定', '取消']
     }, function () {
-        $.ajax({
-            url: prefix + "/remove",
-            type: "post",
-            data: {
-                'id': id
-            },
-            success: function (data) {
-                if (data.code == 0) {
-                    layer.msg(data.msg);
-                    load();
-                } else {
-                    layer.msg(data.msg);
-                }
-            }
-        });
+    	 $.ajax({
+             url: prefix + "/remove",
+             type: "post",
+             data: {
+                 'id': id
+             },
+             success: function (data) {
+                 if (data.code == 0) {
+                     layer.msg(data.msg);
+                     load();
+                 } else {
+                     layer.msg(data.msg);
+                 }
+             }
+         });
     })
 }
