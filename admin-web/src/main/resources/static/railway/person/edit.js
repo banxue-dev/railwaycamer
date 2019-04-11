@@ -1,10 +1,10 @@
 $(function() {
-	initTree({});
+	initTreeParam();
 	validateRule();
-	/*$('input[name=type]').change(function(){
+	$('input[name=type]').change(function(){
 		$('#stationId,#tree').val('');
 		initTreeParam();
-    })*/
+    })
 });
 $.validator.setDefaults({
 	// 提交表单时做校验
