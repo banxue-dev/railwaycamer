@@ -1,6 +1,9 @@
 $(function() {
-	initTree();
+	initTreeParam();
 	validateRule();
+	$('input[name=type]').change(function(){
+		initTreeParam();
+    })
 });
 $.validator.setDefaults({
 	// 提交表单时做校验
@@ -22,9 +25,17 @@ jQuery.validator.addMethod("isMobile", function(value, element) {
 	 return this.optional(element) || (length == 11 && mobile.test(value));  
 }, "请正确填写手机号码");
 
-function initTree(){
+function initTreeParam(){
+	if ($('#adminPerson').attr("checked")=='checked') {
+		initTree({isBottom:0});
+	}else{
+		initTree({});
+	}
+}
+function initTree(param){
 	 $('#treebox').treeinit('/railway/station/listTree',{
     	bindTag:'tree',
+    	urlData:param,
     	childClick: function(d){
     		var name = $(d).text();
     		var stationId = $(d).attr('data-id');

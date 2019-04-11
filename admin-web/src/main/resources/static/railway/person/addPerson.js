@@ -1,11 +1,23 @@
 $(function() {
-	initTree();
+	initTree({});
 	validateRule();
+	$('input[name=type]').change(function(){
+		if ($('#adminPerson').attr("checked")=='checked') {
+			initTree({isBottom:0});
+		}else{
+			initTree({});
+		}
+    })
 });
-
-function initTree(){
+/**
+ * urlData,'/railway/station/listTree'的请求参数
+ * @param param
+ * @returns
+ */
+function initTree(param){
 	 $('#treebox').treeinit('/railway/station/listTree',{
      	bindTag:'tree',
+     	urlData:param,
      	childClick: function(d){
      		var name = $(d).text();
      		var stationId = $(d).attr('data-id');

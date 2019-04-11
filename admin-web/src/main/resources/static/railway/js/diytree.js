@@ -8,11 +8,12 @@
 				init:function(treedom,url,params){
 					this.inithtml(treedom,url,params);
 				},
-				initdata:function(uri,callback){
+				initdata:function(uri,callback,params){
 					if(url){
 						//准备ajax
 						$.ajax({
 							url:uri,
+							data:params.urlData,
 							type:'post',
 							success:function(res){
 								if(res.code=='0'){
@@ -69,7 +70,7 @@
 						html+='</ul>';
 						tree.html(html);
 						listree.initevent(treedom,params);
-					});
+					},params);
 					
 				},
 				initcss:function(defpara){

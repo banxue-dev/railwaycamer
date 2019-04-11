@@ -260,10 +260,14 @@ public class ApiServiceImpl implements ApiService {
     	}
     }
     @Override
-    public R getStartStations() {
+    public R getStartStations(Long personId) {
     	try {
+    		PersonDO p=personService.get(personId);
+    		p.getStationId();
+    		
     		Map<String,Object> map=new HashMap<String,Object>();
     		map.put("type", 1);
+    		map.put("parentId", p.getStationId());
     		List<StationDO> sd=stationDao.list(map);
     		return R.okdata(sd);
     	}catch(Exception e) {

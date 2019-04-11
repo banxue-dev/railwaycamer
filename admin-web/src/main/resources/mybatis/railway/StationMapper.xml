@@ -16,6 +16,7 @@
 		  		  <if test="stationCode != null and stationCode != ''"> and station_code = #{stationCode} </if>
 		  		  <if test="staPys != null and staPys != ''"> and sta_pys = #{staPys} </if>
 		  		  <if test="parentId != null and parentId != ''"> and parent_id = #{parentId} </if>
+		  		  <if test="isBottom != null and isBottom != ''"> and is_bottom = #{isBottom} </if>
 		  		  <if test="delState != null and delState != ''"> and del_state = #{delState} </if>
 		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
 		  		  <if test="createUser != null and createUser != ''"> and create_user = #{createUser} </if>

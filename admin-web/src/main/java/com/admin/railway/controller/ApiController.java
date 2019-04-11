@@ -89,8 +89,8 @@ public class ApiController {
     @Log("获取发站站点信息")
     @ApiOperation(value = "获取发站点信息", notes = "")
     @GetMapping("getStartStations")
-    public R getStartStations() {
-    	return apiService.getStartStations();
+    public R getStartStations(Long personId) {
+    	return apiService.getStartStations(personId);
     }
     @Log("获取到站站点信息")
     @ApiOperation(value = "获取站点信息", notes = "")

@@ -73,7 +73,7 @@ public interface ApiService {
 
 	R getPersonsInfo(Long stationId);
 
-	R getStartStations();
+	R getStartStations(Long personId);
 	/**
 	 * 获取到站站点信息
 	 * @return

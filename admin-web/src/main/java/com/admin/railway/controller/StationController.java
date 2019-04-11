@@ -151,10 +151,9 @@ public class StationController extends BaseController {
 
 	@ResponseBody
 	@RequestMapping("/listTree")
-	public R getStationListByTree() {
+	public R getStationListByTree(@RequestParam Map<String, Object> params) {
 		try {
-			Map<String, Object> map=new HashMap<String, Object>();
-			List<Tree<StationDO>> lst=stationService.getStationByTree(map);
+			List<Tree<StationDO>> lst=stationService.getStationByTree(params);
 			return R.okdata(lst);
 		}catch(Exception e) {
 			return R.error();

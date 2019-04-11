@@ -58,11 +58,11 @@ function diytree(){
 						var ptype=$(_this).attr('data-trainType');
 						var tline=$(_this).attr('data-loadingLine');
 						var trinno=$(_this).attr('data-trinno');
-						$('#trinno').text('车号：'+trinno);
-						$('#pname').text('品名：'+pname);
-						$('#ptime').text('拍摄日期：'+ptime);
-						$('#ptype').text('车型：'+ptype);
-						$('#tline').text('装车线路：'+tline);
+						$('#trinno').text('车号：'+trinno==null?'':trinno);
+						$('#pname').text('品名：'+pname==null?'':pname);
+						$('#ptime').text('拍摄日期：'+ptime==null?'':ptime);
+						$('#ptype').text('车型：'+ptype==null?'':ptype);
+						$('#tline').text('装车线路：'+tline==null?'':tline);
 						//去获取图片。
 						$.ajax({
 							url:'/railway/photomanage/listPicturebyr',
