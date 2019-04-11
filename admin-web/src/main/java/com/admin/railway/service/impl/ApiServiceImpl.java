@@ -263,11 +263,16 @@ public class ApiServiceImpl implements ApiService {
     public R getStartStations(Long personId) {
     	try {
     		PersonDO p=personService.get(personId);
-    		p.getStationId();
-    		
+    		StationDO temp=stationDao.get(p.getStationId());
+
     		Map<String,Object> map=new HashMap<String,Object>();
     		map.put("type", 1);
-    		map.put("parentId", p.getStationId());
+    		if(temp.getIsBottom()==0) {
+    			//不是底层节点
+    			map.put("parentId", p.getStationId());
+    		}else {
+    			map.put("id", p.getStationId());
+    		}
     		List<StationDO> sd=stationDao.list(map);
     		return R.okdata(sd);
     	}catch(Exception e) {
