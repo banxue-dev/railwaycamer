@@ -2,6 +2,7 @@ $(function() {
 	initTree({});
 	validateRule();
 	$('input[name=type]').change(function(){
+		$('#stationId,#tree').val('');
 		if ($('#adminPerson').attr("checked")=='checked') {
 			initTree({isBottom:0});
 		}else{

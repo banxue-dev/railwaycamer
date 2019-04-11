@@ -2,6 +2,7 @@ $(function() {
 	initTreeParam();
 	validateRule();
 	$('input[name=type]').change(function(){
+		$('#stationId,#tree').val('');
 		initTreeParam();
     })
 });
