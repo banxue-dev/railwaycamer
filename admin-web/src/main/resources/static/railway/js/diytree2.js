@@ -1,6 +1,11 @@
 
 //http://localhost:8888/railway/station/listTree
-
+function strchange(str){
+	if(str==null || str=='null' || str=='' || str==undefined){
+		return '待补充';
+	}
+	return str;
+}
 function diytree(){
 		var treeinit=function(url,params){
 			var treedom=$(this);
@@ -58,11 +63,11 @@ function diytree(){
 						var ptype=$(_this).attr('data-trainType');
 						var tline=$(_this).attr('data-loadingLine');
 						var trinno=$(_this).attr('data-trinno');
-						$('#trinno').text('车号：'+trinno==null?'':trinno);
-						$('#pname').text('品名：'+pname==null?'':pname);
-						$('#ptime').text('拍摄日期：'+ptime==null?'':ptime);
-						$('#ptype').text('车型：'+ptype==null?'':ptype);
-						$('#tline').text('装车线路：'+tline==null?'':tline);
+						$('#trinno').text('车号：'+strchange(trinno));
+						$('#pname').text('品名：'+strchange(pname));
+						$('#ptime').text('拍摄日期：'+strchange(ptime));
+						$('#ptype').text('车型：'+strchange(ptype));
+						$('#tline').text('装车线路：'+strchange(tline));
 						//去获取图片。
 						$.ajax({
 							url:'/railway/photomanage/listPicturebyr',
@@ -119,7 +124,7 @@ function diytree(){
 									var _this=this;
 									var loadmore=$(_this);
 									var nowsize=loadmore.parent().siblings('li').length;
-									nowsize<1?1:nowsize;
+									nowsize=nowsize<1?1:nowsize;
 									var psize=5;
 									$.ajax({
 										url:'/railway/station/listTimeTree',
