@@ -63,11 +63,13 @@ function diytree(){
 						var ptype=$(_this).attr('data-trainType');
 						var tline=$(_this).attr('data-loadingLine');
 						var trinno=$(_this).attr('data-trinno');
+						var endStationName=$(_this).attr('data-endStationName');
 						$('#trinno').text('车号：'+strchange(trinno));
 						$('#pname').text('品名：'+strchange(pname));
 						$('#ptime').text('拍摄日期：'+strchange(ptime));
 						$('#ptype').text('车型：'+strchange(ptype));
 						$('#tline').text('装车线路：'+strchange(tline));
+						$('#endStationName').text('终点站：'+strchange(endStationName));
 						//去获取图片。
 						$.ajax({
 							url:'/railway/photomanage/listPicturebyr',
@@ -184,7 +186,7 @@ function diytree(){
 							if(tar.attributes.trinno=='暂无数据'){
 								html+='<li><a data-id="'+tar.id+'"  class="" href="javascript:;" >'+tar.text+'</a></li>';
 							}else{	
-								html+='<li><a data-id="'+tar.id+'" data-trinno="'+tar.attributes.trinno+'" data-pname="'+tar.attributes.productName+'" data-ptime="'+tar.attributes.ptime+'" data-trainType="'+tar.attributes.trainType+'" data-loadingLine="'+tar.attributes.loadingLine+'"  class="bottom_" href="javascript:;" >'+tar.text+'</a></li>';
+								html+='<li><a data-id="'+tar.id+'" data-endStationName="'+tar.attributes.endStationName+'" data-trinno="'+tar.attributes.trinno+'" data-pname="'+tar.attributes.productName+'" data-ptime="'+tar.attributes.ptime+'" data-trainType="'+tar.attributes.trainType+'" data-loadingLine="'+tar.attributes.loadingLine+'"  class="bottom_" href="javascript:;" >'+tar.text+'</a></li>';
 							}
 						}
 					
