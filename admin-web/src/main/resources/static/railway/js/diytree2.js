@@ -119,6 +119,7 @@ function diytree(){
 									var _this=this;
 									var loadmore=$(_this);
 									var nowsize=loadmore.parent().siblings('li').length;
+									nowsize<1?1:nowsize;
 									var psize=5;
 									$.ajax({
 										url:'/railway/station/listTimeTree',
