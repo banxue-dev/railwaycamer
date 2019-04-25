@@ -30,6 +30,7 @@ import com.admin.common.utils.FileUtil;
 import com.admin.common.utils.ImageUtils;
 import com.admin.common.utils.MD5Utils;
 import com.admin.railway.dao.StationDao;
+import com.admin.railway.domain.StationDO;
 import com.admin.system.dao.DeptDao;
 import com.admin.system.dao.UserDao;
 import com.admin.system.dao.UserRoleDao;
@@ -62,7 +63,8 @@ public class UserServiceImpl implements UserService {
     public UserDO get(Long id) {
         List<Long> roleIds = userRoleMapper.listRoleId(id);
         UserDO user = userMapper.get(id);
-        user.setDeptName(stationMapper.get(user.getDeptId()).getName());
+        StationDO dept=stationMapper.get(user.getDeptId());
+        user.setDeptName(dept==null?"顶级节点":dept.getName());
         user.setRoleIds(roleIds);
         return user;
     }
