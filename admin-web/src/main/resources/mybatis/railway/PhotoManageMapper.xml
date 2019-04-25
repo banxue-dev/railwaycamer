@@ -18,6 +18,7 @@
             <if test="personId != null and personId != ''">and person_id = #{personId}</if>
             <if test="delState != null and delState != ''">and del_state = #{delState}</if>
             <if test="startStationId != null and startStationId != ''">and start_station_id = #{startStationId}</if>
+            <if test="startStationIds != null and startStationIds != ''">and FIND_IN_SET(start_station_id,#{startStationIds})</if>
             <if test="endStationId != null and endStationId != ''"> and end_station_id = #{endStationId} </if>
             <if test="beginTime != null and beginTime != ''"> and create_time &gt;= #{beginTime} </if>
             <if test="endTime != null and endTime != ''"> and create_time &lt;= #{endTime} </if>

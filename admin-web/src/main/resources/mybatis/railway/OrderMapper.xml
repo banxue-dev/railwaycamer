@@ -27,6 +27,7 @@
             <if test="id != null and id != ''">and id = #{id}</if>
             <if test="trainNo != null and trainNo != ''">and train_no = #{trainNo}</if>
             <if test="startStationId != null and startStationId != ''">and start_station_id = #{startStationId}</if>
+            <if test="startStationIds != null and startStationIds != ''">and FIND_IN_SET(start_station_id,#{startStationIds}) </if>
             <if test="startStationName != null and startStationName != ''">and start_station_name =
                 #{startStationName}
             </if>
@@ -79,6 +80,7 @@
         </where>
         <if test="uploadWay != null and uploadWay != ''">and o.upload_way = #{uploadWay} </if>
         <if test="startStationId != null and startStationId != ''">and o.start_station_id = #{startStationId} </if>
+        <if test="startStationIds != null and startStationIds != ''">and FIND_IN_SET(start_station_id,#{startStationIds}) </if>
         <if test="beginTime != null and beginTime != ''">and o.create_time &gt; #{beginTime} and o.create_time &lt; #{endTime} </if>
         GROUP BY substr(o.create_time,1,10) order by o.create_time desc
         <if test="offset != null and limit != null">
@@ -91,6 +93,7 @@
         <if test="id != null and id != ''">and id = #{id}</if>
         <if test="trainNo != null and trainNo != ''">and train_no = #{trainNo}</if>
         <if test="startStationId != null and startStationId != ''">and start_station_id = #{startStationId}</if>
+            <if test="startStationIds != null and startStationIds != ''">and FIND_IN_SET(start_station_id,#{startStationIds}) </if>
         <if test="startStationName != null and startStationName != ''">and start_station_name =
             #{startStationName}
         </if>

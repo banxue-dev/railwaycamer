@@ -20,6 +20,7 @@ public interface StationService {
 	void batchRemove(Long[] stationIds);
 	
 	StationDO get(Long stationId);
+	List<StationDO> getByParentId(Long parentId);
 
 	List<StationDO> list(Map<String, Object> map);
 

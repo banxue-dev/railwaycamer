@@ -29,6 +29,7 @@ import com.admin.common.utils.FileType;
 import com.admin.common.utils.FileUtil;
 import com.admin.common.utils.ImageUtils;
 import com.admin.common.utils.MD5Utils;
+import com.admin.railway.dao.StationDao;
 import com.admin.system.dao.DeptDao;
 import com.admin.system.dao.UserDao;
 import com.admin.system.dao.UserRoleDao;
@@ -49,6 +50,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     DeptDao deptMapper;
     @Autowired
+    private StationDao stationMapper;
+    @Autowired
     private FileService sysFileService;
     @Autowired
     private AdminConfig adminConfig;
@@ -59,7 +62,7 @@ public class UserServiceImpl implements UserService {
     public UserDO get(Long id) {
         List<Long> roleIds = userRoleMapper.listRoleId(id);
         UserDO user = userMapper.get(id);
-        user.setDeptName(deptMapper.get(user.getDeptId()).getName());
+        user.setDeptName(stationMapper.get(user.getDeptId()).getName());
         user.setRoleIds(roleIds);
         return user;
     }

@@ -56,6 +56,22 @@ public class PersonController extends BaseController {
 	@PostMapping("/list")
 	@ResponseBody
 	public R list(@RequestParam Map<String, Object> params) {
+		Object stationId=params.get("stationId");
+		if(stationId==null ||com.admin.common.utils.StringUtils.isNullString(stationId.toString())) {
+			UserDO user=getUser();
+			if(user.getUserStationIds()!=null) {
+				String ids="";
+				int i=0;
+				for(Long id:user.getUserStationIds()) {
+					ids+=id;
+					i++;
+					if(i<user.getUserStationIds().size()) {
+						ids+=",";
+					}
+				}
+				params.put("startStationIds", ids);
+			}
+		}
 		QueryParam query = new QueryParam(params);
 		query.put("delState", Constants.NO); // 查询未删除
 		

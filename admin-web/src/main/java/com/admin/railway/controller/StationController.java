@@ -5,22 +5,28 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.admin.common.annotation.Log;
-import com.admin.common.config.Constant;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.admin.common.annotation.Log;
+import com.admin.common.config.Constant;
 import com.admin.common.controller.BaseController;
 import com.admin.common.domain.Tree;
 import com.admin.common.utils.Constants;
 import com.admin.common.utils.QueryParam;
 import com.admin.common.utils.R;
-import com.admin.railway.domain.OrderDO;
+import com.admin.common.utils.StringUtils;
 import com.admin.railway.domain.StationDO;
 import com.admin.railway.service.StationService;
+import com.admin.system.domain.UserDO;
 
 @Controller
 @RequestMapping("/railway/station")
@@ -153,6 +159,9 @@ public class StationController extends BaseController {
 	@RequestMapping("/listTree")
 	public R getStationListByTree(@RequestParam Map<String, Object> params) {
 		try {
+			UserDO user=getUser();
+			
+			params.put("stationIds_", user.getUserStationIds());
 			List<Tree<StationDO>> lst=stationService.getStationByTree(params);
 			return R.okdata(lst);
 		}catch(Exception e) {

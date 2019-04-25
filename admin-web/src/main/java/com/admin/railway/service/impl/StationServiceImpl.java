@@ -125,9 +125,16 @@ public class StationServiceImpl implements StationService {
 		map.put("sort", "id");
 		map.put("order", "asc");
 		map.put("type", "1");
+		
+		@SuppressWarnings("unchecked")
+		List<Long> ids=(List<Long>) map.get("stationIds_");
 		List<Tree<StationDO>> trees = new ArrayList<Tree<StationDO>>();
 		List<StationDO> StationDOs = stationMapper.list(map);
-		for (StationDO sysStationDO : StationDOs) {
+		List<StationDO> Stations =new ArrayList<StationDO>();
+		if(ids!=null && ids.size()>0) {
+			Stations=getIDS(StationDOs,Stations,ids);
+		}
+		for (StationDO sysStationDO : Stations) {
 			Tree<StationDO> tree = new Tree<StationDO>();
 			tree.setId(sysStationDO.getId().toString());
 			tree.setParentId(sysStationDO.getParentId().toString());
@@ -142,6 +149,22 @@ public class StationServiceImpl implements StationService {
 		// 默认顶级菜单为０，根据数据库实际情况调整
 		List<Tree<StationDO>> list = BuildTree.buildList(trees, "0");
 		return list;
+	}
+	public List<StationDO>  getIDS(List<StationDO> StationDOs,List<StationDO> Stations,List<Long> ids ) {
+		for(StationDO sd:StationDOs) {
+			if(ids.indexOf(sd.getId())!=-1) {
+				if(Stations.indexOf(sd)==-1) {
+					//只加一次
+					Stations.add(sd);
+				}
+				if(sd.getParentId()!=0) {
+					List<Long> lst=new ArrayList<Long>();
+					lst.add(sd.getParentId());
+					getIDS(StationDOs,Stations,lst);
+				}
+			}
+		}
+		return Stations;
 	}
 	/**
 	 * map查询条件
@@ -230,6 +253,12 @@ public class StationServiceImpl implements StationService {
 		// 默认顶级菜单为０，根据数据库实际情况调整
 		List<Tree<String>> list = BuildTree.buildList(trees, "0");
 		return list;
+	}
+
+	@Override
+	public List<StationDO> getByParentId(Long parentId) {
+		// TODO 此处为方法主题
+		return null;
 	}
 	
 }

@@ -50,8 +50,19 @@ public class UserDO implements Serializable {
     private String city;
     //所在地区
     private String district;
+    private String startStationIds;
+    private List<Long> userStationIds;
 
-    public Long getUserId() {
+    
+    public List<Long> getUserStationIds() {
+		return userStationIds;
+	}
+
+	public void setUserStationIds(List<Long> userStationIds) {
+		this.userStationIds = userStationIds;
+	}
+
+	public Long getUserId() {
         return userId;
     }
 
@@ -219,7 +230,16 @@ public class UserDO implements Serializable {
         this.district = district;
     }
 
-    @Override
+    
+    public String getStartStationIds() {
+		return startStationIds;
+	}
+
+	public void setStartStationIds(String startStationIds) {
+		this.startStationIds = startStationIds;
+	}
+
+	@Override
     public String toString() {
         return "UserDO{" +
                 "userId=" + userId +

@@ -720,7 +720,6 @@
                 heightDiff = 0,
                 gt = 0;
             var dragStart = function (e) {
-            	console.log(2);
                 stopPre(e);
                 var imgWidth = $(image).width();
                 var imgHeight = $(image).height();

@@ -25,6 +25,7 @@
 		  		  <if test="name != null and name != ''"> and name = #{name} </if>
 		  		  <if test="phone != null and phone != ''"> and phone = #{phone} </if>
 		  		  <if test="stationId != null and stationId != ''"> and station_id = #{stationId} </if>
+            <if test="startStationIds != null and startStationIds != ''">and and FIND_IN_SET(station_id,#{startStationIds}) </if>
 		  		  <if test="stationName != null and stationName != ''"> and station_name = #{stationName} </if>
 		  		  <if test="delState != null and delState != ''"> and del_state = #{delState} </if>
 		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
@@ -55,6 +56,7 @@
 		  		  <if test="name != null and name != ''"> and name = #{name} </if>
 		  		  <if test="phone != null and phone != ''"> and phone = #{phone} </if>
 		  		  <if test="stationId != null and stationId != ''"> and station_id = #{stationId} </if>
+            <if test="startStationIds != null and startStationIds != ''">and FIND_IN_SET(station_id,#{startStationIds})  </if>
 		  		  <if test="stationName != null and stationName != ''"> and station_name = #{stationName} </if>
 		  		  <if test="delState != null and delState != ''"> and del_state = #{delState} </if>
 		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>

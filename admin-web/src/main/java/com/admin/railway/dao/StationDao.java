@@ -25,5 +25,5 @@ public interface StationDao {
 	int batchRemove(Long[] stationIds);
 
 	int updateState(Map<String,Object> map);
-	
+	StationDO getByParentId(Long parentId) ;
 }

@@ -2,6 +2,7 @@ package com.admin.railway.controller;
 
 import com.admin.common.annotation.Log;
 import com.admin.common.config.Constant;
+import com.admin.common.controller.BaseController;
 import com.admin.common.utils.GenUtils;
 import com.admin.common.utils.R;
 import com.admin.common.utils.ShiroUtils;
@@ -40,7 +41,7 @@ import java.util.zip.ZipOutputStream;
  */
 @Controller
 @RequestMapping("/railway/photomanage")
-public class PhotoManageController {
+public class PhotoManageController extends BaseController {
 
     @Autowired
     private PhotoManageService photoManageService;
@@ -61,6 +62,25 @@ public class PhotoManageController {
     @GetMapping("/list")
     @ResponseBody
     public R photoList(@RequestParam Map<String, Object> map) {
+    	/*
+		 * 
+		 */
+		Object stationId=map.get("startStationId");
+		if(stationId==null ||com.admin.common.utils.StringUtils.isNullString(stationId.toString())) {
+			UserDO user=getUser();
+			if(user.getUserStationIds()!=null) {
+				String ids="";
+				int i=0;
+				for(Long id:user.getUserStationIds()) {
+					ids+=id;
+					i++;
+					if(i<user.getUserStationIds().size()) {
+						ids+=",";
+					}
+				}
+				map.put("startStationIds", ids);
+			}
+		}
         return photoManageService.selectPagePhoto(map);
     }
 

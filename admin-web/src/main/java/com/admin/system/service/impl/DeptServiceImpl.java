@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.admin.common.domain.Tree;
 import com.admin.common.utils.BuildTree;
+import com.admin.railway.dao.StationDao;
+import com.admin.railway.domain.StationDO;
 import com.admin.system.dao.DeptDao;
 import com.admin.system.domain.DeptDO;
 import com.admin.system.service.DeptService;
@@ -20,6 +22,8 @@ import com.admin.system.service.DeptService;
 public class DeptServiceImpl implements DeptService {
 	@Autowired
 	private DeptDao sysDeptMapper;
+    @Autowired
+    private StationDao stationMapper;
 
 	@Override
 	public DeptDO get(Long deptId){
@@ -59,10 +63,15 @@ public class DeptServiceImpl implements DeptService {
 	@Override
 	public Tree<DeptDO> getTree() {
 		List<Tree<DeptDO>> trees = new ArrayList<Tree<DeptDO>>();
-		List<DeptDO> sysDepts = sysDeptMapper.list(new HashMap<String,Object>(16));
-		for (DeptDO sysDept : sysDepts) {
+		Map<String, Object> map=new HashMap<String,Object>();
+		map.put("sort", "id");
+		map.put("order", "asc");
+		map.put("type", "1");
+		List<StationDO> StationDOs = stationMapper.list(map);
+//		List<DeptDO> sysDepts = sysDeptMapper.list(new HashMap<String,Object>(16));
+		for (StationDO sysDept : StationDOs) {
 			Tree<DeptDO> tree = new Tree<DeptDO>();
-			tree.setId(sysDept.getDeptId().toString());
+			tree.setId(sysDept.getId().toString());
 			tree.setParentId(sysDept.getParentId().toString());
 			tree.setText(sysDept.getName());
 			Map<String, Object> state = new HashMap<>(16);
