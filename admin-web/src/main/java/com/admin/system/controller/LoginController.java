@@ -99,8 +99,8 @@ public class LoginController extends BaseController {
 				}
 				user.setUserStationIds(ids);
 			}*/
-			if(user.getDeptId()==null || user.getDeptId()==-1) {
-				
+			if(user.getDeptId()==null || user.getDeptId()==-1L) {
+				user.setUserStationIds(null);
 			}else {
 				Map<String, Object> map=new HashMap<String,Object>();
 				map.put("type", 1);

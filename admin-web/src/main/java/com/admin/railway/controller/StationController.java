@@ -161,7 +161,6 @@ public class StationController extends BaseController {
 		try {
 			UserDO user=getUser();
 			if(user.getUserStationIds()==null || user.getUserStationIds().size()<1) {
-				
 			}else {
 				params.put("stationIds_", user.getUserStationIds());
 			}

@@ -125,14 +125,18 @@ public class StationServiceImpl implements StationService {
 		map.put("sort", "id");
 		map.put("order", "asc");
 		map.put("type", "1");
+		Object o=map.get("stationIds_");
 		
-		@SuppressWarnings("unchecked")
-		List<Long> ids=(List<Long>) map.get("stationIds_");
 		List<Tree<StationDO>> trees = new ArrayList<Tree<StationDO>>();
 		List<StationDO> StationDOs = stationMapper.list(map);
 		List<StationDO> Stations =new ArrayList<StationDO>();
-		if(ids!=null && ids.size()>0) {
+		if(o==null) {
+			Stations=StationDOs;
+		}else {
+			@SuppressWarnings("unchecked")
+			List<Long> ids=(List<Long>) map.get("stationIds_");
 			Stations=getIDS(StationDOs,Stations,ids);
+			
 		}
 		for (StationDO sysStationDO : Stations) {
 			Tree<StationDO> tree = new Tree<StationDO>();
