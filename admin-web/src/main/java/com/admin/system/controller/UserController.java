@@ -54,7 +54,14 @@ public class UserController extends BaseController {
 	@ResponseBody
 	PageUtils list(@RequestParam Map<String, Object> params) {
 		// 查询列表数据
+		UserDO user=getUser();
+		if(user.getUserStationIds()==null || user.getUserStationIds().size()<1) {
+			params.put("stationIds_", null);
+		}else {
+			params.put("stationIds_", user.getUserStationIds());
+		}
 		Query query = new Query(params);
+		
 		List<UserDO> sysUserList = userService.list(query);
 		int total = userService.count(query);
 		PageUtils pageUtil = new PageUtils(sysUserList, total);

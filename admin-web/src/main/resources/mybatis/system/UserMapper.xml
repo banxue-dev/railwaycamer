@@ -15,6 +15,7 @@
 		  		  <if test="name != null and name != ''"> and name = #{name} </if>
 		  		  <if test="password != null and password != ''"> and password = #{password} </if>
 		  		  <if test="deptId != null and deptId != ''"> and dept_id = #{deptId} </if>
+            	<if test="startStationIds != null and startStationIds != ''">and FIND_IN_SET(dept_id,#{startStationIds}) </if>
 		  		  <if test="email != null and email != ''"> and email = #{email} </if>
 		  		  <if test="mobile != null and mobile != ''"> and mobile = #{mobile} </if>
 		  		  <if test="status != null and status != ''"> and status = #{status} </if>
@@ -50,6 +51,7 @@
 		  		  <if test="username != null and username != ''"> and username = #{username} </if>
 		  		  <if test="name != null and name != ''"> and name = #{name} </if>
 		  		  <if test="password != null and password != ''"> and password = #{password} </if>
+            	<if test="startStationIds != null and startStationIds != ''">and FIND_IN_SET(dept_id,#{startStationIds}) </if>
 		  		  <if test="deptId != null and deptId != ''"> and dept_id = #{deptId} </if>
 		  		  <if test="email != null and email != ''"> and email = #{email} </if>
 		  		  <if test="mobile != null and mobile != ''"> and mobile = #{mobile} </if>

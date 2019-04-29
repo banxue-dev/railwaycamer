@@ -87,6 +87,11 @@ public class StationController extends BaseController {
 	@ResponseBody
 	@GetMapping("/list")
 	public List<StationDO> list(@RequestParam Map<String, Object> map){
+		UserDO user=getUser();
+		if(user.getUserStationIds()==null || user.getUserStationIds().size()<1) {
+		}else {
+			map.put("stationIds_", user.getUserStationIds());
+		}
 		return stationService.list(map);
 	}
 

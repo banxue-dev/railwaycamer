@@ -61,7 +61,7 @@ public class DeptServiceImpl implements DeptService {
 	}
 
 	@Override
-	public Tree<DeptDO> getTree() {
+	public Tree<DeptDO> getTree(List<Long> ids) {
 		List<Tree<DeptDO>> trees = new ArrayList<Tree<DeptDO>>();
 		Map<String, Object> map=new HashMap<String,Object>();
 		map.put("sort", "id");
@@ -69,7 +69,13 @@ public class DeptServiceImpl implements DeptService {
 		map.put("type", "1");
 		List<StationDO> StationDOs = stationMapper.list(map);
 //		List<DeptDO> sysDepts = sysDeptMapper.list(new HashMap<String,Object>(16));
-		for (StationDO sysDept : StationDOs) {
+		List<StationDO> Stations =new ArrayList<StationDO>();
+		if(ids==null || ids.size()<1) {
+			Stations=StationDOs;
+		}else {
+			Stations=getIDS(StationDOs,Stations,ids);
+		}
+		for (StationDO sysDept : Stations) {
 			Tree<DeptDO> tree = new Tree<DeptDO>();
 			tree.setId(sysDept.getId().toString());
 			tree.setParentId(sysDept.getParentId().toString());
@@ -84,6 +90,22 @@ public class DeptServiceImpl implements DeptService {
 		return t;
 	}
 
+	public List<StationDO>  getIDS(List<StationDO> StationDOs,List<StationDO> Stations,List<Long> ids ) {
+		for(StationDO sd:StationDOs) {
+			if(ids.indexOf(sd.getId())!=-1) {
+				if(Stations.indexOf(sd)==-1) {
+					//只加一次
+					Stations.add(sd);
+				}
+				if(sd.getParentId()!=0) {
+					List<Long> lst=new ArrayList<Long>();
+					lst.add(sd.getParentId());
+					getIDS(StationDOs,Stations,lst);
+				}
+			}
+		}
+		return Stations;
+	}
 	@Override
 	public boolean checkDeptHasUser(Long deptId) {
 		// TODO Auto-generated method stub

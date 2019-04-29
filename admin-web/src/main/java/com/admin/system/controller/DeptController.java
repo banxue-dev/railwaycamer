@@ -20,6 +20,7 @@ import com.admin.common.controller.BaseController;
 import com.admin.common.domain.Tree;
 import com.admin.common.utils.R;
 import com.admin.system.domain.DeptDO;
+import com.admin.system.domain.UserDO;
 import com.admin.system.service.DeptService;
 
 import io.swagger.annotations.ApiOperation;
@@ -156,7 +157,13 @@ public class DeptController extends BaseController {
 	@ResponseBody
 	public Tree<DeptDO> tree() {
 		Tree<DeptDO> tree = new Tree<DeptDO>();
-		tree = sysDeptService.getTree();
+		UserDO user=getUser();
+		if(user.getUserStationIds()==null || user.getUserStationIds().size()<1) {
+			
+			tree = sysDeptService.getTree(null);
+		}else {
+			tree = sysDeptService.getTree(user.getUserStationIds());
+		}
 		return tree;
 	}
 

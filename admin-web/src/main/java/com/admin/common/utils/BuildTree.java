@@ -41,7 +41,7 @@ public class BuildTree {
 		if (topNodes.size() == 1) {
 			root = topNodes.get(0);
 		} else {
-			root.setId("-1");
+			/*root.setId("-1");
 			root.setParentId("");
 			root.setHasParent(false);
 			root.setChildren(true);
@@ -50,7 +50,7 @@ public class BuildTree {
 			root.setText("顶级节点");
 			Map<String, Object> state = new HashMap<>(16);
 			state.put("opened", true);
-			root.setState(state);
+			root.setState(state);*/
 		}
 
 		return root;

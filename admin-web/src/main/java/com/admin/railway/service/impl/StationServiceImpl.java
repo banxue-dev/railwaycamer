@@ -111,7 +111,18 @@ public class StationServiceImpl implements StationService {
 
 	@Override
 	public List<StationDO> list(Map<String, Object> map) {
-		return stationMapper.list(map);
+
+		Object o=map.get("stationIds_");
+		List<StationDO> StationDOs = stationMapper.list(map);
+		List<StationDO> Stations =new ArrayList<StationDO>();
+		if(o==null) {
+			Stations=StationDOs;
+		}else {
+			@SuppressWarnings("unchecked")
+			List<Long> ids=(List<Long>) map.get("stationIds_");
+			Stations=getIDS(StationDOs,Stations,ids);
+		}
+		return Stations;
 	}
 
 	@Override
@@ -136,7 +147,6 @@ public class StationServiceImpl implements StationService {
 			@SuppressWarnings("unchecked")
 			List<Long> ids=(List<Long>) map.get("stationIds_");
 			Stations=getIDS(StationDOs,Stations,ids);
-			
 		}
 		for (StationDO sysStationDO : Stations) {
 			Tree<StationDO> tree = new Tree<StationDO>();

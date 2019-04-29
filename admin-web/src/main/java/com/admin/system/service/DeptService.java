@@ -29,7 +29,8 @@ public interface DeptService {
 	
 	int batchRemove(Long[] deptIds);
 
-	Tree<DeptDO> getTree();
 	
 	boolean checkDeptHasUser(Long deptId);
+
+	Tree<DeptDO> getTree(List<Long> ids);
 }
