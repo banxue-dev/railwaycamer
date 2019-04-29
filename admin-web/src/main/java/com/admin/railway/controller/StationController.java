@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -79,7 +81,16 @@ public class StationController extends BaseController {
 
 	@RequiresPermissions("railway:station:station")
 	@GetMapping()
-	public String station(){
+	public String station(HttpServletRequest request){
+		UserDO user=getUser();
+		if(user.getUserStationIds()==null || user.getUserStationIds().size()<1) {
+		}else {
+			String temp="";
+			for(Long str:user.getUserStationIds()) {
+				temp+=str+",";
+			}
+			request.setAttribute("quanxian", temp.substring(0,temp.lastIndexOf(",")));
+		}
 		return "railway/station/station";
 	}
 

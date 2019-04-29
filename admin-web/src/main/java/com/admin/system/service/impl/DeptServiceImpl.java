@@ -80,6 +80,7 @@ public class DeptServiceImpl implements DeptService {
 			tree.setId(sysDept.getId().toString());
 			tree.setParentId(sysDept.getParentId().toString());
 			tree.setText(sysDept.getName());
+			tree.setHavaIds(ids.toString());
 			Map<String, Object> state = new HashMap<>(16);
 			state.put("opened", true);
 			tree.setState(state);

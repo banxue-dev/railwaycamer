@@ -741,7 +741,6 @@
                 if (stage.hasClass('is-grab')) {
                     $('html,body,.magnify-modal,.magnify-stage,.magnify-btn').addClass('is-grabbing');
                 }
-                console.log(3);
                 $D.on(EVENTS.MOUSEMOVE + EVENTS.EVENT_NS, dragMove).on(EVENTS.MOUSEEND + EVENTS.EVENT_NS, dragEnd);
             };
             var dragMove = function (e) {
@@ -782,7 +781,6 @@
                 }
             };
             var dragEnd = function () {
-            	console.log(1);
                 $D.off(EVENTS.MOUSEMOVE + EVENTS.EVENT_NS, dragMove).off(EVENTS.MOUSEEND + EVENTS.EVENT_NS, dragEnd);
                 isDragging = false;
                 isMoving = false;
@@ -795,7 +793,6 @@
             var isDragging = false;
             var startX = 0, startY = 0, left = 0, top = 0;
             var dragStart = function (e) {
-            	console.log(4);
                 e = e || window.event;
                 var cancelElem = $(e.target).closest(dragCancel);
                 if (cancelElem.length) {
@@ -823,7 +820,6 @@
                 }
             };
             var dragEnd = function () {
-            	console.log(5);
             	$(modal).off(EVENTS.MOUSEMOVE + EVENTS.EVENT_NS, dragMove).off(EVENTS.MOUSEEND + EVENTS.EVENT_NS, dragEnd);
                 isDragging = false;
             };

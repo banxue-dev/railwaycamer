@@ -26,7 +26,7 @@ public class StationDO implements Serializable {
 	private Long parentId;
 	//是否删除
 	private Integer delState;
-	//是否删除
+	//是否底层节点0不是，1是
 	private Integer isBottom;
 	//创建时间
 	private Date createTime;

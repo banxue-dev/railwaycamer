@@ -52,9 +52,19 @@ public class UserDO implements Serializable {
     private String district;
     private String startStationIds;
     private List<Long> userStationIds;
+    private Boolean isBootom;//选择的站点是最底层的站点
 
     
-    public List<Long> getUserStationIds() {
+    
+    public Boolean getIsBootom() {
+		return isBootom;
+	}
+
+	public void setIsBootom(Boolean isBootom) {
+		this.isBootom = isBootom;
+	}
+
+	public List<Long> getUserStationIds() {
 		return userStationIds;
 	}
 

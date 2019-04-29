@@ -22,6 +22,10 @@ public class Tree<T> {
 	 */
 	private String text;
 	/**
+	 * 权限赋予的，可以点击的id列表，逗号隔开的
+	 */
+	private String havaIds;
+	/**
 	 * 节点状态，open closed
 	 */
 	private Map<String, Object> state;
@@ -74,6 +78,15 @@ public class Tree<T> {
 
 	public void setState(Map<String, Object> state) {
 		this.state = state;
+	}
+
+	
+	public String getHavaIds() {
+		return havaIds;
+	}
+
+	public void setHavaIds(String havaIds) {
+		this.havaIds = havaIds;
 	}
 
 	public boolean isChecked() {

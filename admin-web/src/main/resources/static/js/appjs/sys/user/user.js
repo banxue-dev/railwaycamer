@@ -210,12 +210,28 @@ $('#jstree').on("changed.jstree", function(e, data) {
 		}
 		$('#exampleTable').bootstrapTable('refresh', opt);
 	} else {
-		var opt = {
-			query : {
-				deptId : data.selected[0],
+		var ids=data.node.original.havaIds;
+		if(ids){
+			//var ids=ids.split(',');
+			var ids=eval('('+ids+')');
+			var s=false;
+			for(var i=0;i<ids.length;i++){
+				var id=ids[i];
+				if(id==data.node.id){
+					var opt = {
+						query : {
+							deptId : data.selected[0],
+						}
+					}
+					$('#exampleTable').bootstrapTable('refresh',opt);
+					s=true;
+					break;
+				}
+			}
+			if(!s){
+				alert('你暂时没有这个站点的或中心的权限！');
 			}
 		}
-		$('#exampleTable').bootstrapTable('refresh',opt);
 	}
 
 });

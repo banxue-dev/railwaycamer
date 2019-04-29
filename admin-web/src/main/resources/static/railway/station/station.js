@@ -55,28 +55,39 @@ var loadTable = function () {
                 valign: 'center',
                 width: '15%',
                 formatter: function (item, index) {
-                    var e = '<a class="btn btn-primary btn-sm '
-                        + s_edit_h
-                        + '" href="javascript:;" mce_href="javascript:;" title="编辑站点" onclick="edit(\''
-                        + item.id
-                        + '\')"><i class="fa fa-edit"></i></a> ';
-                    /*
-                     * =1表示是底层节点，
-                     */
-                    var p='';
-                    if(item.isBottom!=1){
-                    	p = '<a class="btn btn-primary btn-sm '
-                    		+ s_add_h
-                    		+ '" href="javascript:;" mce_href="javascript:;" title="添加下级站点" onclick="add(\''
-                    		+ item.id
-                    		+ '\')"><i class="fa fa-plus"></i></a> ';
-                    }
-                    var d = '<a class="btn btn-warning btn-sm '
-                        + s_remove_h
-                        + '" href="javascript:;" title="删除站点"   onclick="removeStation(\''
-                        + item.id
-                        + '\')"><i class="fa fa-remove"></i></a> ';
-                    return p + d + e;
+                	var quanxs=$('#quanxian').text().split(',');
+                	for(var i=0;i<quanxs.length;i++){
+                		var quanx=quanxs[i];
+                		if(item.id==quanx){
+
+                            var e = '<a class="btn btn-primary btn-sm '
+                                + s_edit_h
+                                + '" href="javascript:;" mce_href="javascript:;" title="编辑站点" onclick="edit(\''
+                                + item.id
+                                + '\')"><i class="fa fa-edit"></i></a> ';
+                            /*
+                             * =1表示是底层节点，
+                             */
+                            var p='';
+                            if(item.isBottom!=1){
+                            	p = '<a class="btn btn-primary btn-sm '
+                            		+ s_add_h
+                            		+ '" href="javascript:;" mce_href="javascript:;" title="添加下级站点" onclick="add(\''
+                            		+ item.id
+                            		+ '\')"><i class="fa fa-plus"></i></a> ';
+                            }
+                            var d ='';
+                            if(item.parentId!=0){
+                            	d = '<a class="btn btn-warning btn-sm '
+                            		+ s_remove_h
+                            		+ '" href="javascript:;" title="删除站点"   onclick="removeStation(\''
+                            		+ item.id
+                            		+ '\')"><i class="fa fa-remove"></i></a> ';
+                            }
+                            return p + d + e;
+                		}
+                	}
+                	return "";
                 }
             }]
     });

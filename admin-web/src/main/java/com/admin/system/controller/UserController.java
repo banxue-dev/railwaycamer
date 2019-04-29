@@ -27,6 +27,7 @@ import com.admin.common.utils.MD5Utils;
 import com.admin.common.utils.PageUtils;
 import com.admin.common.utils.Query;
 import com.admin.common.utils.R;
+import com.admin.common.utils.StringUtils;
 import com.admin.system.domain.DeptDO;
 import com.admin.system.domain.RoleDO;
 import com.admin.system.domain.UserDO;
@@ -54,11 +55,18 @@ public class UserController extends BaseController {
 	@ResponseBody
 	PageUtils list(@RequestParam Map<String, Object> params) {
 		// 查询列表数据
-		UserDO user=getUser();
-		if(user.getUserStationIds()==null || user.getUserStationIds().size()<1) {
-			params.put("stationIds_", null);
-		}else {
-			params.put("stationIds_", user.getUserStationIds());
+		String deptId=(String) params.get("deptId");
+		if(StringUtils.isNullString(deptId)) {
+			UserDO user=getUser();
+			if(user.getUserStationIds()==null || user.getUserStationIds().size()<1) {
+				params.put("startStationIds", null);
+			}else {
+				String str="";
+				for(Long lon:user.getUserStationIds()) {
+					str+=lon+",";
+				}
+				params.put("startStationIds", str.substring(0,str.lastIndexOf(",")));
+			}
 		}
 		Query query = new Query(params);
 		

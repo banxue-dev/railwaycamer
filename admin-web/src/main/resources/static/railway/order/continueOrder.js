@@ -89,7 +89,6 @@ function load() {
             	$('[name=sex]:input').each(function(){
             		$(this).next().children('i').on('click',function(){
             			checkedOrderId = $(this).parent().prev().val();
-            			console.log(checkedOrderId);
             			})
             	});
 			}

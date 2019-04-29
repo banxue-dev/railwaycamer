@@ -50,7 +50,7 @@ public class LoginController extends BaseController {
 	String index(Model model) {
 		List<Tree<MenuDO>> menus = menuService.listMenuTree(getUserId());
 		model.addAttribute("menus", menus);
-		model.addAttribute("name", getUser().getName());
+		model.addAttribute("name", getUser().getName()+" 所属站点："+stationService.get(getUser().getDeptId()).getName());
 		FileDO fileDO = fileService.get(getUser().getPicId());
 		if(fileDO!=null&&fileDO.getUrl()!=null){
 			if(fileService.isExist(fileDO.getUrl())){
@@ -61,7 +61,7 @@ public class LoginController extends BaseController {
 		}else {
 			model.addAttribute("picUrl","/img/photo_s.jpg");
 		}
-		model.addAttribute("username", getUser().getUsername());
+		
 		return "railway/index";
 //		return "index";
 	}
@@ -105,19 +105,36 @@ public class LoginController extends BaseController {
 				Map<String, Object> map=new HashMap<String,Object>();
 				map.put("type", 1);
 				List<StationDO> sds=stationService.list(map);
+				StationDO sta=stationService.get(user.getDeptId());
+				user.setIsBootom(sta.getIsBottom()==0?false:true);
 				Long stations=user.getDeptId();
 				List<Long> ids=new ArrayList<Long>();
-				user.setUserStationIds(getIds(stations,ids,sds));
+				List<Long> idst=new ArrayList<Long>();
+				idst=getIds(stations,ids,sds);
+				idst.add(stations);
+				user.setUserStationIds(idst);
 			}
 			return R.ok();
 		} catch (AuthenticationException e) {
 			return R.error("用户或密码错误");
 		}
 	}
+	/**
+	 * 下钻
+	 * @param id
+	 * @param ids
+	 * @param sds
+	 * @return
+	 * 2019年4月29日
+	 * 作者：fengchase
+	 */
 	public List<Long>  getIds(Long id,List<Long> ids,List<StationDO> sds) {
 		List<StationDO> result=getChildres(sds,id);
 		if(result!=null && result.size()>0) {
 			for(StationDO te:result) {
+				if(ids.indexOf(te.getId())==-1) {
+					ids.add(te.getId());
+				}
 				getIds(te.getId(),ids,sds);
 			}
 		}else {

@@ -48,9 +48,24 @@
 		}
 		$('#deptTree').on("changed.jstree", function(e, data) {
 			//if(data.node.id!=-1){
-				parent.loadDept(data.node.id,data.node.text);
-				var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
-				parent.layer.close(index);
+				var ids=data.node.original.havaIds;
+				if(ids){
+					var ids=eval('('+ids+')');
+					var s=false;
+					for(var i=0;i<ids.length;i++){
+						var id=ids[i];
+						if(id==data.node.id){
+							parent.loadDept(data.node.id,data.node.text);
+							var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
+							parent.layer.close(index);
+							s=true;
+							break;
+						}
+					}
+					if(!s){
+						alert('你暂时没有这个站点的或中心的权限！');
+					}
+				}
 			//}
 			
 		});
