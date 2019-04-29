@@ -160,8 +160,11 @@ public class StationController extends BaseController {
 	public R getStationListByTree(@RequestParam Map<String, Object> params) {
 		try {
 			UserDO user=getUser();
-			
-			params.put("stationIds_", user.getUserStationIds());
+			if(user.getUserStationIds()==null || user.getUserStationIds().size()<1) {
+				
+			}else {
+				params.put("stationIds_", user.getUserStationIds());
+			}
 			List<Tree<StationDO>> lst=stationService.getStationByTree(params);
 			return R.okdata(lst);
 		}catch(Exception e) {
