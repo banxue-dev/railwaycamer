@@ -156,6 +156,7 @@ public class StationServiceImpl implements StationService {
 			Map<String, Object> attributes = new HashMap<>(16);
 			attributes.put("name", sysStationDO.getName());
 			attributes.put("id", sysStationDO.getId());
+			attributes.put("isBottom", sysStationDO.getIsBottom());
 			attributes.put("pys", sysStationDO.getStaPys());
 			tree.setAttributes(attributes);
 			trees.add(tree);
@@ -164,6 +165,15 @@ public class StationServiceImpl implements StationService {
 		List<Tree<StationDO>> list = BuildTree.buildList(trees, "0");
 		return list;
 	}
+	/**
+	 * 
+	 * @param StationDOs 要被筛选的列表
+	 * @param Stations 返回的整理后的id列表
+	 * @param ids  具有的权限
+	 * @return
+	 * 2019年4月30日
+	 * 作者：fengchase
+	 */
 	public List<StationDO>  getIDS(List<StationDO> StationDOs,List<StationDO> Stations,List<Long> ids ) {
 		for(StationDO sd:StationDOs) {
 			if(ids.indexOf(sd.getId())!=-1) {
@@ -171,7 +181,7 @@ public class StationServiceImpl implements StationService {
 					//只加一次
 					Stations.add(sd);
 				}
-				if(sd.getParentId()!=0) {
+				if(sd.getParentId()>0) {
 					List<Long> lst=new ArrayList<Long>();
 					lst.add(sd.getParentId());
 					getIDS(StationDOs,Stations,lst);

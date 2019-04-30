@@ -22,6 +22,11 @@ function initTree(param){
      	childClick: function(d){
      		var name = $(d).text();
      		var stationId = $(d).attr('data-id');
+     		var isBottom = $(d).attr('data-isBottom');
+     		if(isBottom==0 && param.isBottom!=isBottom ){
+     			alert('只能选择站点。');
+     			return;
+     		}
      		$('#tree').val(name);
      		$('#stationId').val(stationId);
      	}

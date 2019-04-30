@@ -51,7 +51,7 @@
 							html+='</ul>';
 							html+='</li>';
 						}else{
-							html+='<li><a class="bottoma" href="javascript:;" data-id="'+tar.id+'" >'+tar.text+'</a><label class="bottoml" style="display:none;">'+tar.attributes.pys+'</label></li>';
+							html+='<li><a class="bottoma" href="javascript:;" data-isBottom="'+tar.attributes.isBottom+'" data-id="'+tar.id+'" >'+tar.text+'</a><label class="bottoml" style="display:none;">'+tar.attributes.pys+'</label></li>';
 						}
 					
 					}
