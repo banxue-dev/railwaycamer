@@ -104,6 +104,7 @@ public class LoginController extends BaseController {
 			}else {
 				Map<String, Object> map=new HashMap<String,Object>();
 				map.put("type", 1);
+				map.put("stationIds_",null);
 				List<StationDO> sds=stationService.list(map);
 				StationDO sta=stationService.get(user.getDeptId());
 				user.setIsBootom(sta.getIsBottom()==0?false:true);
@@ -138,7 +139,7 @@ public class LoginController extends BaseController {
 				getIds(te.getId(),ids,sds);
 			}
 		}else {
-			if(ids.indexOf(ids)==-1) {
+			if(ids.indexOf(id)==-1) {
 				ids.add(id);
 			}
 		}
@@ -147,7 +148,7 @@ public class LoginController extends BaseController {
 	public List<StationDO> getChildres(List<StationDO> sds,Long id) {
 		List<StationDO> result=new ArrayList<StationDO>();
 		for(StationDO sd:sds) {
-			if(sd.getParentId()==id) {
+			if(sd.getParentId()==id || sd.getParentId().equals(id)) {
 				result.add(sd);
 			}
 		}

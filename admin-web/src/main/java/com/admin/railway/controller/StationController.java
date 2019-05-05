@@ -125,12 +125,62 @@ public class StationController extends BaseController {
 	public R save(StationDO station){
 		boolean fag = stationService.save(station,getUser());
 		if(fag){
+			UserDO user=getUser();
+			if(user.getDeptId()==null || user.getDeptId()==-1L) {
+				user.setUserStationIds(null);
+			}else {
+				Map<String, Object> map=new HashMap<String,Object>();
+				map.put("type", 1);
+				List<StationDO> sds=stationService.list(map);
+				StationDO sta=stationService.get(user.getDeptId());
+				user.setIsBootom(sta.getIsBottom()==0?false:true);
+				Long stations=user.getDeptId();
+				List<Long> ids=new ArrayList<Long>();
+				List<Long> idst=new ArrayList<Long>();
+				idst=getIds(stations,ids,sds);
+				idst.add(stations);
+				user.setUserStationIds(idst);
+				System.out.println("拥有的权限"+idst.toString());
+			}
 			return R.ok(Constant.SuccessInfo.ADD_SUCCESS.getMsg());
 		}else {
 			return R.error(Constant.ErrorInfo.ADD_FAIL.getCode(),Constant.ErrorInfo.ADD_FAIL.getMsg());
 		}
 	}
-
+	/**
+	 * 下钻
+	 * @param id
+	 * @param ids
+	 * @param sds
+	 * @return
+	 * 2019年4月29日
+	 * 作者：fengchase
+	 */
+	public List<Long>  getIds(Long id,List<Long> ids,List<StationDO> sds) {
+		List<StationDO> result=getChildres(sds,id);
+		if(result!=null && result.size()>0) {
+			for(StationDO te:result) {
+				if(ids.indexOf(te.getId())==-1) {
+					ids.add(te.getId());
+				}
+				getIds(te.getId(),ids,sds);
+			}
+		}else {
+			if(ids.indexOf(id)==-1) {
+				ids.add(id);
+			}
+		}
+		return ids;
+	}
+	public List<StationDO> getChildres(List<StationDO> sds,Long id) {
+		List<StationDO> result=new ArrayList<StationDO>();
+		for(StationDO sd:sds) {
+			if(sd.getParentId()==id || sd.getParentId().equals(id)) {
+				result.add(sd);
+			}
+		}
+		return result;
+	}
 	@RequiresPermissions("railway:station:edit")
 	@GetMapping("/edit/{id}")
 	public String edit(@PathVariable("id") Long id, Model model){
