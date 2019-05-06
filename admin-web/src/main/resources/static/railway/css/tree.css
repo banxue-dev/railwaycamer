@@ -5,7 +5,7 @@
 		a {color:#00007F;text-decoration:none;}
 		a:hover {color:#bd0a01;text-decoration:none;}
 		.treebox{ width: 400px; margin: 0 auto; background-color:#1a6cb9; z-index:89999;}
-		.menu{ overflow: hidden; border-color: #ddd; border-style: solid ; border-width: 0 1px 1px ; }
+		.menu{ border-color: #ddd;  border-width: 0 1px 1px ; }
 		/*第一层*/
 		.menu li.parent>label{
 			display:block;

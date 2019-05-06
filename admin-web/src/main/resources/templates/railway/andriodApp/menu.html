@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	
+<title></title>
+<link href="/railway/css/tree.css" rel="stylesheet" type="text/css" />
+</head>
+<body style="">
+	<div
+		style="background-color: #666666; width: 100%; text-align: center; height: 97px;">
+		<div
+			style="height: 97px; color: #FFFFFF; float: left; text-align: center; padding: 2px; padding-left: 10px;line-height:45px;">
+			管理员
+			<p style="color: #FFFFFF; font-size: 12px;">上海货运中心</p>
+		</div>
+		<div
+			style="height: 97px; float: right; margin-right: 10px; margin-top: 32px;">
+			<img
+				style="border-width: 0px; width: 32px; vertical-align: middle; height: 32px;"
+				src="http://prototype.enjoyst.com/railwayapp/images/%E8%8F%9C%E5%8D%95/u185.png" />
+		</div>
+	</div>
+	<div id="diytree" style="width: 100%;background-color:white;"></div>
+	
+	<script type="text/javascript" src="/js/jquery.min.js"></script>
+	<script src="/railway/js/easing.js"></script>
+	<script type="text/javascript" src="/railway/js/diytree3.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			diytree();
+			$('#diytree').treeinit('/railway/station/listTree', {
+				bindTag : ''
+			});
+			//var c_height = window.screen.height;
+			//$('#main').css('height',c_height);
+		});
+	</script>
+</body>
+</html>
