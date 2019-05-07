@@ -96,7 +96,10 @@ public class LoginController extends BaseController {
 				idst.add(stations);
 				user.setUserStationIds(idst);
 			}
-			return R.ok();
+			Map<String, Object> map=new HashMap<String,Object>();
+			map.put("name", user.getName());
+			map.put("bumen", user.getDeptName());
+			return R.okdata(map);
 		} catch (AuthenticationException e) {
 			return R.error("用户或密码错误");
 		}
