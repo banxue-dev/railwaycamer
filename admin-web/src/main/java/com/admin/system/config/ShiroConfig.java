@@ -87,6 +87,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/railway/file/**", "anon");
         filterChainDefinitionMap.put("/api/**", "anon");
         filterChainDefinitionMap.put("/app/**", "anon");
+        filterChainDefinitionMap.put("/applogin", "anon");
         filterChainDefinitionMap.put("/railway/station/*", "anon");
         filterChainDefinitionMap.put("/logout", "logout");
         filterChainDefinitionMap.put("/", "anon");

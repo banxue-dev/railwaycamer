@@ -108,7 +108,7 @@ var entity = {
 		if (isload) {
 			$('#_loading').show();
 		} else {
-			var loadHtml = '<div id="_loading" style="style="z-index:999999;border-radius:5px;top:0px;font-size:12px;position:fixed;width:100%;height:100%;text-align:center;background-color:black;opacity:0.5;"><div style="margin-top:10%;color:white;">加载中..</div></div>';
+			var loadHtml = '<div id="_loading" style="z-index:999999;border-radius:5px;top:0px;left:0px;font-size:12px;position:fixed;width:100%;height:100%;text-align:center;background-color:black;opacity:0.5;"><div style="margin-top:10%;color:white;">加载中..</div></div>';
 			$('body').append(loadHtml);
 		}
 	},

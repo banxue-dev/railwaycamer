@@ -12,19 +12,32 @@
 				//$('#main').css('height',c_height);
 		});
 			
-   		
+   		function saveSet(){
+			var dizhi=$('#dizhi').val();
+			localStorage.setItem("_dizhi",dizhi);
+			
+				var _dizhi=localStorage.getItem("_dizhi");
+			alert('保存成功!'+_dizhi);
+		}
+		function toLogin(){
+			window.location="/app/login";
+		}
     </script>
 </head>
 <body style="background-color: #20BCD2;">
-	<div style="width:100%;text-align:center;"><label style="float:left;font-family: 'PingFangSC-Regular', 'PingFang SC';font-weight: 400;font-style: normal;color: #FFFFFF;"><img style="border-width: 0px;width: 11px;vertical-align: middle;height: 17px;" src="http://prototype.enjoyst.com/railwayapp/images/%E8%AE%BE%E7%BD%AE/u55.png" />&nbsp;&nbsp;返回</label><label style="font-size: 20px;color: #FFFFFF;">设置</label></div>
+	<div style="width:100%;text-align:center;">
+		<label onclick="toLogin()"; style="float:left;font-family: 'PingFangSC-Regular', 'PingFang SC';font-weight: 400;font-style: normal;color: #FFFFFF;">
+			<img style="border-width: 0px;width: 11px;vertical-align: middle;height: 17px;" src="../image/u55.png" />&nbsp;&nbsp;返回
+		</label>
+		<label style="font-size: 20px;color: #FFFFFF;">设置</label>
+	</div>
 	<div id="main" style="width: 80%;margin:0 auto;text-align: center;margin-top:40%;">
 		
 		<div style="margin-top:30%;">
-			<input type="text" placeholder="服务器地址" style="font-family: 'PingFangSC-Regular', 'PingFang SC';font-weight: 400;font-style: normal;font-size: 16px;color: #AEAEAE;width:100%;margin-top:30px;height:28px;border:0px;border-radius: 8px;text-align: center;" />
-			<div href="javascript:void(0);" style="height:28px;width:100%;background-color:#33cc33;color:white;border:0;border-radius:8px;margin-top:38px;">保存</div>
+			<input type="text" id="dizhi" placeholder="服务器地址" style="font-family: 'PingFangSC-Regular', 'PingFang SC';font-weight: 400;font-style: normal;font-size: 16px;color: #AEAEAE;width:100%;margin-top:30px;height:28px;border:0px;border-radius: 8px;text-align: center;" />
+			<div href="javascript:void(0);" onclick="saveSet()" style="height:28px;width:100%;background-color:#33cc33;color:white;border:0;border-radius:8px;margin-top:38px;">保存</div>
 		</div>
 	</div>
-	<img style="position: absolute;bottom: 20px;right: 20px;" src="http://10.9.35.133/railwayapp/images/%E7%99%BB%E5%BD%95/u23.png?&ncs_hash_key_one=ac&ncs_hash_key_two=b4&ncs_hash_key=acb4ce509ac839927f51beb84f9331f0&ncs_dir=0005/image&host=120.79.60.29" width="36" height="36"/>
 	
 </body>
 </html>

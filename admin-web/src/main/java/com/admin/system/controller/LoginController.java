@@ -70,7 +70,37 @@ public class LoginController extends BaseController {
 	String login() {
 		return "login";
 	}
-
+	@Log("登录")
+	@PostMapping("/applogin")
+	@ResponseBody
+	R appLogin(String username, String password) {
+		password = MD5Utils.encrypt(username, password);
+		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+		Subject subject = SecurityUtils.getSubject();
+		try {
+			subject.login(token);
+			UserDO user=getUser();
+			if(user.getDeptId()==null || user.getDeptId()==-1L) {
+				user.setUserStationIds(null);
+			}else {
+				Map<String, Object> map=new HashMap<String,Object>();
+				map.put("type", 1);
+				map.put("stationIds_",null);
+				List<StationDO> sds=stationService.list(map);
+				StationDO sta=stationService.get(user.getDeptId());
+				user.setIsBootom(sta.getIsBottom()==0?false:true);
+				Long stations=user.getDeptId();
+				List<Long> ids=new ArrayList<Long>();
+				List<Long> idst=new ArrayList<Long>();
+				idst=getIds(stations,ids,sds);
+				idst.add(stations);
+				user.setUserStationIds(idst);
+			}
+			return R.ok();
+		} catch (AuthenticationException e) {
+			return R.error("用户或密码错误");
+		}
+	}
 	@Log("登录")
 	@PostMapping("/login")
 	@ResponseBody
@@ -81,24 +111,6 @@ public class LoginController extends BaseController {
 		try {
 			subject.login(token);
 			UserDO user=getUser();
-			/*if(user.getStartStationIds()==null || user.getStartStationIds()=="0" || user.getStartStationIds().equals("0")) {
-				
-			}else {
-				String[] stations=user.getStartStationIds().split(",");
-				List<Long> ids=new ArrayList<Long>();
-				for(String str:stations) {
-					Long id=Long.parseLong(str);
-					List<StationDO> sds=stationService.getByParentId(id);
-					if(sds!=null && sds.size()>0) {
-						for(StationDO te:sds) {
-							ids.add(te.getId());
-						}
-					}else {
-						ids.add(id);
-					}
-				}
-				user.setUserStationIds(ids);
-			}*/
 			if(user.getDeptId()==null || user.getDeptId()==-1L) {
 				user.setUserStationIds(null);
 			}else {
