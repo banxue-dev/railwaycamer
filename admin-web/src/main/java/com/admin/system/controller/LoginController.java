@@ -71,8 +71,8 @@ public class LoginController extends BaseController {
 		return "login";
 	}
 	@Log("登录")
-	@PostMapping("/applogin")
-	@ResponseBody
+	@PostMapping(value = "/applogin", produces = "application/json;charset=UTF-8")
+	@ResponseBody()
 	R appLogin(String username, String password) {
 		password = MD5Utils.encrypt(username, password);
 		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
