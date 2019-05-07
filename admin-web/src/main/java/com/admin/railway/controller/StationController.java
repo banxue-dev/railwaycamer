@@ -42,7 +42,6 @@ public class StationController extends BaseController {
 		return "railway/endStation/list";
 	}
 	
-	@RequiresPermissions("railway:station:station")
 	@GetMapping("/endStation/selectList")
 	public String selectEndStationList(){
 		return "railway/endStation/selectList";
