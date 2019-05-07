@@ -14,7 +14,7 @@
 			
    		function saveSet(){
 			var dizhi=$('#dizhi').val();
-			localStorage.setItem("_dizhi",dizhi);
+			localStorage.setItem("_dizhi","http://"+dizhi);
 			
 				var _dizhi=localStorage.getItem("_dizhi");
 			alert('保存成功!'+_dizhi);
@@ -27,7 +27,7 @@
 <body style="background-color: #20BCD2;">
 	<div style="width:100%;text-align:center;">
 		<label onclick="toLogin()"; style="float:left;font-family: 'PingFangSC-Regular', 'PingFang SC';font-weight: 400;font-style: normal;color: #FFFFFF;">
-			<img style="border-width: 0px;width: 11px;vertical-align: middle;height: 17px;" src="../image/u55.png" />&nbsp;&nbsp;返回
+			<img style="border-width: 0px;width: 11px;vertical-align: middle;height: 17px;" src="/railway/image/u55.png" />&nbsp;&nbsp;返回
 		</label>
 		<label style="font-size: 20px;color: #FFFFFF;">设置</label>
 	</div>
