@@ -108,7 +108,7 @@ public class ApiServiceImpl implements ApiService {
         sbUrl.append(vo.getTrainNo() + "/");
         try {
             for (int i = 0; i < files.length; i++) {
-                String fileName = UuidUtil.get16UUID() + ".jpg";
+                String fileName = files[i].getOriginalFilename() + ".jpg";
                 FileUtil.uploadFile(files[i].getBytes(), sbUrl.toString(), fileName);
                 //保存缩略图
                 String thumUrl = ImageUtil.thumbnail(files[i], sbUrl.toString(), fileName);

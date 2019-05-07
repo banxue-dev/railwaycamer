@@ -66,7 +66,7 @@ public class PhotoManageServiceImpl implements PhotoManageService {
         List<PictureDO> list = new ArrayList<>();
         //查询是否存在续拍
         OrderDO order = orderService.get(id);
-        if(order != null){
+        if (order != null) {
             //不为0时续拍
             if (order.getContinueShot().intValue() != Constant.Number.ZERO.getCode()) {
                 Map<String, Object> map = new HashMap<>();
@@ -85,7 +85,7 @@ public class PhotoManageServiceImpl implements PhotoManageService {
             map.put(PictureDO.ORDER_ID, id);
             List<PictureDO> listPic = pictureService.list(map);
             listPic.addAll(this.listPic(id));
-            if(!listPic.isEmpty()){
+            if (!listPic.isEmpty()) {
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
                 ZipOutputStream zip = new ZipOutputStream(outputStream);
                 for (PictureDO pic : listPic) {
@@ -100,10 +100,11 @@ public class PhotoManageServiceImpl implements PhotoManageService {
                         zip.write(bytes, 0, read);
                     }
                 }
+                String fileName = listPic.get(0).getTrainNo() + ".zip";
                 IOUtils.closeQuietly(zip);
                 byte[] bytes = outputStream.toByteArray();
                 response.reset();
-                response.setHeader("Content-Disposition", "attachment; filename=\"photo.zip\"");
+                response.setHeader("Content-Disposition", "attachment; filename="+fileName);
                 response.addHeader("Content-Length", "" + bytes.length);
                 response.setContentType("application/octet-stream; charset=UTF-8");
                 IOUtils.write(bytes, response.getOutputStream());
