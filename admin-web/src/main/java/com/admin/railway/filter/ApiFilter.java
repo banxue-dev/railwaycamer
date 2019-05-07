@@ -60,7 +60,13 @@ public class ApiFilter implements Filter {
 				writer.close();
 			}
 		}else {
-			filterChain.doFilter(request, response);
+			rep.setHeader("Access-Control-Allow-origin", "http://127.0.0.1:8848");
+			rep.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+			rep.setHeader("Access-Control-Max-Age", "0");
+			rep.setHeader("Access-Control-Allow-Headers", "Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With,userId,token");
+			rep.setHeader("Access-Control-Allow-Credentials", "true");
+			rep.setHeader("XDomainRequestAllowed","1");
+			filterChain.doFilter(request, rep);
 		}
 
     }
