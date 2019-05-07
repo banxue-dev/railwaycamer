@@ -47,7 +47,6 @@ public class StationController extends BaseController {
 		return "railway/endStation/selectList";
 	}
 	
-	@RequiresPermissions("railway:station:station")
 	@GetMapping("/endStation/listData")
 	@ResponseBody
 	public R endStationListData(@RequestParam Map<String, Object> params) {
