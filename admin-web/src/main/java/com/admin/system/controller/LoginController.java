@@ -98,7 +98,8 @@ public class LoginController extends BaseController {
 			}
 			Map<String, Object> map=new HashMap<String,Object>();
 			map.put("name", user.getName());
-			map.put("bumen", user.getDeptName());
+			StationDO s=stationService.get(user.getDeptId());
+			map.put("bumen", s.getName());
 			return R.okdata(map);
 		} catch (AuthenticationException e) {
 			return R.error("用户或密码错误");
