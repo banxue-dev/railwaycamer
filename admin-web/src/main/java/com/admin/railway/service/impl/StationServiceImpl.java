@@ -198,13 +198,14 @@ public class StationServiceImpl implements StationService {
 		List<Tree<String>> trees = new ArrayList<Tree<String>>();
 		
 		Long stationId=(Long) map.get("stationId");
+		Integer isFirst=(Integer) map.get("isFirst");
 		Integer nowsize= (Integer) map.get("nowsize");//从1开始，表示第几页
 		Integer pagesize= (Integer) map.get("pagesize");//从每次多少，相当于每页多少条
 		Map<String, Object> timeMap=new HashMap<String, Object>();
 		timeMap.put("offset", nowsize);//从0开始
 		timeMap.put("limit", pagesize);
 		timeMap.put("startStationId", stationId);
-		if(nowsize==0) {
+		if(isFirst==0) {//=0表示是第一次
 			/*
 			 * =0表示是第一次，只获取当天数据
 			 */

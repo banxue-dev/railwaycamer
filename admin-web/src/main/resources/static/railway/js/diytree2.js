@@ -101,7 +101,7 @@ function diytree(){
 					$.ajax({
 						url:'/railway/station/listTimeTree',
 						type:'post',
-						data:{stationId:id,nowsize:0,pagesize:1},
+						data:{stationId:id,nowsize:0,pagesize:1,isFirst:0},
 						success:function(data){
 							if(data.code==0){
 								if(data.data==null || data.data.length<1){
@@ -126,12 +126,12 @@ function diytree(){
 									var _this=this;
 									var loadmore=$(_this);
 									var nowsize=loadmore.parent().siblings('li').length;
-									nowsize=nowsize<1?1:nowsize;
+//									nowsize=nowsize<1?1:nowsize;
 									var psize=5;
 									$.ajax({
 										url:'/railway/station/listTimeTree',
 										type:'post',
-										data:{stationId:id,nowsize:nowsize,pagesize:psize},
+										data:{stationId:id,nowsize:nowsize,pagesize:psize,isFirst:1},
 										success:function(data){
 											if(data.code==0){
 												if(data.data==null || data.data.length<1){

@@ -234,14 +234,25 @@ public class StationController extends BaseController {
 			return R.error();
 		}
 	}
+	/**
+	 * 
+	 * @param stationId
+	 * @param nowsize
+	 * @param pagesize
+	 * @param isFirst=0表示是第一次获取
+	 * @return
+	 * 2019年5月9日
+	 * 作者：fengchase
+	 */
 	@ResponseBody
 	@RequestMapping("/listTimeTree")
-	public R getStationListByTimeTree(Long stationId,Integer nowsize,Integer pagesize) {
+	public R getStationListByTimeTree(Long stationId,Integer nowsize,Integer pagesize,Integer isFirst) {
 		try {
 			Map<String, Object> map=new HashMap<>();
 			map.put("stationId", stationId);
 			map.put("nowsize", nowsize);
 			map.put("pagesize", pagesize);
+			map.put("isFirst", isFirst==null?1:isFirst);
 			List<Tree<String>> lst=stationService.getStationTimeByTree(map);
 			return R.okdata(lst);
 		}catch(Exception e) {
