@@ -267,6 +267,7 @@ public class StationServiceImpl implements StationService {
 						attributes1.put("trainType", temp.getTrainType());
 						attributes1.put("loadingLine", temp.getLoadingLine());
 						attributes1.put("endStationName", temp.getEndStationName());
+						attributes1.put("startStationName", temp.getStartStationName());
 						tree1.setAttributes(attributes1);
 						trees.add(tree1);
 					}
