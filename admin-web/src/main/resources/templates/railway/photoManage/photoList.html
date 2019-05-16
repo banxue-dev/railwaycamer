@@ -44,8 +44,11 @@
                         <button shiro:hasPermission="railway:photomanage:select" type="button"
                                 class="layui-btn layui-btn-normal" title="条件查询" onclick="reLoad();return false"> 查 询
                         </button>
-                        <button shiro:hasPermission="railway:photomanage:reset" type="button"
+                        <button shiro:hasPermission="railway:photomanage:reset"
                                 class="layui-btn layui-btn-normal" title="重置查询条件" type="reset"> 重 置
+                        </button>
+                        <button shiro:hasPermission="railway:photomanage:export" type="button"
+                                class="layui-btn layui-btn-normal" title="导出"  onclick="exportExcel();return false"> 导 出
                         </button>
                     </div>
                 </div>

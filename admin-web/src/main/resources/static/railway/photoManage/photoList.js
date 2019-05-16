@@ -42,7 +42,7 @@ function load() {
             , cols: [[
                 {field: '', title: '序号', align: 'center', type: 'numbers'},
                 {field: 'trainNo', title: '车号', align: 'center'},
-                {field: 'createTime', title: '日期', align: 'center',width:180},
+                {field: 'createTime', title: '日期', align: 'center', width: 180},
                 {field: 'startStationName', title: '发站', align: 'center'},
                 {field: 'endStationName', title: '到站', align: 'center'},
                 {field: 'consignor', title: '托货人', align: 'center'},
@@ -54,10 +54,10 @@ function load() {
                 {field: 'photoNumber', title: '照片数量', align: 'center'},
                 {
                     field: '', title: '操作', align: 'center', templet: function (item) {
-                    	var a='';
-                    	if(item.photoNumber!=0){
-                    		 a = '<a class="layui-btn layui-btn-primary layui-btn-xs ' + s_view_h + '" target="iframeCamera" onclick="viewPhoto(' + item.id + ')">查看照片</a>';
-                    	}
+                        var a = '';
+                        if (item.photoNumber != 0) {
+                            a = '<a class="layui-btn layui-btn-primary layui-btn-xs ' + s_view_h + '" target="iframeCamera" onclick="viewPhoto(' + item.id + ')">查看照片</a>';
+                        }
                         var b = '<a class="layui-btn layui-btn-primary layui-btn-xs ' + s_edit_h + '" onclick="edit(' + item.id + ')">编辑</a>';
                         return a + b;
                     }
@@ -78,24 +78,24 @@ function load() {
                         startStationId: function () {
                             return $('#stationId').val();
                         },
-	                    endStationId:function(){
-	                    	 return $('#endStationId').val();
-	                    },
-                        beginTime: function(){
+                        endStationId: function () {
+                            return $('#endStationId').val();
+                        },
+                        beginTime: function () {
                             var beginTime = $('#beginTime').val();
-                            if(beginTime){
+                            if (beginTime) {
                                 beginTime += ' 00:00:00';
                             }
                             return beginTime;
                         },
-                        endTime: function(){
+                        endTime: function () {
                             var endTime = $('#endTime').val();
-                            if(endTime){
+                            if (endTime) {
                                 endTime += ' 23:59:59';
                             }
                             return endTime;
                         },
-                        trainNo:function () {
+                        trainNo: function () {
                             return $('#trainNo').val();
                         }
                     }
@@ -119,6 +119,10 @@ function load() {
             }
         });
 
+        $("#export").on("click", function () {
+
+        })
+
     });
 
 }
@@ -135,24 +139,42 @@ function viewPhoto(id) {
 // 打开编辑面
 function edit(id) {
     layer.open({
-        type : 2,
-        title : '编辑',
-        maxmin : true,
-        shadeClose : true, // 点击遮罩关闭层
-		area : [ '80%', '80%' ],
-        content : prefix + '/edit/' + id // iframe的url
+        type: 2,
+        title: '编辑',
+        maxmin: true,
+        shadeClose: true, // 点击遮罩关闭层
+        area: ['80%', '80%'],
+        content: prefix + '/edit/' + id // iframe的url
     });
 }
+
 /*显示到站页面*/
-function showEndStation(){
-	// iframe层
-	layer.open({
-		type : 2,
-		title : '请选择到站点',
-		maxmin : true,
-		shadeClose : false, // 点击遮罩关闭层
-		area : [ '80%', '80%' ],
-		content : '/railway/station/endStation/selectList' // iframe的url
-	});
-	return false;
+function showEndStation() {
+    // iframe层
+    layer.open({
+        type: 2,
+        title: '请选择到站点',
+        maxmin: true,
+        shadeClose: false, // 点击遮罩关闭层
+        area: ['80%', '80%'],
+        content: '/railway/station/endStation/selectList' // iframe的url
+    });
+    return false;
+}
+
+// 重新加载
+function exportExcel() {
+    var startStationId = $('#stationId').val();
+    var endStationId = $('#endStationId').val();
+    var beginTime = $('#beginTime').val();
+    if (beginTime) {
+        beginTime += ' 00:00:00';
+    }
+    var endTime = $('#endTime').val();
+    if (endTime) {
+        endTime += ' 23:59:59';
+    }
+    var trainNo = $('#trainNo').val();
+    var url = "?startStationId=" + startStationId + "&endStationId=" + endStationId + "&beginTime=" + beginTime + "&endTime=" + endTime + "&trainNo=" + trainNo;
+    window.location.href = prefix + "/exportExcel" + url
 }

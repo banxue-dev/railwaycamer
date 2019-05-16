@@ -1,9 +1,9 @@
 package com.admin.railway.service;
 
-import com.admin.common.domain.PageDO;
 import com.admin.common.utils.R;
-import com.admin.railway.domain.OrderDO;
 import com.admin.railway.domain.PictureDO;
+import com.admin.railway.domain.vo.ExportExcelVo;
+import com.admin.system.domain.UserDO;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -54,4 +54,10 @@ public interface PhotoManageService {
      **/
     List<PictureDO> listPicture(Map<String, Object> map);
 
+    /**
+     * 导出exportExcel
+     * @param map
+     * @param response
+     */
+    void exportExcel(ExportExcelVo vo, UserDO user, HttpServletResponse response);
 }

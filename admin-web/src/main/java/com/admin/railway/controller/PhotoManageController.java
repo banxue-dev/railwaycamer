@@ -3,35 +3,29 @@ package com.admin.railway.controller;
 import com.admin.common.annotation.Log;
 import com.admin.common.config.Constant;
 import com.admin.common.controller.BaseController;
-import com.admin.common.utils.GenUtils;
 import com.admin.common.utils.R;
 import com.admin.common.utils.ShiroUtils;
 import com.admin.railway.domain.OrderDO;
 import com.admin.railway.domain.PersonDO;
 import com.admin.railway.domain.PictureDO;
 import com.admin.railway.domain.StationDO;
+import com.admin.railway.domain.vo.ExportExcelVo;
 import com.admin.railway.service.*;
 import com.admin.system.domain.UserDO;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
 
 /**
  * @ClassName: PhotoManageController
@@ -62,9 +56,6 @@ public class PhotoManageController extends BaseController {
     @GetMapping("/list")
     @ResponseBody
     public R photoList(@RequestParam Map<String, Object> map) {
-    	/*
-		 * 
-		 */
 		Object stationId=map.get("startStationId");
 		if(stationId==null ||com.admin.common.utils.StringUtils.isNullString(stationId.toString())) {
 			UserDO user=getUser();
@@ -168,5 +159,10 @@ public class PhotoManageController extends BaseController {
         order.setUploadWay(Constant.Number.ZERO.getCode());
         orderService.update(order);
         return R.ok();
+    }
+
+    @GetMapping("/exportExcel")
+    public void exportExcel(@Validated ExportExcelVo vo, HttpServletResponse response) {
+        photoManageService.exportExcel(vo,getUser(),response);
     }
 }
