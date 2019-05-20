@@ -790,6 +790,8 @@
         },
         draggable: function (modal, dragHandle, dragCancel) {
         	modal='.magnify-image';
+        	var scrollHeight=document.body.scrollHeight;
+        	var scrollWidth=document.body.scrollWidth;
             var isDragging = false;
             var startX = 0, startY = 0, left = 0, top = 0;
             var dragStart = function (e) {
@@ -811,12 +813,62 @@
                 if (isDragging && !isMoving && !isResizing) {
                     var endX = e.clientX;
                     var endY = e.clientY;
+                	var imgHeight=$(modal).height();
+                	var imgWidth=$(modal).width();
                     var relativeX = endX - startX;
                     var relativeY = endY - startY;
+                    var moveLeft=relativeX + left;
+                    var moveTop=relativeY + top;
+                  //  console.log("imgWidth："+imgWidth+"--imgHeight："+imgHeight+"scrollWidth:"+scrollWidth+"--scrollHeight:"+scrollHeight+"--left:"+left+"--top:"+top+"endX:"+endX+"--endY:"+endY+"--relativeX:"+relativeX+"--relativeY:"+relativeY+"");
+                    
+                    
+                    var isStop=false;
+                    
+                    if(imgHeight<scrollHeight ){
+                    	//图片高度大于屏幕高度
+                    	if(moveTop<0 ){
+                    		moveTop=0;
+                    		isStop=true;
+                    	}
+                    	if(moveTop>scrollHeight-imgHeight){
+                    		moveTop=scrollHeight-imgHeight;
+                    		isStop=true;
+                    	}
+                    }else{
+                    	if(moveTop>0 ){
+                    		moveTop=0;
+                    		isStop=true;
+                    	}else if(moveTop<scrollHeight-imgHeight){
+                    		moveTop=scrollHeight-imgHeight;
+                    		isStop=true;
+                    	}
+                    }
+                    if(imgWidth<scrollWidth){
+                    	if(moveLeft<0  ){
+                    		moveLeft=1;
+                    		isStop=true;
+                    	}
+                    	if(moveLeft>scrollWidth-imgWidth){
+                    		moveLeft=scrollWidth-imgWidth;
+                    		isStop=true;
+                    	}
+                    }else{
+                    	if(moveLeft>0  ){
+                    		moveLeft=1;
+                    		isStop=true;
+                    	}else if(moveLeft<scrollWidth-imgWidth){
+                    		moveLeft=scrollWidth-imgWidth;
+                    		isStop=true;
+                    	}
+                    }
+                    
                     $(modal).css({
-                        left: relativeX + left,
-                        top: relativeY + top
+                        left: moveLeft,
+                        top: moveTop
                     })
+                    if(endX<15 || endY<60 || endX>scrollWidth-10 || endY>scrollHeight){
+                    	dragEnd();
+                    }
                 }
             };
             var dragEnd = function () {
